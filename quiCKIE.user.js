@@ -4,7 +4,7 @@
 
 // @name        qui - quiCKIE
 // @author      WirlyWirly + Contributors 🫶
-// @version     1.49.2
+// @version     1.49.3
 // @homepage    https://github.com/WirlyWirly/quiCKIE
 // @description A UserScript to quickly send torrents from a tracker to a client, with customizable per-site settings and presets 🐰
 //              Orignally written for qui, later extended to support more torrent clients
@@ -167,9 +167,9 @@
 
 // @match   https://mircrew-releases.org/*
 
+// @include /^https://www.myanonamouse.net/t/\d+.*/
 // @match   https://www.myanonamouse.net/
 // @match   https://www.myanonamouse.net/stats/top10Tor.php*
-// @include /^https://www.myanonamouse.net/t/\d+.*/
 // @match   https://www.myanonamouse.net/tor/browse.php*
 // @match   https://www.myanonamouse.net/tor/search.php*
 
@@ -1380,11 +1380,13 @@ if ( primaryDomain == 'animebytes' ) {
     // ----------------------------------- MyAnonaMouse -----------------------------------
     // Browse | Details | Homepage | Top10
 
+    let downloadButtonsSelector = 'a[href^="/tor/download.php/"][href*="?tid="]'
+
     if ( pageURL.match(/\/t\/\d+/) ) {
         // The book details page, which doesn't require a MutationObserver
 
         let trackerHandlingOptions = {
-            downloadElementsSelector: 'a[href^="/tor/download.php/"][title*="Download"]',
+            downloadElementsSelector: downloadButtonsSelector,
             seedingStatusSelector: "document.getElementById('DLhistory').textContent.match(/seeding/i)",
             snatchedStatusSelector: "document.getElementById('DLhistory').textContent.match(/seeder/i)",
             freeleechStatusSelector: "document.getElementById('ratio').textContent.match(/freeleech/i)",
@@ -1426,7 +1428,7 @@ if ( primaryDomain == 'animebytes' ) {
         // The Search or Homepage, both of which require a MutationObserver
 
         let trackerHandlingOptions = {
-            downloadElementsSelector: 'a[href^="/tor/download.php/"][title*="Download"]',
+            downloadElementsSelector: downloadButtonsSelector,
             bunnyButtonFontSize: '150%',
             bunnyButtonText: '🐰',
             seedingStatusSelector: "downloadElement.closest('tr').querySelector('div.browseAct').textContent.match(/Recently Seeding/i)",
@@ -2010,7 +2012,7 @@ function createGMConfigSettingsPanel(trackerDomain) {
         },
 
         'columnTitles': {
-            'tracker': `─── 🌎 Tracker 🌎 ───\n\nThe tracker (site) for which this row of settings will be applied to\n\nClicking a name below will open a new tab to the tracker's homepage\n\nℹ️ Hovering over a BunnyButton will provide a tooltip of the current tracker settings\n\n⭐ There is currently ${allPrimaryDomains.length} Supported Trackers!`,
+            'tracker': `─── 🌎 Tracker 🌎 ───\n\nThe tracker (site) for which this row of settings will be applied to\n\nClicking a name below will open a new tab to the tracker's homepage\n\nℹ️ Hovering over a BunnyButton will provide a tooltip of the current tracker settings\n\n⭐ quiCKIE currently supports ${allPrimaryDomains.length} trackers!`,
 
             'preset': "─── 🚀 Name 🚀 ───\n\nThe name that will be displayed in the presets menu (right-click)\n\nPresets without a name will NOT be displayed\n\n🎪 Special Entries: Naming your preset after one of these items will display a special menu entry...\nSettings, TorrentFile, Client, LeftClickAll, MiddleClickAll, Send, SendPaused\n\nUsing one of these characters will create a divider...\n. - = [space]\n\nℹ️ Hovering over a entry in the presets menu will provide a tooltip of the preset's settings",
             'presettrackers': "─── 👀 Preset Trackers 👀 ───\n\nA comma seperated list of trackers on which to display this preset\n\nUse the name (case-insensitive) displayed in the '🌎 Tracker' column\n\nPresets without any trackers listed will NOT be displayed\n\nℹ️ Use the * wildcard to display this preset on ALL trackers\n\nExample:  HDBits, secret-cinema, NYAA",
@@ -2513,6 +2515,7 @@ function createGMConfigSettingsPanel(trackerDomain) {
                     let hideButton = document.createElement('a')
                     hideButton.textContent = '🙈 '
                     hideButton.style.display = 'none'
+                    hideButton.setAttribute('title', 'Hide this tracker from the quiCKIE settings panel')
                     hideButton.style.cursor = 'pointer'
                     hideButton.addEventListener('mouseover', () => { hideButton.style.textShadow = '0px 0px 1px black, 0 0 5px #B6D3E7' } )
                     hideButton.addEventListener('mouseout', () => { hideButton.style.textShadow = 'none' } )
@@ -3880,7 +3883,7 @@ function unit3dTrackerHandler(downloadElementsSelector) {
                             // This is a featured (+ freeleech) torrent
                             bunnyButtonTorrentStatus(bunnyButton, 'featuredFreeleech')
 
-                        } else if ( document.querySelector('span.torrent-icons i.torrent-icons__freeleech.fa-star, i.torrent-icons__freeleech.fa-calendar-star, span.torrent-icons i.fa.fa-globe') != null ) {
+                        } else if ( document.querySelector("i.torrent-icons__freeleech[title^='100%'], span.torrent-icons__freeleech[title^='100%'], i.torrent-icons__freeleech.fa-calendar-star, i.fa-globe") != null ) {
                             // The freeleechStatusSelector was matched: Star, Calendar, Globe
                             bunnyButtonTorrentStatus(bunnyButton, 'freeleech')
 
@@ -3952,8 +3955,8 @@ function unit3dTrackerHandler(downloadElementsSelector) {
                                 // This is a Featured torrent
                                 bunnyButtonTorrentStatus(bunnyButton, 'featuredFreeleech')
 
-                            } else if ( downloadElement.closest('tr').querySelector('i.torrent-icons__freeleech.fa-star, i.torrent-icons__freeleech.fa-calendar-star, i.fa.fa-globe') != null ) {
-                                // This is a Freeleech torrent [Star, CalendarStar, GlobalFreeleech]
+                            } else if ( downloadElement.closest('tr').querySelector("i.torrent-icons__freeleech[title^='100%'], span.torrent-icons__freeleech[title^='100%'], i.torrent-icons__freeleech.fa-calendar-star, i.fa-globe") != null ) {
+                                // This is a Freeleech torrent [Star, CalendarStar, GlobalFreeleech, 100% Free]
                                 bunnyButtonTorrentStatus(bunnyButton, 'freeleech')
 
                             }

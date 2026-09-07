@@ -11,7 +11,7 @@
 
 This [UserScript](https://openuserjs.org/about/Userscript-Beginners-HOWTO) will integrate **BunnyButtons 🐰** alongside a trackers regular download buttons. When clicked, the corresponding torrent will be added directly to your torrent client using your custom settings.
 
-quiCKIE currently supports **[qui](https://getqui.com/)**, **[qBitTorrent](https://www.qbittorrent.org/)**, **[Transmission](https://transmissionbt.com/)**, **[Deluge](https://deluge-torrent.org/)**, both **desktop**\\**mobile** devices, and **45+** different trackers. In addition, this is a **non-destructive** UserScript, which ensures quiCKIE to be friendly\compatible with other UserScripts and default browser functions.
+quiCKIE currently supports **[qui](https://getqui.com/)**, **[qBitTorrent](https://www.qbittorrent.org/)**, **[Transmission](https://transmissionbt.com/)**, **[Deluge](https://deluge-torrent.org/)**, **desktop**\\**mobile** devices, and **45+** different trackers. In addition, this is a **non-destructive** UserScript, which ensures quiCKIE to be friendly\compatible with other UserScripts and default browser functions.
 
 If a tracker that you have access to is not listed, check the quiCKIE WiKi for a simple **3-step guide** on how it can be added, no programming experience required: **[Adding a New Tracker](https://github.com/WirlyWirly/quiCKIE/wiki/Adding-a-New-Tracker)**
 
@@ -23,19 +23,19 @@ Only the **clientURL** and **credentials** for the selected torrent client are r
 
 > **Left-Click \ Mobile Tap**: Add torrent to client with settings for the current tracker<br>
 > **Right-Click \ Mobile Long-press**: Add torrent to client with settings from the selected preset<br>
+> **Shift-Click**: Open quiCKIE settings panel<br>
 > **Middle-Click**: Open torrent client in a new tab<br>
 >
-> **Shift-Click**: Open quiCKIE settings panel<br>
-> **Ctrl-Click**: Open torrent client in a new tab<br>
 > **Shift-Ctrl-Click**: Add torrent to client, but with 'Start Paused' enabled (also works on presets)<br>
+> **Ctrl-Click**: Open torrent client in a new tab<br>
 >
 > **BunnyButton Emojiography***<br>
 > 🐰 Default | 🌱 Seeding | 🍁 Snatched | 💎 Freeleech | 📢 Featured | 💸 Spend Token | 🤝 ThirdParty | 🌎 ThirdParty + TrackerSettings<br>
 > 🧲 Downloading .torrent file | 🧑 Client Login | 🕓 Adding Torrent | ✔️ Success | ❌ Failure
 >
 > **Source: [GitHub](https://github.com/WirlyWirly/quiCKIE)**<br>
-> **Install: [qui - quiCKIE](https://raw.githubusercontent.com/WirlyWirly/quiCKIE/main/quiCKIE.user.js?raw=true)**<br>
-> Written in [NeoVim](https://neovim.io/) and tested on [LibreWolf](https://librewolf.net/) via [Violentmonkey](https://violentmonkey.github.io/)<br>
+> **Install: [quiCKIE](https://raw.githubusercontent.com/WirlyWirly/quiCKIE/main/quiCKIE.user.js?raw=true)**<br>
+> Written in [✏️ NeoVim](https://neovim.io/) and tested on [🐺 LibreWolf](https://librewolf.net/) via [🐵 Violentmonkey](https://violentmonkey.github.io/)<br>
 >
 > \* *Full BunnyButton Emojiography is available on select trackers*
 >
