@@ -112,10 +112,10 @@
 // @match   https://femdomcult.org/collage/*
 // @match   https://femdomcult.org/torrents.php*
 
-// @include   /^https://(filelist\.io|thefl\.org)/browse\.php.*
-// @include   /^https://(filelist\.io|thefl\.org)/internal\.php.*
-// @include   /^https://(filelist\.io|thefl\.org)/details\.php\?id=.*
-// @include   /^https://(filelist\.io|thefl\.org)/bookmarks\.php.*
+// @include   /^https://(filelist\.io|thefl\.org)/browse\.php.*/
+// @include   /^https://(filelist\.io|thefl\.org)/internal\.php.*/
+// @include   /^https://(filelist\.io|thefl\.org)/details\.php\?id=.*/
+// @include   /^https://(filelist\.io|thefl\.org)/bookmarks\.php.*/
 
 // @match   https://gazellegames.net/collections.php?id=*
 // @match   https://gazellegames.net/torrents.php*
@@ -753,6 +753,7 @@ if ( primaryDomain == 'animebytes' ) {
         downloadElementsSelector: 'a[href^="https://animez.to/torrents/"][href$="/download"]',
     }
 
+    // This is a details page, so apply styling to the only bunnyButton
     if ( pageURL.match(/\/torrents\/\d+/) ) {
 
         trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
@@ -768,7 +769,6 @@ if ( primaryDomain == 'animebytes' ) {
             line-height: 1.5rem;
         `
     }
-
 
     quickieTrackerHandler(trackerHandlingOptions)
 
@@ -1036,13 +1036,6 @@ if ( primaryDomain == 'animebytes' ) {
         freeleechStatusSelector: "downloadElement.closest('span.torrent_icon_container').querySelector('i.font_icon.unlimited_leech')"
     }
 
-    // This is a collage page, so place the bunnyButton alongside the parentElement
-    if ( pageURL.match(/\/collage\/\d+/) ) {
-        trackerHandlingOptions.bunnyButtonParentPlacement = true
-        trackerHandlingOptions.downloadElementHideParentElementGap = true
-    }
-
-
     // This is a details page, so apply styling to certain bunnyButtons
     if ( pageURL.match(/torrents\.php\?id=\d+/) ) {
 
@@ -1076,6 +1069,7 @@ if ( primaryDomain == 'animebytes' ) {
                         bunnyButton.textContent = '🌱 Doubleseed'
                         bunnyButton.setAttribute('style', `${bunnyButton.style.cssText}border: #F09D63 solid 1px; color: #F09D63; background: #431C00`)
                         bunnyButton.setAttribute('data-emojospecified', 'true')
+
                     } else {
                         // This is a standard Download button
                         bunnyButton.textContent = '🐰 quiCKIE'
@@ -1093,7 +1087,14 @@ if ( primaryDomain == 'animebytes' ) {
 
         }
 
+    } else if ( pageURL.match(/\/collage\/\d+/) ) {
+        // This is a collage page, so place the bunnyButton alongside the parentElement
+
+        trackerHandlingOptions.bunnyButtonParentPlacement = true
+        trackerHandlingOptions.downloadElementHideParentElementGap = true
+
     }
+
 
     quickieTrackerHandler(trackerHandlingOptions)
 
@@ -1146,17 +1147,18 @@ if ( primaryDomain == 'animebytes' ) {
     // Details | Browse | Bookmarks
 
     let trackerHandlingOptions = {
-        downloadElementsSelector: 'a[href^="download.php?id="], a[href^="/download.php?id="]',
+        downloadElementsSelector: 'a[href*="download.php?id="]',
         bunnyButtonFontSize: '15px',
-        featuredStatusSelector: `downloadElement.closest('div.torrentrow').querySelector('img[alt=\"Sticky\"]')`,
+        featuredStatusSelector: "downloadElement.closest('div.torrentrow').querySelector('img[alt=\"Sticky\"]')",
         freeleechStatusSelector: "downloadElement.closest('div.torrentrow').querySelector('img[alt=\"FreeLeech\"]')",
     }
 
+    // This is a details page, so apply styling to the only bunnyButton
     if ( pageURL.match(/details\.php\?id=\d+/) ) {
 
-        trackerHandlingOptions.freeleechStatusSelector = "document.querySelector('img[alt=\"FreeLeech\"]')"
-
         trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
+        trackerHandlingOptions.freeleechStatusSelector = "document.querySelector('img[alt=\"FreeLeech\"]')"
+        trackerHandlingOptions.bunnyButtonParentPlacement = true
         trackerHandlingOptions.bunnyButtonAddStyles = `
             background: #153245;
             border-radius: 3px;
@@ -1167,15 +1169,14 @@ if ( primaryDomain == 'animebytes' ) {
             padding: 2px 5px 2px 5px;
             vertical-align: unset;
         `
-        trackerHandlingOptions.bunnyButtonParentPlacement = true
-    }
-    else {
+
+    } else {
+
         trackerHandlingOptions.bunnyButtonAddStyles = `
             display: table-cell;
             vertical-align: middle;
             white-space: nowrap;
         `
-        trackerHandlingOptions.bunnyButtonParentPlacement = false      
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
