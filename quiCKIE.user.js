@@ -115,7 +115,7 @@
 // @include   /^https://(filelist\.io|thefl\.org)/browse\.php.*
 // @include   /^https://(filelist\.io|thefl\.org)/internal\.php.*
 // @include   /^https://(filelist\.io|thefl\.org)/details\.php\?id=.*
-// @include   /^https://(filelist\.io|thefl\.org)/bookmarks\.php
+// @include   /^https://(filelist\.io|thefl\.org)/bookmarks\.php.*
 
 // @match   https://gazellegames.net/collections.php?id=*
 // @match   https://gazellegames.net/torrents.php*
@@ -1143,17 +1143,19 @@ if ( primaryDomain == 'animebytes' ) {
 
 } else if ( primaryDomain == 'filelist' ) {
     // ----------------------------------- Femdomcult -----------------------------------
-    // Bookmarks | Browse | Collages | Details |
+    // Details | Browse | Bookmarks |
 
     let trackerHandlingOptions = {
-        downloadElementsSelector: 'a[href^="download.php?id="]',
+        downloadElementsSelector: 'a[href^="download.php?id="], a[href^="/download.php?id="], a[href^="snatchlist.php?action=usetoken"]',
         bunnyButtonFontSize: '125%',
         bunnyButtonParentPlacement: true,
+        featuredStatusSelector: `downloadElement.closest('div.torrentrow').querySelector('img[alt=\"Sticky\"]')`,
+        freeleechStatusSelector: "downloadElement.closest('div.torrentrow').querySelector('img[alt=\"FreeLeech\"]')",
     }
 
     if ( pageURL.match(/details\.php\?id=\d+/) ) {
 
-        trackerHandlingOptions.freeleechStatusSelector = "downloadElement.closest('td').querySelector('img[alt=\"FreeLeech\"]')"
+        trackerHandlingOptions.freeleechStatusSelector = "document.querySelector('img[alt=\"FreeLeech\"]')"
 
         trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
         trackerHandlingOptions.bunnyButtonAddStyles = `
