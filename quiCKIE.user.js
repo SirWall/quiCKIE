@@ -541,7 +541,7 @@ const settingsPanelTrackers = [
         homepageURL: 'https://phoenixproject.app',
         primaryDomain: 'phoenixproject',
     },
-    
+
     {
         trackerName: 'Portugas', // @Phreaker
         homepageURL: 'https://portugas.org',
@@ -1142,13 +1142,12 @@ if ( primaryDomain == 'animebytes' ) {
     quickieTrackerHandler(trackerHandlingOptions)
 
 } else if ( primaryDomain == 'filelist' ) {
-    // ----------------------------------- Femdomcult -----------------------------------
-    // Details | Browse | Bookmarks |
+    // ----------------------------------- FileList -----------------------------------
+    // Details | Browse | Bookmarks
 
     let trackerHandlingOptions = {
-        downloadElementsSelector: 'a[href^="download.php?id="], a[href^="/download.php?id="], a[href^="snatchlist.php?action=usetoken"]',
-        bunnyButtonFontSize: '125%',
-        bunnyButtonParentPlacement: true,
+        downloadElementsSelector: 'a[href^="download.php?id="], a[href^="/download.php?id="]',
+        bunnyButtonFontSize: '15px',
         featuredStatusSelector: `downloadElement.closest('div.torrentrow').querySelector('img[alt=\"Sticky\"]')`,
         freeleechStatusSelector: "downloadElement.closest('div.torrentrow').querySelector('img[alt=\"FreeLeech\"]')",
     }
@@ -1168,7 +1167,15 @@ if ( primaryDomain == 'animebytes' ) {
             padding: 2px 5px 2px 5px;
             vertical-align: unset;
         `
-
+        trackerHandlingOptions.bunnyButtonParentPlacement = true
+    }
+    else {
+        trackerHandlingOptions.bunnyButtonAddStyles = `
+            display: table-cell;
+            vertical-align: middle;
+            white-space: nowrap;
+        `
+        trackerHandlingOptions.bunnyButtonParentPlacement = false      
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
@@ -4835,7 +4842,7 @@ async function qBitTorrentPOST(postData) {
 
                 window.alert(`❌ quiCKIE ❌\n\nqBitTorrent was reached, but the login attempt failed\n\nℹ️ Check your username\\password for typos\n\nStatus Code: ${response.status}\n\nqBitTorrentURL: ${SETTINGS.torrentClient.qBitTorrentURL}\n\nThe full response has been printed in the console`)
 
-            } 
+            }
 
         },
         onerror: function(response) {
@@ -5257,7 +5264,7 @@ function scanForThirdPartyTorrentURLS(delay) {
                 let separatorNode
                 if ( existingBB != null) {
                     SETTINGS.bunnyButtonPlacement == 'After' ? separatorNode = existingBB.previousSibling : separatorNode = existingBB.nextSibling
-                } 
+                }
 
                 let separatorText
                 if ( separatorNode == null ) {
