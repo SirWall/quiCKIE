@@ -112,6 +112,11 @@
 // @match   https://femdomcult.org/collage/*
 // @match   https://femdomcult.org/torrents.php*
 
+// @include   /^https://(filelist\.io|thefl\.org)/browse\.php.*
+// @include   /^https://(filelist\.io|thefl\.org)/internal\.php.*
+// @include   /^https://(filelist\.io|thefl\.org)/details\.php\?id=.*
+// @include   /^https://(filelist\.io|thefl\.org)/bookmarks\.php
+
 // @match   https://gazellegames.net/collections.php?id=*
 // @match   https://gazellegames.net/torrents.php*
 // @match   https://gazellegames.net/bookmarks.php*
@@ -408,6 +413,13 @@ const settingsPanelTrackers = [
         trackerName: 'Femdomcult', // @holy-elbow
         homepageURL: 'https://femdomcult.org',
         primaryDomain: 'femdomcult',
+    },
+
+    {
+        trackerName: 'FileList', // @SirWall
+        homepageURL: 'https://filelist.io',
+        primaryDomain: 'filelist',
+        otherDomains: ['thefl']
     },
 
     {
@@ -1125,6 +1137,36 @@ if ( primaryDomain == 'animebytes' ) {
         downloadElementsSelector: 'a[href^="/torrents.php?action=download&id="]',
         bunnyButtonFontSize: '125%',
         bunnyButtonParentPlacement: true,
+    }
+
+    quickieTrackerHandler(trackerHandlingOptions)
+
+} else if ( primaryDomain == 'filelist' ) {
+    // ----------------------------------- Femdomcult -----------------------------------
+    // Bookmarks | Browse | Collages | Details |
+
+    let trackerHandlingOptions = {
+        downloadElementsSelector: 'a[href^="download.php?id="]',
+        bunnyButtonFontSize: '125%',
+        bunnyButtonParentPlacement: true,
+    }
+
+    if ( pageURL.match(/details\.php\?id=\d+/) ) {
+
+        trackerHandlingOptions.freeleechStatusSelector = "downloadElement.closest('td').querySelector('img[alt=\"FreeLeech\"]')"
+
+        trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
+        trackerHandlingOptions.bunnyButtonAddStyles = `
+            background: #153245;
+            border-radius: 3px;
+            border: #B6D3E7 solid 1px;
+            color: #B6D3E7;
+            font-size: 90%;
+            margin: 0px 2px 0px 8px;
+            padding: 2px 5px 2px 5px;
+            vertical-align: unset;
+        `
+
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
