@@ -17,7 +17,7 @@ body:
       required: true
     attributes:
       label: ✏️ Description
-      description: Explain the bug, including the text of any window alerts or things of note.
+      description: Explain the bug, including screenshots\texts of any window alerts or other things of note.
 
   - type: textarea
     id: consoleMessages
@@ -70,9 +70,9 @@ body:
     attributes:
       label: Troubleshooting Checks
       options:
-        - label: I have tried a different tracker and can still reproduce the bug
-        - label: I have tried a different UserScript Manager and can still reproduce the bug
-        - label: I have tried a different browser and can still reproduce the bug
+        - label: I can reproduce the bug on a different tracker
+        - label: I can reproduce the bug with a different UserScript Manager
+        - label: I can reproduce the bug in a different browser
 
   - type: checkboxes
     id: issueConfirmation

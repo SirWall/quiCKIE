@@ -7,7 +7,7 @@
 // @version     1.49.3
 // @homepage    https://github.com/WirlyWirly/quiCKIE
 // @description A UserScript to quickly send torrents from a tracker to a client, with customizable per-site settings and presets 🐰
-//              Orignally written for qui, later extended to support more torrent clients
+//              Orignally for qui, later extended to support more torrent clients
 //              Written on LibreWolf via Violentmonkey
 
 // @namespace   https://github.com/WirlyWirly
@@ -280,12 +280,12 @@ const verboseConsoleLogging = false
 // =================================== SETTINGS PANEL TRACKERS ======================================
 
 // @quickieSettingsPanelTrackers
+// Each entry below will be appear as a tracker in the quiCKIE settings panel
 const settingsPanelTrackers = [
-    // Keep this list alphabetical, as each tracker here will appear as a row in the quiCKIE settings panel
 
     // Each tracker requires 3 things; A TitleCase name, the homepage URL, and the primaryDomain of the tracker
 
-    // Here are examples of identify the domain of a tracker...
+    // Here are examples of identifying the domain of a tracker...
     //  https://broadcasthe.net/ --> broadcasthe
     //  https://www.myanonamouse.net/ --> myanonamouse
     //  https://sukebei.nyaa.si/ --> nyaa
@@ -525,7 +525,7 @@ const settingsPanelTrackers = [
     },
 
     {
-        trackerName: 'Phoenix Project', // @SirWall
+        trackerName: 'PhoenixProject', // @SirWall
         homepageURL: 'https://phoenixproject.app',
         primaryDomain: 'phoenixproject',
     },
@@ -1534,8 +1534,8 @@ if ( primaryDomain == 'animebytes' ) {
     quickieTrackerHandler(trackerHandlingOptions)
 
 } else if ( primaryDomain == 'phoenixproject' ) {
-    // ----------------------------------- Phoenix Project -----------------------------------
-    // Browse | Collages
+    // ----------------------------------- PhoenixProject -----------------------------------
+    // Bookmarks | Browse | Collages | Details | Top10 
 
     let trackerHandlingOptions = {
         downloadElementsSelector: 'a[href^="torrents.php?action=download&id="]',
@@ -2816,6 +2816,7 @@ function createGMConfigSettingsPanel(trackerDomain) {
                 settingsDivSecond.appendChild(ruTorrentPasswordLabel)
                 settingsDivSecond.appendChild(ruTorrentPasswordField)
 
+                // 🚧 Disable ruTorrent from being selected as a client until the ruTorrentPOST() function is completed
                 document.getElementById('quiCKIE_config_field_torrentClient').querySelector('[value="ruTorrent 🛠️"]').disabled = true
                 ruTorrentPasswordField.disabled = true
                 ruTorrentURLField.disabled = true
