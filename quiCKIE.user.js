@@ -112,6 +112,11 @@
 // @match   https://femdomcult.org/collage/*
 // @match   https://femdomcult.org/torrents.php*
 
+// @include   /^https://(filelist\.io|thefl\.org)/browse\.php.*/
+// @include   /^https://(filelist\.io|thefl\.org)/internal\.php.*/
+// @include   /^https://(filelist\.io|thefl\.org)/details\.php\?id=.*/
+// @include   /^https://(filelist\.io|thefl\.org)/bookmarks\.php.*/
+
 // @match   https://gazellegames.net/collections.php?id=*
 // @match   https://gazellegames.net/torrents.php*
 // @match   https://gazellegames.net/bookmarks.php*
@@ -411,6 +416,13 @@ const settingsPanelTrackers = [
     },
 
     {
+        trackerName: 'FileList', // @SirWall
+        homepageURL: 'https://filelist.io',
+        primaryDomain: 'filelist',
+        otherDomains: ['thefl']
+    },
+
+    {
         trackerName: 'GazelleGames',
         homepageURL: 'https://gazellegames.net',
         primaryDomain: 'gazellegames',
@@ -529,7 +541,7 @@ const settingsPanelTrackers = [
         homepageURL: 'https://phoenixproject.app',
         primaryDomain: 'phoenixproject',
     },
-    
+
     {
         trackerName: 'Portugas', // @Phreaker
         homepageURL: 'https://portugas.org',
@@ -741,6 +753,7 @@ if ( primaryDomain == 'animebytes' ) {
         downloadElementsSelector: 'a[href^="https://animez.to/torrents/"][href$="/download"]',
     }
 
+    // This is a details page, so apply styling to the only bunnyButton
     if ( pageURL.match(/\/torrents\/\d+/) ) {
 
         trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
@@ -756,7 +769,6 @@ if ( primaryDomain == 'animebytes' ) {
             line-height: 1.5rem;
         `
     }
-
 
     quickieTrackerHandler(trackerHandlingOptions)
 
@@ -1024,13 +1036,6 @@ if ( primaryDomain == 'animebytes' ) {
         freeleechStatusSelector: "downloadElement.closest('span.torrent_icon_container').querySelector('i.font_icon.unlimited_leech')"
     }
 
-    // This is a collage page, so place the bunnyButton alongside the parentElement
-    if ( pageURL.match(/\/collage\/\d+/) ) {
-        trackerHandlingOptions.bunnyButtonParentPlacement = true
-        trackerHandlingOptions.downloadElementHideParentElementGap = true
-    }
-
-
     // This is a details page, so apply styling to certain bunnyButtons
     if ( pageURL.match(/torrents\.php\?id=\d+/) ) {
 
@@ -1064,6 +1069,7 @@ if ( primaryDomain == 'animebytes' ) {
                         bunnyButton.textContent = '🌱 Doubleseed'
                         bunnyButton.setAttribute('style', `${bunnyButton.style.cssText}border: #F09D63 solid 1px; color: #F09D63; background: #431C00`)
                         bunnyButton.setAttribute('data-emojospecified', 'true')
+
                     } else {
                         // This is a standard Download button
                         bunnyButton.textContent = '🐰 quiCKIE'
@@ -1081,7 +1087,14 @@ if ( primaryDomain == 'animebytes' ) {
 
         }
 
+    } else if ( pageURL.match(/\/collage\/\d+/) ) {
+        // This is a collage page, so place the bunnyButton alongside the parentElement
+
+        trackerHandlingOptions.bunnyButtonParentPlacement = true
+        trackerHandlingOptions.downloadElementHideParentElementGap = true
+
     }
+
 
     quickieTrackerHandler(trackerHandlingOptions)
 
@@ -1125,6 +1138,45 @@ if ( primaryDomain == 'animebytes' ) {
         downloadElementsSelector: 'a[href^="/torrents.php?action=download&id="]',
         bunnyButtonFontSize: '125%',
         bunnyButtonParentPlacement: true,
+    }
+
+    quickieTrackerHandler(trackerHandlingOptions)
+
+} else if ( primaryDomain == 'filelist' ) {
+    // ----------------------------------- FileList -----------------------------------
+    // Details | Browse | Bookmarks
+
+    let trackerHandlingOptions = {
+        downloadElementsSelector: 'a[href*="download.php?id="]',
+        bunnyButtonFontSize: '15px',
+        featuredStatusSelector: "downloadElement.closest('div.torrentrow').querySelector('img[alt=\"Sticky\"]')",
+        freeleechStatusSelector: "downloadElement.closest('div.torrentrow').querySelector('img[alt=\"FreeLeech\"]')",
+    }
+
+    // This is a details page, so apply styling to the only bunnyButton
+    if ( pageURL.match(/details\.php\?id=\d+/) ) {
+
+        trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
+        trackerHandlingOptions.freeleechStatusSelector = "document.querySelector('img[alt=\"FreeLeech\"]')"
+        trackerHandlingOptions.bunnyButtonParentPlacement = true
+        trackerHandlingOptions.bunnyButtonAddStyles = `
+            background: #153245;
+            border-radius: 3px;
+            border: #B6D3E7 solid 1px;
+            color: #B6D3E7;
+            font-size: 90%;
+            margin: 0px 2px 0px 8px;
+            padding: 2px 5px 2px 5px;
+            vertical-align: unset;
+        `
+
+    } else {
+
+        trackerHandlingOptions.bunnyButtonAddStyles = `
+            display: table-cell;
+            vertical-align: middle;
+            white-space: nowrap;
+        `
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
@@ -4795,7 +4847,7 @@ async function qBitTorrentPOST(postData) {
 
                 window.alert(`❌ quiCKIE ❌\n\nqBitTorrent was reached, but the login attempt failed\n\nℹ️ Check your username\\password for typos\n\nStatus Code: ${response.status}\n\nqBitTorrentURL: ${SETTINGS.torrentClient.qBitTorrentURL}\n\nThe full response has been printed in the console`)
 
-            } 
+            }
 
         },
         onerror: function(response) {
@@ -5217,7 +5269,7 @@ function scanForThirdPartyTorrentURLS(delay) {
                 let separatorNode
                 if ( existingBB != null) {
                     SETTINGS.bunnyButtonPlacement == 'After' ? separatorNode = existingBB.previousSibling : separatorNode = existingBB.nextSibling
-                } 
+                }
 
                 let separatorText
                 if ( separatorNode == null ) {
