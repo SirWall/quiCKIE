@@ -4,7 +4,7 @@
 
 // @name        qui - quiCKIE
 // @author      WirlyWirly + Contributors 🫶
-// @version     1.49.3
+// @version     1.49.4
 // @homepage    https://github.com/WirlyWirly/quiCKIE
 // @description A UserScript to quickly send torrents from a tracker to a client, with customizable per-site settings and presets 🐰
 //              Orignally for qui, later extended to support more torrent clients
@@ -3993,16 +3993,16 @@ function unit3dTrackerHandler(downloadElementsSelector) {
                         SETTINGS.hideDL == true ? downloadElement.parentElement.style.display = 'none' : null
 
                         if ( document.querySelector('li.torrent__seeders.torrent-activity-indicator--seeding') != null ) {
-                            // The seedingStatusSelector was matched
+                            // This is a Seeding torrent
                             bunnyButtonTorrentStatus(bunnyButton, 'seeding')
 
                         } else if ( document.querySelector('li.torrent__completed.torrent-activity-indicator--completed') != null ) {
-                            // The snatchedStatusSelector was matched
+                            // This is a Snatched torrent
                             bunnyButtonTorrentStatus(bunnyButton, 'snatched')
 
-                        } else if ( document.querySelector('span.torrent-icons i.torrent-icons__featured') != null ) {
-                            // This is a featured (+ freeleech) torrent
-                            bunnyButtonTorrentStatus(bunnyButton, 'featuredFreeleech')
+                        } else if ( document.querySelector(':is(i, span).torrent-icons__featured') != null ) {
+                            // This is a Featured torrent
+                            bunnyButtonTorrentStatus(bunnyButton, 'featured')
 
                         } else if ( document.querySelector(
                           `:is(i, span).torrent-icons__freeleech[title*="100%"],
@@ -4010,7 +4010,7 @@ function unit3dTrackerHandler(downloadElementsSelector) {
                           :is(i, span).torrent-icons__freeleech[title*="Special Freeleech"],
                           i.torrent-icons__freeleech.fa-calendar-star,
                           i.fa-globe`) != null ) {
-                            // The freeleechStatusSelector was matched: Star, Calendar, Globe
+                            // This is a Freeleech torrent
                             bunnyButtonTorrentStatus(bunnyButton, 'freeleech')
 
                         }
@@ -4077,9 +4077,9 @@ function unit3dTrackerHandler(downloadElementsSelector) {
                                 // This is a Snatched torrent
                                 bunnyButtonTorrentStatus(bunnyButton, 'snatched')
 
-                            } else if ( downloadElement.closest('tr').querySelector('i.torrent-icons__featured') != null ) {
+                            } else if ( downloadElement.closest('tr').querySelector(':is(i, span).torrent-icons__featured') != null ) {
                                 // This is a Featured torrent
-                                bunnyButtonTorrentStatus(bunnyButton, 'featuredFreeleech')
+                                bunnyButtonTorrentStatus(bunnyButton, 'featured')
 
                             } else if ( downloadElement.closest('tr').querySelector(
                               `:is(i, span).torrent-icons__freeleech[title*="100%"],
@@ -4087,7 +4087,7 @@ function unit3dTrackerHandler(downloadElementsSelector) {
                               :is(i, span).torrent-icons__freeleech[title*="Special Freeleech"],
                               i.torrent-icons__freeleech.fa-calendar-star,
                               i.fa-globe`) != null ) {
-                                // This is a Freeleech torrent [Star, CalendarStar, Global Freeleech, Special Freeleech, 100% Free]
+                                // This is a Freeleech torrent
                                 bunnyButtonTorrentStatus(bunnyButton, 'freeleech')
 
                             }
@@ -4397,10 +4397,6 @@ function bunnyButtonTorrentStatus(bunnyButton, torrentStatus) {
     } else if ( torrentStatus == 'featured' ) {
         replaceEmojis(bunnyButton, '📢')
         bunnyButton.title = bunnyButton.title.replace(/🖥️/, '📢 Featured 📢\n\n🖥️')
-
-    } else if ( torrentStatus == 'featuredFreeleech' ) {
-        replaceEmojis(bunnyButton, '📢')
-        bunnyButton.title = bunnyButton.title.replace(/🖥️/, '📢 Featured 📢\n💎 Freeleech 💎\n\n🖥️')
 
     } else if ( torrentStatus == 'freeleech' ) {
         replaceEmojis(bunnyButton, '💎')
