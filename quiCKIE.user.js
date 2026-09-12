@@ -935,26 +935,18 @@ if ( primaryDomain == 'animebytes' ) {
         snatchedStatusSelector: "downloadElement.closest('td').querySelector('a.tor_highlight_snatch')",
     }
 
-    // This is a browse page (not Season\Episode), so apply styling to all bunnyButtons
     if ( pageURL.match(/torrents\.php(?!\?id=\d+)/) ) {
+        // This is a search page
 
-        trackerHandlingOptions.afterBunnyButtonCreation = function(elements) {
-            // The actions to take after the bunnyButtons have been created...
-
-            // Style all bunnyButtons, giving them a square-type look to more closely match the site buttons
-            for ( let bunnyButton of elements.bunnyButtons ) {
-                bunnyButton.textContent = '🐰'
-                bunnyButton.setAttribute('style', `${bunnyButton.style.cssText}
-                    background: #153245;
-                    border-radius: 3px;
-                    border: #B6D3E7 solid 1px;
-                    color: #B6D3E7;
-                    font-size: 80%;
-                    padding: 2px 2px 2px 2px;
-                    vertical-align: unset;`)
-            }
-
-        }
+        trackerHandlingOptions.bunnyButtonText = '🐰'
+        trackerHandlingOptions.bunnyButtonAddStyles = `
+            background: #153245;
+            border-radius: 3px;
+            border: #B6D3E7 solid 1px;
+            color: #B6D3E7;
+            font-size: 80%;
+            padding: 2px 2px 2px 2px;
+            vertical-align: unset;`
 
     }
 
@@ -3895,10 +3887,11 @@ function unit3dTrackerHandler(downloadElementsSelector) {
 
     // Mutable settings dependent on the current page
     let bunnyButtonAddStyles = ''
-    let bunnyButtonPlacement
     let bunnyButtonText = ' 🐰 '
-    let queryFromElement = document
+
     let torrentDetailsPage = false
+    let queryFromElement = document
+    let bunnyButtonPlacement
 
     if ( pagePath.match(/\/torrents\/\d+/) ) {
         // The torrents details page, so change the style of the only BunnyButton
@@ -4114,7 +4107,6 @@ function unit3dTrackerHandler(downloadElementsSelector) {
                         } else if ( viewType == 'cards' ) {
 
                             try {
-                                // TorrentStatus check: Cards
 
                                 if ( downloadElement.closest('article :is(.torrent-card, .tc-card)').querySelector('.torrent-activity-indicator--seeding') != null ) {
                                     // This is a Seeding torrent
@@ -4125,6 +4117,7 @@ function unit3dTrackerHandler(downloadElementsSelector) {
                                 // An error occured, most likely 'downloadElement.closest()' was not found and so '.querySelector()' could not be chained
                                 logger.debug(error)
                             }
+
                         }
 
                     }
