@@ -4016,27 +4016,36 @@ function unit3dTrackerHandler(downloadElementsSelector) {
                         }
 
                     } else {
-                        // This is NOT the torrent details page, so it likely uses one of the three views: List, Cards, or Grouped
+                        // This is NOT the torrent details page, so it likely uses one of the 4 view types: List, Cards, Grouped, Bookmarks
 
                         downloadElement.insertAdjacentElement(bunnyButtonPlacement, bunnyButton)
 
+                        // Determine what viewType is active and apply appropriate bunnyButton styling
+                        let viewType 
                         if ( downloadElement.closest('td.torrent-search--list__buttons') ) {
-                            // This is a List view
+                            // The 'List' view is active
+
+                            viewType = 'list'
 
                             bunnyButton.style.display = 'inline-grid'
                             bunnyButton.style.fontSize = '110%'
                             bunnyButton.style.padding = '10px'
 
 
-                        } else if ( downloadElement.closest('article.torrent-card') ) {
-                            // This is a Cards view
+                        } else if ( downloadElement.closest('article :is(.torrent-card, .tc-card)') ) {
+                            // The 'Cards' view is active
+
+                            viewType = 'cards'
 
                             bunnyButton.style.display = 'inline-grid'
                             bunnyButton.style.fontSize = '135%'
                             bunnyButton.style.padding = '10px'
 
+
                         } else if ( downloadElement.closest('td.torrent-search--grouped__download') ) {
-                            // This is a Grouped view
+                            // This is the Grouped view
+
+                            viewType = 'grouped'
 
                             if ( window.screen.availWidth > 900 ) {
                                 // The screen is wide enough to accomadate another <td> for this bunnyButton
@@ -4053,8 +4062,11 @@ function unit3dTrackerHandler(downloadElementsSelector) {
                             bunnyButton.style.padding = '4px'
 
                         } else if ( downloadElement.closest('td.user-bookmarks__actions') ) {
-                            // This is the Bookmarks view, move bunnyButton into it's own <li>
+                            // The 'Bookmarks' view is active
 
+                            viewType = 'bookmarks'
+
+                            // Move bunnyButton into it's own <li>
                             let clonedParent = downloadElement.parentElement.cloneNode()
                             clonedParent.appendChild(bunnyButton)
                             downloadElement.parentElement.insertAdjacentElement(bunnyButtonPlacement, clonedParent)
@@ -4066,48 +4078,53 @@ function unit3dTrackerHandler(downloadElementsSelector) {
 
                         }
 
-                        try {
-                            // TorrentStatus check: Table | Grouped
+                        // Try for TorrentStatus based on the current viewType
+                        if ( viewType.match(/list|grouped/) ) {
 
-                            if ( downloadElement.closest('tr').querySelector('td.torrent-activity-indicator--seeding') != null ) {
-                                // This is a Seeding torrent
-                                bunnyButtonTorrentStatus(bunnyButton, 'seeding')
+                            try {
 
-                            } else if ( downloadElement.closest('tr').querySelector('td.torrent-activity-indicator--completed') != null ) {
-                                // This is a Snatched torrent
-                                bunnyButtonTorrentStatus(bunnyButton, 'snatched')
+                                if ( downloadElement.closest('tr').querySelector('td.torrent-activity-indicator--seeding') != null ) {
+                                    // This is a Seeding torrent
+                                    bunnyButtonTorrentStatus(bunnyButton, 'seeding')
 
-                            } else if ( downloadElement.closest('tr').querySelector(':is(i, span).torrent-icons__featured') != null ) {
-                                // This is a Featured torrent
-                                bunnyButtonTorrentStatus(bunnyButton, 'featured')
+                                } else if ( downloadElement.closest('tr').querySelector('td.torrent-activity-indicator--completed') != null ) {
+                                    // This is a Snatched torrent
+                                    bunnyButtonTorrentStatus(bunnyButton, 'snatched')
 
-                            } else if ( downloadElement.closest('tr').querySelector(
-                              `:is(i, span).torrent-icons__freeleech[title*="100%"],
-                              :is(i, span).torrent-icons__freeleech[title*="Global freeleech"],
-                              :is(i, span).torrent-icons__freeleech[title*="Special Freeleech"],
-                              i.torrent-icons__freeleech.fa-calendar-star,
-                              i.fa-globe`) != null ) {
-                                // This is a Freeleech torrent
-                                bunnyButtonTorrentStatus(bunnyButton, 'freeleech')
+                                } else if ( downloadElement.closest('tr').querySelector(':is(i, span).torrent-icons__featured') != null ) {
+                                    // This is a Featured torrent
+                                    bunnyButtonTorrentStatus(bunnyButton, 'featured')
 
+                                } else if ( downloadElement.closest('tr').querySelector(
+                                  `:is(i, span).torrent-icons__freeleech[title*="100%"],
+                                  :is(i, span).torrent-icons__freeleech[title*="Global freeleech"],
+                                  :is(i, span).torrent-icons__freeleech[title*="Special Freeleech"],
+                                  i.torrent-icons__freeleech.fa-calendar-star,
+                                  i.fa-globe`) != null ) {
+                                    // This is a Freeleech torrent
+                                    bunnyButtonTorrentStatus(bunnyButton, 'freeleech')
+
+                                }
+
+                            } catch (error) {
+                                // An error occured, most likely 'downloadElement.closest()' was not found and so '.querySelector()' could not be chained
+                                logger.debug(error)
                             }
 
-                        } catch (error) {
-                            // An error occured, most likely the page view-type is not a table and therefore the 'tr' is not available
-                            logger.debug(error)
-                        }
+                        } else if ( viewType == 'cards' ) {
 
-                        try {
-                            // TorrentStatus check: Cards
+                            try {
+                                // TorrentStatus check: Cards
 
-                            if ( downloadElement.closest('article').querySelector('.torrent-activity-indicator--seeding') != null ) {
-                                // This is a Seeding torrent
-                                bunnyButtonTorrentStatus(bunnyButton, 'seeding')
+                                if ( downloadElement.closest('article :is(.torrent-card, .tc-card)').querySelector('.torrent-activity-indicator--seeding') != null ) {
+                                    // This is a Seeding torrent
+                                    bunnyButtonTorrentStatus(bunnyButton, 'seeding')
+                                }
+     
+                            } catch (error) {
+                                // An error occured, most likely 'downloadElement.closest()' was not found and so '.querySelector()' could not be chained
+                                logger.debug(error)
                             }
-
-                        } catch (error) {
-                            // An error occured, most likely the page view-type does not have <article> elements and therefore the 'article.torrent-card' is not available
-                            logger.debug(error)
                         }
 
                     }
