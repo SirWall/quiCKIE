@@ -34,6 +34,11 @@
 // @match   https://animebytes.tv/series.php?id=*
 // @match   https://animebytes.tv/torrents*
 
+// @match   https://animeworld.cx/
+// @match   https://animeworld.cx/*/bookmarks*
+// @match   https://animeworld.cx/playlists/*
+// @match   https://animeworld.cx/torrents*
+
 // @match   https://animez.to/
 // @match   https://animez.to/torrents*
 // @match   https://animez.to/torrent-bookmarks*
@@ -66,6 +71,11 @@
 // @match   https://bitporn.eu/*/bookmarks*
 // @match   https://bitporn.eu/playlists/*
 // @match   https://bitporn.eu/torrents*
+
+// @match   https://blutopia.cc/
+// @match   https://blutopia.cc/*/bookmarks*
+// @match   https://blutopia.cc/playlists/*
+// @match   https://blutopia.cc/torrents*
 
 // @match   https://broadcasthe.net/collages.php?id=*
 // @match   https://broadcasthe.net/series.php?id=*
@@ -228,10 +238,20 @@
 // @match   https://retrotoon.world/browse.php
 // @match   https://retrotoon.world/details.php?id=*
 
+// @match   https://rocket-hd.cc/
+// @match   https://rocket-hd.cc/*/bookmarks*
+// @match   https://rocket-hd.cc/playlists/*
+// @match   https://rocket-hd.cc/torrents*
+
 // @match   https://secret-cinema.pw/artist.php?id=*
 // @match   https://secret-cinema.pw/collages.php?id=*
 // @match   https://secret-cinema.pw/top10.php*
 // @match   https://secret-cinema.pw/torrents.php*
+
+// @match   https://seedpool.org/
+// @match   https://seedpool.org/*/bookmarks*
+// @match   https://seedpool.org/playlists/*
+// @match   https://seedpool.org/torrents*
 
 // @match   https://sportscult.org/index.php?page=torrents*
 // @match   https://sportscult.org/index.php?page=torrent-details*
@@ -318,6 +338,12 @@ const settingsPanelTrackers = [
     },
 
     {
+        trackerName: 'AnimeWorld', // @SirWall
+        homepageURL: 'https://animeworld.cx',
+        primaryDomain: 'animeworld',
+    },
+    
+    {
         trackerName: 'AnimeZ', // @holy-elbow
         homepageURL: 'https://animez.to',
         primaryDomain: 'animez',
@@ -357,6 +383,12 @@ const settingsPanelTrackers = [
         trackerName: 'BitPorn',
         homepageURL: 'https://bitporn.eu',
         primaryDomain: 'bitporn',
+    },
+
+    {
+        trackerName: 'Blutopia', //@SirWall
+        homepageURL: 'https://blutopia.cc',
+        primaryDomain: 'blutopia',
     },
 
     {
@@ -573,9 +605,21 @@ const settingsPanelTrackers = [
     },
 
     {
+        trackerName: 'RocketHD', // @SirWall
+        homepageURL: 'https://rocket-hd.cc',
+        primaryDomain: 'rocket-hd',
+    },
+
+    {
         trackerName: 'Secret-Cinema', // @tartuffe
         homepageURL: 'https://secret-cinema.pw',
         primaryDomain: 'secret-cinema',
+    },
+
+    {
+        trackerName: 'Seedpool', // @SirWall
+        homepageURL: 'https://seedpool.org',
+        primaryDomain: 'seedpool',
     },
 
     {
@@ -745,6 +789,12 @@ if ( primaryDomain == 'animebytes' ) {
 
     quickieTrackerHandler(trackerHandlingOptions)
 
+} else if ( primaryDomain == 'animeworld' ) {
+    // ----------------------------------- AnimeWorld -----------------------------------
+    // Bookmarks | Browse | Details | Playlists
+
+    unit3dTrackerHandler('a[href*="/download"]')
+
 } else if ( primaryDomain == 'animez' ) {
     // --------------------------------- AnimeZ ------------------------------------
     // Home | Browse| Bookmarks
@@ -868,6 +918,12 @@ if ( primaryDomain == 'animebytes' ) {
     // Browse | Details
 
     unit3dTrackerHandler('a[href^="https://bitporn.eu/torrents/download/"]')
+
+} else if ( primaryDomain == 'blutopia' ) {
+    // ----------------------------------- Blutopia -----------------------------------
+    // Bookmarks | Browse | Details | Playlists
+
+    unit3dTrackerHandler('a[href*="/download"]')
 
 } else if ( primaryDomain == 'broadcasthe' ) {
     // ----------------------------------- BroadcasTheNet -----------------------------------
@@ -1150,7 +1206,7 @@ if ( primaryDomain == 'animebytes' ) {
         downloadElementsSelector: 'a[href*="download.php?id="]',
         bunnyButtonFontSize: '15px',
         featuredStatusSelector: "downloadElement.closest('div.torrentrow').querySelector('img[alt=\"Sticky\"]')",
-        freeleechStatusSelector: "downloadElement.closest('div.torrentrow').querySelector('img[alt=\"FreeLeech\"]')",
+        freeleechStatusSelector: "downloadElement.closest('div.torrentrow, tr').querySelector('img[alt=\"FreeLeech\" i]')",
     }
 
     // This is a details page, so apply styling to the only bunnyButton
@@ -1703,6 +1759,12 @@ if ( primaryDomain == 'animebytes' ) {
 
     quickieTrackerHandler(trackerHandlingOptions)
 
+} else if ( primaryDomain == 'rocket-hd' ) {
+    // ----------------------------------- RocketHD -----------------------------------
+    // Bookmarks | Browse | Details | Playlists
+
+    unit3dTrackerHandler('a[href*="/download"]')
+
 } else if ( primaryDomain == 'secret-cinema' ) {
     // ----------------------------------- Secret-Cinema -----------------------------------
     // Artist (no DL links as of script creation) | Browse | Movie
@@ -1712,6 +1774,12 @@ if ( primaryDomain == 'animebytes' ) {
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
+
+} else if ( primaryDomain == 'seedpool' ) {
+    // ----------------------------------- Seedpool -----------------------------------
+    // Bookmarks | Browse | Details | Playlists
+
+    unit3dTrackerHandler('a[href*="/download"]')
 
 } else if ( primaryDomain == 'sportscult' ) {
     // ----------------------------------- SportsCult -----------------------------------
@@ -3936,7 +4004,12 @@ function unit3dTrackerHandler(downloadElementsSelector) {
                             // This is a featured (+ freeleech) torrent
                             bunnyButtonTorrentStatus(bunnyButton, 'featuredFreeleech')
 
-                        } else if ( document.querySelector("i.torrent-icons__freeleech[title^='100%'], span.torrent-icons__freeleech[title^='100%'], i.torrent-icons__freeleech.fa-calendar-star, i.fa-globe") != null ) {
+                        } else if ( document.querySelector(
+                          `:is(i, span).torrent-icons__freeleech[title*="100%"],
+                          :is(i, span).torrent-icons__freeleech[title*="Global freeleech"],
+                          :is(i, span).torrent-icons__freeleech[title*="Special Freeleech"],
+                          i.torrent-icons__freeleech.fa-calendar-star,
+                          i.fa-globe`) != null ) {
                             // The freeleechStatusSelector was matched: Star, Calendar, Globe
                             bunnyButtonTorrentStatus(bunnyButton, 'freeleech')
 
@@ -4008,8 +4081,13 @@ function unit3dTrackerHandler(downloadElementsSelector) {
                                 // This is a Featured torrent
                                 bunnyButtonTorrentStatus(bunnyButton, 'featuredFreeleech')
 
-                            } else if ( downloadElement.closest('tr').querySelector("i.torrent-icons__freeleech[title^='100%'], span.torrent-icons__freeleech[title^='100%'], i.torrent-icons__freeleech.fa-calendar-star, i.fa-globe") != null ) {
-                                // This is a Freeleech torrent [Star, CalendarStar, GlobalFreeleech, 100% Free]
+                            } else if ( downloadElement.closest('tr').querySelector(
+                              `:is(i, span).torrent-icons__freeleech[title*="100%"],
+                              :is(i, span).torrent-icons__freeleech[title*="Global freeleech"],
+                              :is(i, span).torrent-icons__freeleech[title*="Special Freeleech"],
+                              i.torrent-icons__freeleech.fa-calendar-star,
+                              i.fa-globe`) != null ) {
+                                // This is a Freeleech torrent [Star, CalendarStar, Global Freeleech, Special Freeleech, 100% Free]
                                 bunnyButtonTorrentStatus(bunnyButton, 'freeleech')
 
                             }
