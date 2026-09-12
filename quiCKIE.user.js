@@ -108,10 +108,10 @@
 // @match   https://digitalcore.club/tvseries*
 // @match   https://digitalcore.club/xxx*
 
-// @include   /^https://(www\.empornium|emparadise)\.(sx|rs)/collage/\d.*/
-// @include   /^https://(www\.empornium|emparadise)\.(sx|rs)/top10\.php.*/
-// @include   /^https://(www\.empornium|emparadise)\.(sx|rs)/torrents\.php.*/
-// @include   /^https://(www\.empornium|emparadise)\.(sx|rs)/user\.php\?id=\d+/
+// @include   /^https://(www\.empornium\.sx|emparadise\.rs)/collage/\d+.*/
+// @include   /^https://(www\.empornium\.sx|emparadise\.rs)/top10\.php.*/
+// @include   /^https://(www\.empornium\.sx|emparadise\.rs)/torrents\.php.*/
+// @include   /^https://(www\.empornium\.sx|emparadise\.rs)/user\.php\?id=\d+/
 
 // @match   https://e*hentai.org/gallerytorrents.php*
 
@@ -3998,7 +3998,7 @@ function unit3dTrackerHandler(downloadElementsSelector) {
 
                         } else if ( document.querySelector('li.torrent__completed.torrent-activity-indicator--completed') != null ) {
                             // The snatchedStatusSelector was matched
-                            bunnyButton(bunnyButton, 'snatched')
+                            bunnyButtonTorrentStatus(bunnyButton, 'snatched')
 
                         } else if ( document.querySelector('span.torrent-icons i.torrent-icons__featured') != null ) {
                             // This is a featured (+ freeleech) torrent
