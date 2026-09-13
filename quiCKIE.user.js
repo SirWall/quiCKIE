@@ -3999,8 +3999,8 @@ function unit3dTrackerHandler(downloadElementsSelector) {
 
                         } else if ( document.querySelector(
                           `:is(i, span).torrent-icons__freeleech[title*="100%"],
-                          :is(i, span).torrent-icons__freeleech[title*="Global freeleech"],
-                          :is(i, span).torrent-icons__freeleech[title*="Special Freeleech"],
+                          :is(i, span).torrent-icons__freeleech[title*="Global freeleech" i],
+                          :is(i, span).torrent-icons__freeleech[title*="Special Freeleech" i],
                           i.torrent-icons__freeleech.fa-calendar-star,
                           i.fa-globe`) != null ) {
                             // This is a Freeleech torrent
@@ -4090,8 +4090,8 @@ function unit3dTrackerHandler(downloadElementsSelector) {
 
                                 } else if ( downloadElement.closest('tr').querySelector(
                                   `:is(i, span).torrent-icons__freeleech[title*="100%"],
-                                  :is(i, span).torrent-icons__freeleech[title*="Global freeleech"],
-                                  :is(i, span).torrent-icons__freeleech[title*="Special Freeleech"],
+                                  :is(i, span).torrent-icons__freeleech[title*="Global freeleech" i],
+                                  :is(i, span).torrent-icons__freeleech[title*="Special Freeleech" i],
                                   i.torrent-icons__freeleech.fa-calendar-star,
                                   i.fa-globe`) != null ) {
                                     // This is a Freeleech torrent
