@@ -89,6 +89,11 @@
 // @match   https://broadcasthe.net/series.php?id=*
 // @match   https://broadcasthe.net/torrents.php*
 
+// @match   https://cinematik.net/
+// @match   https://cinematik.net/*/bookmarks
+// @match   https://cinematik.net/playlists/*
+// @match   https://cinematik.net/torrents*
+
 // @match   https://cinemaz.to/
 // @match   https://cinemaz.to/*/bookmark*
 // @match   https://cinemaz.to/torrent/*
@@ -411,6 +416,12 @@ const settingsPanelTrackers = [
         trackerName: 'BroadcasTheNet',
         homepageURL: 'https://broadcasthe.net',
         primaryDomain: 'broadcasthe',
+    },
+
+    {
+        trackerName: 'Cinematik', // @verinikat
+        homepageURL: 'https://cinematik.net',
+        primaryDomain: 'cinematik',
     },
 
     {
@@ -986,6 +997,12 @@ if ( primaryDomain == 'animebytes' ) {
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
+
+} else if ( primaryDomain == 'cinematik' ) {
+    // ----------------------------------- Cinematik -----------------------------------
+    // Bookmarks | Browse | Details | Playlists
+
+    unit3dTrackerHandler('a[href*="/download"]')
 
 } else if ( primaryDomain == 'cinemaz' ) {
     // ----------------------------------- CinemaZ -----------------------------------
