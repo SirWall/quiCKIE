@@ -267,6 +267,11 @@
 // @match   https://redacted.sh/torrents.php*
 // @match   https://redacted.sh/userhistory.php?action=subscribed_collages
 
+// @match   https://reelflix.cc/
+// @match   https://reelflix.cc/*/bookmarks
+// @match   https://reelflix.cc/playlists/*
+// @match   https://reelflix.cc/torrents*
+
 // @match   https://retro-movies.club/
 // @match   https://retro-movies.club/*/bookmarks
 // @match   https://retro-movies.club/playlists/*
@@ -672,6 +677,12 @@ const settingsPanelTrackers = [
         trackerName: 'Redacted',
         homepageURL: 'https://redacted.sh',
         primaryDomain: 'redacted',
+    },
+
+    {
+        trackerName: 'ReelFliX', // @verinikat
+        homepageURL: 'https://reelflix.cc',
+        primaryDomain: 'reelflix',
     },
 
     {
@@ -1880,6 +1891,12 @@ if ( primaryDomain == 'animebytes' ) {
         pageObserver.observe(target, config)
 
     }
+
+} else if ( primaryDomain == 'reelflix' ) {
+    // ----------------------------------- ReelFliX -----------------------------------
+    // Browse | Details | Homepage | Playlists | Similar
+
+    unit3dTrackerHandler('a[href^="https://reelflix.cc/torrents/download/"]')
 
 } else if ( primaryDomain == 'retro-movies' ) {
     // ----------------------------------- RetroMoviesClub -----------------------------------
