@@ -31,7 +31,7 @@ Only the **clientURL** and **credentials** for the selected torrent client are r
 >
 > **BunnyButton Emojiography***<br>
 > 🐰 Default | 🌱 Seeding | 🍁 Snatched | 💎 Freeleech | 📢 Featured | 💸 Spend Token | 🤝 ThirdParty | 🌎 ThirdParty + TrackerSettings<br>
-> 🧲 Downloading .torrent file | 🧑 Client Login | 🕓 Adding Torrent | ✔️ Success | ❌ Failure
+> 🧲 Downloading .torrent file | 🧑 Client Login | 🕓 Adding Torrent | ✔️ Success | ❌ Failure | ℹ️ Console Message
 >
 > **Source: [GitHub](https://github.com/WirlyWirly/quiCKIE)**<br>
 > **Install: [quiCKIE](https://raw.githubusercontent.com/WirlyWirly/quiCKIE/main/quiCKIE.user.js?raw=true)**<br>

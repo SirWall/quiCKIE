@@ -781,7 +781,7 @@ let SETTINGS = populateSettingsObject(primaryDomain)
 let presetMenuItems = createPresetItems([SETTINGS.primaryDomain])
 
 // All the emojis that may be displayed on bunnyButtons, defined as a RegExp so that they can be replaced during different stages of the script
-const emojiRegex = new RegExp('🐰|🌱|🍁|📢|💎|💸|🤝|🌎|🧲|🧑|🕓|✔️|❌|💾|🧀', 'g')
+const emojiRegex = new RegExp('🐰|🌱|🍁|📢|💎|💸|🤝|🌎|🧲|🧑|🕓|✔️|❌|ℹ️|💾|🧀', 'g')
 
 // The full URL and Path of the current page, useful for figuring out exactly what page you are on using pageURL.match(/regex/)
 const pageURL = document.URL
@@ -4998,7 +4998,7 @@ async function quiPOST(postData) {
                 // Duplicate: The torrent already exists in this qui instance
                 console.log('ℹ️ quiCKIE: The torrent that would be added to qui already exists, so nothing happened')
 
-                replaceEmojis(bunnyButton, '✔️')
+                replaceEmojis(bunnyButton, 'ℹ️')
 
             } else {
                 // Failed: The torrent was NOT added to qui, log the response and display an alert...
