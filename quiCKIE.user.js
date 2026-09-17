@@ -768,7 +768,7 @@ const settingsPanelTrackers = [
 
 // The domain of the current site, which MUST be registerd to one of the trackers in the settingsPanelTrackers array
 // Example: https://broadcasthe.net/ --> broadcasthe
-let trackerDomain = document.location.hostname.match(/^(\w+\.)?(.+?)\..+$/)[2].toLowerCase()
+const trackerDomain = document.location.hostname.match(/^(\w+\.)?(.+?)\..+$/)[2].toLowerCase()
 
 // A simple logger, which will only console log messages when it has been enabled above
 let logger = new simpleLogger({ enabled: verboseConsoleLogging, scriptName: 'quiCKIE'})
@@ -776,8 +776,8 @@ let logger = new simpleLogger({ enabled: verboseConsoleLogging, scriptName: 'qui
 // Everything related to the GM_config library, which is used for saving and creating the settings panel: https://github.com/sizzlemctwizzle/GM_config
 let [ primaryDomain, allPrimaryDomains, allTrackerNames, primaryDomainToTrackerName, primaryDomainToHomepage, trackerNameToPrimaryDomain, presetCount ] = createGMConfigSettingsPanel(trackerDomain)
 
-// Retrieve the settings and presetMenuItems that are relevant to the current tracker
-let SETTINGS = getTrackerSettings(primaryDomain)
+// For the current tracker, populate the SETTINGS object and determine which presetMenuItems apply
+let SETTINGS = populateSettingsObject(primaryDomain)
 let presetMenuItems = createPresetItems([SETTINGS.primaryDomain])
 
 // All the emojis that may be displayed on bunnyButtons, defined as a RegExp so that they can be replaced during different stages of the script
@@ -3362,8 +3362,8 @@ function createGMConfigSettingsPanel(trackerDomain) {
 }
 
 
-function getTrackerSettings(primaryDomain) {
-    // Define the main SETTINGS object and populate it with the current primaryDomain specific settings
+function populateSettingsObject(primaryDomain) {
+    // Create the main SETTINGS object and populate it with the current primaryDomain specific settings
 
     // @trackerSettings
     let SETTINGS = {
@@ -4990,7 +4990,13 @@ async function quiPOST(postData) {
             // ----- Actions to take after the request has completed -----
 
             if (response.status == 201) {
-                // Success: The torrent has been added to qui
+                // Success: The torrent has been added to qui or is already listed
+
+                replaceEmojis(bunnyButton, '✔️')
+
+            } else if ( response.status == 500 && response.responseText.match(/conflicts detected/) ) {
+                // Duplicate: The torrent already exists in this qui instance
+                console.log('ℹ️ quiCKIE: The torrent that would be added to qui already exists, so nothing happened')
 
                 replaceEmojis(bunnyButton, '✔️')
 
