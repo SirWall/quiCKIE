@@ -53,6 +53,9 @@
 // @match   https://avistaz.to/
 // @match   https://avistaz.to/*/bookmark*
 // @match   https://avistaz.to/torrent*
+// @match   https://avistaz.to/movie/*
+// @match   https://avistaz.to/tv/*
+// @match   https://avistaz.to/profile/*/history*
 
 // @match   https://bakabt.me/torrent/*
 
@@ -850,13 +853,27 @@ if ( primaryDomain == 'animebytes' ) {
 
 } else if ( primaryDomain == 'avistaz' ) {
     // ----------------------------------- AvistaZ -----------------------------------
-    // Details
+    // Details | Browse | Movie | TV | History
 
-    let trackerHandlingOptions = {
-        downloadElementsSelector: 'a[href^="https://avistaz.to/download/torrent/"]',
+    if ( pageURL.match(/avistaz\.to\/(movie|tv)\/\d/) ) {
+        // The movie and tv show details pages
+
+        let trackerHandlingOptions = {
+            downloadElementsSelector: 'a[href^="https://avistaz.to/download/torrent/"]',
+            enablePaginationLooping: true,
+        }
+
+        quickieTrackerHandler(trackerHandlingOptions)
+
+    } else {
+
+        let trackerHandlingOptions = {
+            downloadElementsSelector: 'a[href^="https://avistaz.to/download/torrent/"]',
+            enablePaginationLooping: false,
+        }
+
+        quickieTrackerHandler(trackerHandlingOptions)
     }
-
-    quickieTrackerHandler(trackerHandlingOptions)
 
 } else if ( primaryDomain == 'bakabt' ) {
     // ----------------------------------- BakaBT -----------------------------------
