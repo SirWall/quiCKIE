@@ -417,7 +417,7 @@ const settingsPanelTrackers = [
     },
 
     {
-        trackerName: 'AvistaZ', // @fercats99
+        trackerName: 'AvistaZ', // @fercats99 + @verinikat
         homepageURL: 'https://avistaz.to',
         primaryDomain: 'avistaz',
     },
@@ -465,7 +465,7 @@ const settingsPanelTrackers = [
     },
 
     {
-        trackerName: 'CinemaZ', // @fercats99
+        trackerName: 'CinemaZ', // @fercats99 + @verinikat
         homepageURL: 'https://cinemaz.to',
         primaryDomain: 'cinemaz',
     },
@@ -515,7 +515,7 @@ const settingsPanelTrackers = [
     },
 
     {
-        trackerName: 'ExoticaZ', // @fercats99 > @holy-elbow
+        trackerName: 'ExoticaZ', // @fercats99 + @holy-elbow
         homepageURL: 'https://exoticaz.to',
         primaryDomain: 'exoticaz',
     },
@@ -756,7 +756,7 @@ const settingsPanelTrackers = [
     },
 
     {
-        trackerName: 'Uploadcx', // @verinikat
+        trackerName: 'UploadCX', // @verinikat
         homepageURL: 'https://upload.cx',
         primaryDomain: 'upload',
     },
@@ -961,7 +961,8 @@ if ( primaryDomain == 'animebytes' ) {
         downloadElementsSelector: 'a[href^="https://avistaz.to/download/torrent/"]',
     }
 
-    pageURL.match(/avistaz\.to\/(movie|tv)\/\d/) ? trackerHandlingOptions.enablePaginationLooping = true : null
+    // Movie and TV Shows details page
+    pageURL.match(/\/(movie|tv)\/\d+/) ? trackerHandlingOptions.enablePaginationLooping = true : null
 
     quickieTrackerHandler(trackerHandlingOptions)
 
@@ -1089,8 +1090,7 @@ if ( primaryDomain == 'animebytes' ) {
     }
 
     // Movie and TV Shows details page
-    pageURL.match(/cinemaz\.to\/(movie|tv)\/\d/) ? trackerHandlingOptions.enablePaginationLooping = true : null
-
+    pageURL.match(/\/(movie|tv)\/\d+/) ? trackerHandlingOptions.enablePaginationLooping = true : null
 
     quickieTrackerHandler(trackerHandlingOptions)
 
@@ -1561,7 +1561,6 @@ if ( primaryDomain == 'animebytes' ) {
 
     quickieTrackerHandler(trackerHandlingOptions)
 
-
 } else if ( primaryDomain == 'karagarga' ) {
     // ----------------------------------- Karagarga -----------------------------------
     // Browse | Details
@@ -2003,7 +2002,7 @@ if ( primaryDomain == 'animebytes' ) {
 
 
 } else if ( primaryDomain == 'upload' ) {
-    // ----------------------------------- Uploadcx -----------------------------------
+    // ----------------------------------- UploadCX -----------------------------------
     // Browse | Details | Homepage | Playlists | Similar
 
     unit3dTrackerHandler('a[href^="https://upload.cx/torrents/download/"]')
