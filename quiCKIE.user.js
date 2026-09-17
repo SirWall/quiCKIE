@@ -4,7 +4,7 @@
 
 // @name        qui - quiCKIE
 // @author      WirlyWirly + Contributors 🫶
-// @version     1.49.4
+// @version     1.49.5
 // @homepage    https://github.com/WirlyWirly/quiCKIE
 // @description A UserScript to quickly send torrents from a tracker to a client, with customizable per-site settings and presets 🐰
 //              Orignally for qui, later extended to support more torrent clients
@@ -45,6 +45,7 @@
 
 // @match   https://anthelion.me/torrents.php*
 
+//          AsianCinema
 // @match   https://eiga.moi/
 // @match   https://eiga.moi/*/bookmarks*
 // @match   https://eiga.moi/playlists/*
@@ -237,7 +238,6 @@
 // @match   https://onlyencodes.cc/playlists/*
 // @match   https://onlyencodes.cc/torrents*
 
-
 // @match   https://orpheus.network/artist.php?id=*
 // @match   https://orpheus.network/bookmarks.php*
 // @match   https://orpheus.network/collages.php?id=*
@@ -309,16 +309,15 @@
 
 // @match   https://tv-vault.me/torrents.php?id=*
 
-// @match   https://upload.cx/
-// @match   https://upload.cx/*/bookmarks
-// @match   https://upload.cx/playlists/*
-// @match   https://upload.cx/torrents*
-
 // @match   https://unwalled.cc/
 // @match   https://unwalled.cc/*/bookmarks
 // @match   https://unwalled.cc/playlists/*
 // @match   https://unwalled.cc/torrents*
 
+// @match   https://upload.cx/
+// @match   https://upload.cx/*/bookmarks
+// @match   https://upload.cx/playlists/*
+// @match   https://upload.cx/torrents*
 
 // ----------------------------------- Permissions --------------------------------------
 
@@ -751,17 +750,17 @@ const settingsPanelTrackers = [
     },
 
     {
-        trackerName: 'Uploadcx', // @verinikat
-        homepageURL: 'https://upload.cx',
-        primaryDomain: 'upload',
-    },
-  
-    {
         trackerName: 'Unwalled', // @verinikat
         homepageURL: 'https://unwalled.cc',
         primaryDomain: 'unwalled',
     },
 
+    {
+        trackerName: 'Uploadcx', // @verinikat
+        homepageURL: 'https://upload.cx',
+        primaryDomain: 'upload',
+    },
+  
 ]
 
 
@@ -958,25 +957,13 @@ if ( primaryDomain == 'animebytes' ) {
     // ----------------------------------- AvistaZ -----------------------------------
     // Details | Browse | Movie | TV | History
 
-    if ( pageURL.match(/avistaz\.to\/(movie|tv)\/\d/) ) {
-        // The movie and tv show details pages
-
-        let trackerHandlingOptions = {
-            downloadElementsSelector: 'a[href^="https://avistaz.to/download/torrent/"]',
-            enablePaginationLooping: true,
-        }
-
-        quickieTrackerHandler(trackerHandlingOptions)
-
-    } else {
-
-        let trackerHandlingOptions = {
-            downloadElementsSelector: 'a[href^="https://avistaz.to/download/torrent/"]',
-            enablePaginationLooping: false,
-        }
-
-        quickieTrackerHandler(trackerHandlingOptions)
+    let trackerHandlingOptions = {
+        downloadElementsSelector: 'a[href^="https://avistaz.to/download/torrent/"]',
     }
+
+    pageURL.match(/avistaz\.to\/(movie|tv)\/\d/) ? trackerHandlingOptions.enablePaginationLooping = true : null
+
+    quickieTrackerHandler(trackerHandlingOptions)
 
 } else if ( primaryDomain == 'bakabt' ) {
     // ----------------------------------- BakaBT -----------------------------------
@@ -1097,25 +1084,15 @@ if ( primaryDomain == 'animebytes' ) {
     // ----------------------------------- CinemaZ -----------------------------------
     // Details | Browse | Movie | TV | History
 
-    if ( pageURL.match(/cinemaz\.to\/(movie|tv)\/\d/) ) {
-        // The movie and tv show details pages
-
-        let trackerHandlingOptions = {
-            downloadElementsSelector: 'a[href^="https://cinemaz.to/download/torrent/"]',
-            enablePaginationLooping: true,
-        }
-
-        quickieTrackerHandler(trackerHandlingOptions)
-
-    } else {
-
-        let trackerHandlingOptions = {
-            downloadElementsSelector: 'a[href^="https://cinemaz.to/download/torrent/"]',
-            enablePaginationLooping: false,
-        }
-
-        quickieTrackerHandler(trackerHandlingOptions)
+    let trackerHandlingOptions = {
+        downloadElementsSelector: 'a[href^="https://cinemaz.to/download/torrent/"]',
     }
+
+    // Movie and TV Shows details page
+    pageURL.match(/cinemaz\.to\/(movie|tv)\/\d/) ? trackerHandlingOptions.enablePaginationLooping = true : null
+
+
+    quickieTrackerHandler(trackerHandlingOptions)
 
 } else if ( primaryDomain == 'clearjav' ) {
     // ----------------------------------- ClearJAV -----------------------------------
@@ -1123,18 +1100,18 @@ if ( primaryDomain == 'animebytes' ) {
 
     unit3dTrackerHandler('a[href^="https://clearjav.com/torrents/download/"]')
 
-} else if ( primaryDomain == 'darkpeers' ) {
-    // ----------------------------------- DarkPeers -----------------------------------
-    // Bookmarks | Browse | Details | Playlists
-
-    unit3dTrackerHandler('a[href*="/download"]')
-  
 } else if ( primaryDomain == 'concertos' ) {
     // ----------------------------------- Concertos -----------------------------------
     // Bookmarks | Browse | Details | Playlists
 
     unit3dTrackerHandler('a[href*="/download"]')
 
+} else if ( primaryDomain == 'darkpeers' ) {
+    // ----------------------------------- DarkPeers -----------------------------------
+    // Bookmarks | Browse | Details | Playlists
+
+    unit3dTrackerHandler('a[href*="/download"]')
+  
 } else if ( primaryDomain == 'deepbassnine' ) {
     // ----------------------------------- DeepBassNine -----------------------------------
     // Album | Artist | Browse
@@ -2018,18 +1995,19 @@ if ( primaryDomain == 'animebytes' ) {
 
     quickieTrackerHandler(trackerHandlingOptions)
 
-} else if ( primaryDomain == 'upload' ) {
-    // ----------------------------------- Uploadcx -----------------------------------
-    // Browse | Details | Homepage | Playlists | Similar
-
-    unit3dTrackerHandler('a[href^="https://upload.cx/torrents/download/"]')
-  
 } else if ( primaryDomain == 'unwalled' ) {
     // ----------------------------------- Unwalled -----------------------------------
     // Bookmarks | Browse | Details | Playlists
 
     unit3dTrackerHandler('a[href*="/download"]')
 
+
+} else if ( primaryDomain == 'upload' ) {
+    // ----------------------------------- Uploadcx -----------------------------------
+    // Browse | Details | Homepage | Playlists | Similar
+
+    unit3dTrackerHandler('a[href^="https://upload.cx/torrents/download/"]')
+  
 } else {
     // ----------------------------------- NONE -----------------------------------
 
