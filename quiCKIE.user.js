@@ -309,6 +309,11 @@
 
 // @match   https://tv-vault.me/torrents.php?id=*
 
+// @match   https://upload.cx/
+// @match   https://upload.cx/*/bookmarks
+// @match   https://upload.cx/playlists/*
+// @match   https://upload.cx/torrents*
+
 // @match   https://unwalled.cc/
 // @match   https://unwalled.cc/*/bookmarks
 // @match   https://unwalled.cc/playlists/*
@@ -745,6 +750,12 @@ const settingsPanelTrackers = [
         primaryDomain: 'tv-vault',
     },
 
+    {
+        trackerName: 'Uploadcx', // @verinikat
+        homepageURL: 'https://upload.cx',
+        primaryDomain: 'upload',
+    },
+  
     {
         trackerName: 'Unwalled', // @verinikat
         homepageURL: 'https://unwalled.cc',
@@ -2007,6 +2018,12 @@ if ( primaryDomain == 'animebytes' ) {
 
     quickieTrackerHandler(trackerHandlingOptions)
 
+} else if ( primaryDomain == 'upload' ) {
+    // ----------------------------------- Uploadcx -----------------------------------
+    // Browse | Details | Homepage | Playlists | Similar
+
+    unit3dTrackerHandler('a[href^="https://upload.cx/torrents/download/"]')
+  
 } else if ( primaryDomain == 'unwalled' ) {
     // ----------------------------------- Unwalled -----------------------------------
     // Bookmarks | Browse | Details | Playlists
