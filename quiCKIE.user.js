@@ -221,7 +221,7 @@
 // @match   https://luminarr.me/playlists/*
 // @match   https://luminarr.me/torrents*
 
-// @match   https://malayabits.cc
+// @match   https://malayabits.cc/
 // @match   https://malayabits.cc/*/bookmarks
 // @match   https://malayabits.cc/playlists/*
 // @match   https://malayabits.cc/torrents*
@@ -289,6 +289,10 @@
 // @match   https://reelflix.cc/*/bookmarks
 // @match   https://reelflix.cc/playlists/*
 // @match   https://reelflix.cc/torrents*
+
+// @match   https://retroflix.net/browse
+// @match   https://retroflix.net/browse?*
+// @match   https://retroflix.net/browse/t/*
 
 // @match   https://retro-movies.club/
 // @match   https://retro-movies.club/*/bookmarks
@@ -707,6 +711,12 @@ const settingsPanelTrackers = [
         trackerName: 'ReelFliX', // @verinikat
         homepageURL: 'https://reelflix.cc',
         primaryDomain: 'reelflix',
+    },
+
+    {
+        trackerName: 'Retroflix', // @verinikat
+        homepageURL: 'https://retroflix.net',
+        primaryDomain: 'retroflix',
     },
 
     {
@@ -1923,6 +1933,16 @@ if ( primaryDomain == 'animebytes' ) {
     // Browse | Details | Homepage | Playlists | Similar
 
     unit3dTrackerHandler('a[href^="https://reelflix.cc/torrents/download/"]')
+
+} else if ( primaryDomain == 'retroflix' ) {
+    // ----------------------------------- Retroflix -----------------------------------
+    // Browse | Details | Bookmarks
+
+    let trackerHandlingOptions = {
+        downloadElementsSelector: 'a[href*="download.php?id="]',
+    }
+
+    quickieTrackerHandler(trackerHandlingOptions)
 
 } else if ( primaryDomain == 'retro-movies' ) {
     // ----------------------------------- RetroMoviesClub -----------------------------------
