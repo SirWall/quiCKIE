@@ -368,19 +368,9 @@ const verboseConsoleLogging = false
 
 // =================================== SETTINGS PANEL TRACKERS ======================================
 
-// @quickieSettingsPanelTrackers
-// Each entry below will be appear as a tracker in the quiCKIE settings panel
+// @settingsPanelTrackers
+// Each entry below will be appear as a tracker row in the quiCKIE settings panel
 const settingsPanelTrackers = [
-
-    // Each tracker requires 3 things; A TitleCase name, the homepage URL, and the primaryDomain of the tracker
-
-    // Here are examples of identifying the domain of a tracker...
-    //  https://broadcasthe.net/ --> broadcasthe
-    //  https://www.myanonamouse.net/ --> myanonamouse
-    //  https://sukebei.nyaa.si/ --> nyaa
-
-    // ℹ️ If the tracker has more than one domain that it can be accessed from (common for public trackers), you may also include the 'otherDomains' property, which should consist of an array (list) of different domains. This will make it so that these domains all share the same tracker settings from within the quiCKIE settings panel.
-    // otherDomains: ['domain1', 'domain2', 'domain3'],
 
     {
         trackerName: 'Aither', // @holy-elbow
@@ -4190,13 +4180,13 @@ function unit3dTrackerHandler(downloadElementsSelector) {
                             // This is a Featured torrent
                             bunnyButtonTorrentStatus(bunnyButton, 'featured')
 
-                        } else if ( document.querySelector(
-                          `:is(i, span).torrent-icons__freeleech[title*="100%"],
-                          :is(i, span).torrent-icons__freeleech[title*="Global freeleech" i],
-                          :is(i, span).torrent-icons__freeleech[title*="Special Freeleech" i],
-                          i.torrent-icons__freeleech.fa-calendar-star,
-                          i.fa-globe,
-                          i.fas.fa-peace`) != null ) {
+                        } else if ( document.querySelector(`
+                            :is(i, span).torrent-icons__freeleech[title*="100%"],
+                            :is(i, span).torrent-icons__freeleech[title*="Global freeleech" i],
+                            :is(i, span).torrent-icons__freeleech[title*="Special Freeleech" i],
+                            i.torrent-icons__freeleech.fa-calendar-star,
+                            i.fa-globe,
+                            i.fas.fa-peace`) != null ) {
                             // This is a Freeleech torrent
                             bunnyButtonTorrentStatus(bunnyButton, 'freeleech')
 
