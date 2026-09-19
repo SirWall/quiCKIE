@@ -98,6 +98,10 @@
 // @match   https://broadcasthe.net/series.php?id=*
 // @match   https://broadcasthe.net/torrents.php*
 
+//          BTSCHOOL
+// @match   https://pt.btschool.club/details.php*
+// @match   https://pt.btschool.club/torrents.php*
+
 // @match   https://canal-street.org/torrents.php*
 // @match   https://canal-street.org/top10.php*
 // @match   https://canal-street.org/artist.php*
@@ -485,6 +489,12 @@ const settingsPanelTrackers = [
         primaryDomain: 'broadcasthe',
     },
 
+    {
+        trackerName: 'BTSCHOOL', // @verinikat
+        homepageURL: 'https://pt.btschool.club',
+        primaryDomain: 'btschool',
+    },
+  
     {
         trackerName: 'CanalStreet', // @verinikat
         homepageURL: 'https://canal-street.org',
@@ -1142,6 +1152,16 @@ if ( primaryDomain == 'animebytes' ) {
 
     }
 
+    quickieTrackerHandler(trackerHandlingOptions)
+
+} else if ( primaryDomain == 'btschool' ) {
+    // ----------------------------------- BTSCHOOL -----------------------------------
+    // Browse | Details
+
+    let trackerHandlingOptions = {
+        downloadElementsSelector: 'a[href^="download.php?id="]',
+    }
+    
     quickieTrackerHandler(trackerHandlingOptions)
 
 } else if ( primaryDomain == 'canal-street' ) {
