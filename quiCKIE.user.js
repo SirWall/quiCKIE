@@ -18,14 +18,17 @@
 
 // Adding a New Tracker: https://github.com/WirlyWirly/quiCKIE/wiki/Adding-a-New-Tracker
 
+//          Aither
 // @match   https://aither.cc/
 // @match   https://aither.cc/*/bookmarks*
 // @match   https://aither.cc/playlists/*
 // @match   https://aither.cc/torrents*
 
+//          AlphaRatio
 // @match   https://alpharatio.cc/top10.php*
 // @match   https://alpharatio.cc/torrents.php*
 
+//          AnimeBytes
 // @match   https://animebytes.tv/alltorrents.php?*&userid=*
 // @match   https://animebytes.tv/artist.php?id=*
 // @match   https://animebytes.tv/bookmarks.php*
@@ -34,15 +37,18 @@
 // @match   https://animebytes.tv/series.php?id=*
 // @match   https://animebytes.tv/torrents*
 
+//          AnimeWorld
 // @match   https://animeworld.cx/
 // @match   https://animeworld.cx/*/bookmarks*
 // @match   https://animeworld.cx/playlists/*
 // @match   https://animeworld.cx/torrents*
 
+//          AnimeZ
 // @match   https://animez.to/
 // @match   https://animez.to/torrents*
 // @match   https://animez.to/torrent-bookmarks*
 
+//          Anthelion
 // @match   https://anthelion.me/torrents.php*
 
 //          AsianCinema
@@ -51,6 +57,7 @@
 // @match   https://eiga.moi/playlists/*
 // @match   https://eiga.moi/torrents*
 
+//          AvistaZ
 // @match   https://avistaz.to/
 // @match   https://avistaz.to/*/bookmark*
 // @match   https://avistaz.to/torrent*
@@ -58,8 +65,10 @@
 // @match   https://avistaz.to/tv/*
 // @match   https://avistaz.to/profile/*/history*
 
+//          BakaBT
 // @match   https://bakabt.me/torrent/*
 
+//          Beyond-HD
 // @match   https://beyond-hd.me/
 // @match   https://beyond-hd.me/bookmarks*
 // @match   https://beyond-hd.me/download/*
@@ -76,6 +85,7 @@
 // @match   https://beyond-hd.me/freeleech*
 // @match   https://beyond-hd.me/raindrops*
 
+//          Bibliotik
 // @match   https://bibliotik.me/collections/*
 // @match   https://bibliotik.me/notifications/torrents*
 // @match   https://bibliotik.me/torrents/*
@@ -84,16 +94,19 @@
 // @match   https://bibliotik.me/users/*/snatches*
 // @match   https://bibliotik.me/users/*/uploads*
 
+//          Bitporn
 // @match   https://bitporn.eu/
 // @match   https://bitporn.eu/*/bookmarks*
 // @match   https://bitporn.eu/playlists/*
 // @match   https://bitporn.eu/torrents*
 
+//          Blutopia
 // @match   https://blutopia.cc/
 // @match   https://blutopia.cc/*/bookmarks*
 // @match   https://blutopia.cc/playlists/*
 // @match   https://blutopia.cc/torrents*
 
+//          BroadcasTheNet
 // @match   https://broadcasthe.net/collages.php?id=*
 // @match   https://broadcasthe.net/series.php?id=*
 // @match   https://broadcasthe.net/torrents.php*
@@ -102,16 +115,19 @@
 // @match   https://pt.btschool.club/details.php*
 // @match   https://pt.btschool.club/torrents.php*
 
+//          CanalStreet
 // @match   https://canal-street.org/torrents.php*
 // @match   https://canal-street.org/top10.php*
 // @match   https://canal-street.org/artist.php*
 // @match   https://canal-street.org/bookmarks.php*
 
+//          Cinematik
 // @match   https://cinematik.net/
 // @match   https://cinematik.net/*/bookmarks
 // @match   https://cinematik.net/playlists/*
 // @match   https://cinematik.net/torrents*
 
+//          CinemaZ
 // @match   https://cinemaz.to/
 // @match   https://cinemaz.to/*/bookmark*
 // @match   https://cinemaz.to/torrent/*
@@ -119,26 +135,31 @@
 // @match   https://cinemaz.to/tv/*
 // @match   https://cinemaz.to/profile/*/history*
 
+//          ClearJAV
 // @match   https://clearjav.com/
 // @match   https://clearjav.com/*/bookmarks*
 // @match   https://clearjav.com/movies/*
 // @match   https://clearjav.com/playlists/*
 // @match   https://clearjav.com/torrents*
 
+//          Concertos
 // @match   https://concertos.live/
 // @match   https://concertos.live/*/bookmarks*
 // @match   https://concertos.live/playlists/*
 // @match   https://concertos.live/torrents*
 
+//          DarkPeers
 // @match   https://darkpeers.org/
 // @match   https://darkpeers.org/*/bookmarks*
 // @match   https://darkpeers.org/playlists/*
 // @match   https://darkpeers.org/torrents*
 
+//          DeepBassNine
 // @match   https://www.deepbassnine.com/artist.php?id=*
 // @match   https://www.deepbassnine.com/collages.php?id=*
 // @match   https://www.deepbassnine.com/torrents.php*
 
+//          DigitalCore
 // @match   https://digitalcore.club/
 // @match   https://digitalcore.club/alltorrents*
 // @match   https://digitalcore.club/apps*
@@ -152,151 +173,186 @@
 // @match   https://digitalcore.club/tvseries*
 // @match   https://digitalcore.club/xxx*
 
-// @include   /^https://(www\.empornium\.sx|emparadise\.rs)/collage/\d+.*/
-// @include   /^https://(www\.empornium\.sx|emparadise\.rs)/top10\.php.*/
-// @include   /^https://(www\.empornium\.sx|emparadise\.rs)/torrents\.php.*/
-// @include   /^https://(www\.empornium\.sx|emparadise\.rs)/user\.php\?id=\d+/
-
+//          E-Hentai
 // @match   https://e*hentai.org/gallerytorrents.php*
 
+//          Empornium
+// @include /^https://(www\.empornium\.sx|emparadise\.rs)/collage/\d+.*/
+// @include /^https://(www\.empornium\.sx|emparadise\.rs)/top10\.php.*/
+// @include /^https://(www\.empornium\.sx|emparadise\.rs)/torrents\.php.*/
+// @include /^https://(www\.empornium\.sx|emparadise\.rs)/user\.php\?id=\d+/
+
+//          ExoticaZ
 // @match   https://exoticaz.to/
 // @match   https://exoticaz.to/*/bookmark*
 // @match   https://exoticaz.to/torrent*
 
+//          Femdomcult
 // @match   https://femdomcult.org/collage/*
 // @match   https://femdomcult.org/torrents.php*
 
-// @include   /^https://(filelist\.io|thefl\.org)/browse\.php.*/
-// @include   /^https://(filelist\.io|thefl\.org)/internal\.php.*/
-// @include   /^https://(filelist\.io|thefl\.org)/details\.php\?id=.*/
-// @include   /^https://(filelist\.io|thefl\.org)/bookmarks\.php.*/
+//          FileList
+// @include /^https://(filelist\.io|thefl\.org)/browse\.php.*/
+// @include /^https://(filelist\.io|thefl\.org)/internal\.php.*/
+// @include /^https://(filelist\.io|thefl\.org)/details\.php\?id=.*/
+// @include /^https://(filelist\.io|thefl\.org)/bookmarks\.php.*/
 
+//          GazelleGames
 // @match   https://gazellegames.net/collections.php?id=*
 // @match   https://gazellegames.net/torrents.php*
 // @match   https://gazellegames.net/bookmarks.php*
 
+//          GreatPosterWall
 // @match   https://greatposterwall.com/torrents.php*
 
+//          HappyFappy
 // @match   https://www.happyfappy.net/collage/*
 // @match   https://www.happyfappy.net/top10.php*
 // @match   https://www.happyfappy.net/torrents.php*
 // @match   https://www.happyfappy.net/user.php?id=*
 
+//          HDBits
 // @match   https://hdbits.org/bookmarks*
 // @match   https://hdbits.org/browse.php*
 // @match   https://hdbits.org/details.php?id=*
 // @match   https://hdbits.org/film/info?id=*
 // @match   https://hdbits.org/show.php?id=*
 
+//          HHClub
 // @match   https://hhanclub.net/torrents.php*
 // @match   https://hhanclub.net/details.php*
 // @match   https://hhanclub.net/rescue.php*
 
+//          InfinityHD
 // @match   https://infinityhd.net/
 // @match   https://infinityhd.net/*/bookmarks*
 // @match   https://infinityhd.net/playlists/*
 // @match   https://infinityhd.net/torrents*
 
-// @include   /^https://iptorrents\.\w+/details.php?id=.*/
-// @include   /^https://iptorrents\.\w+/t.*/
-// @include   /^https://iptorrents\.\w+/torrent.php?id=.*/
+//          IP-Torrents
+// @include /^https://iptorrents\.\w+/details.php?id=.*/
+// @include /^https://iptorrents\.\w+/t.*/
+// @include /^https://iptorrents\.\w+/torrent.php?id=.*/
 
+//          ItaTorrents
 // @match   https://itatorrents.xyz/
 // @match   https://itatorrents.xyz/torrents*
 
+//          JPopsuki
 // @match   https://jpopsuki.eu/artist.php?id=*
 // @match   https://jpopsuki.eu/collages.php?id=*
 // @match   https://jpopsuki.eu/top10.php*
 // @match   https://jpopsuki.eu/torrents.php*
 
+//          JPTVTS
 // @match   https://jptvts.us/
 // @match   https://jptvts.us/torrents-details.php?id=*
 // @match   https://jptvts.us/torrents-search.php*
 
+//          Karagarga
 // @match   https://karagarga.in/details.php*
 // @match   https://karagarga.in/browse.php*
 
+//          KrabbyPatty
 // @match   https://crabpt.vip/torrents.php*
 // @match   https://crabpt.vip/details.php*
 // @match   https://crabpt.vip/special.php*
 
+//          Kufirc
 // @match   https://kufirc.com/bookmarks.php*
 // @match   https://kufirc.com/collages.php*
 // @match   https://kufirc.com/top10.php*
 // @match   https://kufirc.com/torrents.php*
 
+//          Lat-Team
 // @match   https://lat-team.com/
 // @match   https://lat-team.com/*/bookmarks
 // @match   https://lat-team.com/playlists/*
 // @match   https://lat-team.com/torrents*
 
+//          LST
 // @match   https://lst.gg/
 // @match   https://lst.gg/*/bookmarks*
 // @match   https://lst.gg/playlists/*
 // @match   https://lst.gg/torrents*
 
+//          Luminarr
 // @match   https://luminarr.me/
 // @match   https://luminarr.me/*/bookmarks
 // @match   https://luminarr.me/playlists/*
 // @match   https://luminarr.me/torrents*
 
+//          MalayaBits
 // @match   https://malayabits.cc/
 // @match   https://malayabits.cc/*/bookmarks
 // @match   https://malayabits.cc/playlists/*
 // @match   https://malayabits.cc/torrents*
 
+//          Materialize
 // @match   https://materialize.is/collages.php?id=*
 // @match   https://materialize.is/top10.php*
 // @match   https://materialize.is/torrents.php*
 
+//          MirCrew
 // @match   https://mircrew-releases.org/*
 
+//          MyAnonaMouse
 // @include /^https://www.myanonamouse.net/t/\d+.*/
 // @match   https://www.myanonamouse.net/
 // @match   https://www.myanonamouse.net/stats/top10Tor.php*
 // @match   https://www.myanonamouse.net/tor/browse.php*
 // @match   https://www.myanonamouse.net/tor/search.php*
 
+//          Nebulance
 // @match   https://nebulance.io/bookmarks.php*
 // @match   https://nebulance.io/top10.php*
 // @match   https://nebulance.io/torrents.php*
 // @match   https://nebulance.io/details.php*
 
-// @include   /^https://(sukebei\.)?nyaa\.\w+/.*/
-// @include   /^https://(sukebei\.)?nyaa\.\w+/view/.*/
+//          Nyaa
+// @include /^https://(sukebei\.)?nyaa\.\w+/.*/
+// @include /^https://(sukebei\.)?nyaa\.\w+/view/.*/
 
+//          Oldtoons
 // @match   https://oldtoons.world/
 // @match   https://oldtoons.world/*/bookmarks
 // @match   https://oldtoons.world/playlists/*
 // @match   https://oldtoons.world/torrents*
 
+//          OnlyEncodes
 // @match   https://onlyencodes.cc/
 // @match   https://onlyencodes.cc/*/bookmarks
 // @match   https://onlyencodes.cc/playlists/*
 // @match   https://onlyencodes.cc/torrents*
 
+//          Orpheus
 // @match   https://orpheus.network/artist.php?id=*
 // @match   https://orpheus.network/bookmarks.php*
 // @match   https://orpheus.network/collages.php?id=*
 // @match   https://orpheus.network/top10.php*
 // @match   https://orpheus.network/torrents.php*
 
+//          PassThePopcorn
 // @match   https://passthepopcorn.me/torrents.php?id=*
 
+//          PhoenixProject
 // @match   https://phoenixproject.app/bookmarks.php*
 // @match   https://phoenixproject.app/collages.php?id=*
 // @match   https://phoenixproject.app/top10.php*
 // @match   https://phoenixproject.app/torrents.php*
 
+//          Portugas
 // @match   https://portugas.org/
 // @match   https://portugas.org/*/bookmarks
 // @match   https://portugas.org/playlists/*
 // @match   https://portugas.org/torrents*
 
+//          PrivateHD
 // @match   https://privatehd.to/
 // @match   https://privatehd.to/torrent*
 // @match   https://privatehd.to/*/bookmark*
 
+//          Redacted
 // @match   https://redacted.sh/artist.php?id=*
 // @match   https://redacted.sh/bookmarks.php*
 // @match   https://redacted.sh/collage*.php?id=*
@@ -304,57 +360,71 @@
 // @match   https://redacted.sh/torrents.php*
 // @match   https://redacted.sh/userhistory.php?action=subscribed_collages
 
+//          ReelFliX
 // @match   https://reelflix.cc/
 // @match   https://reelflix.cc/*/bookmarks
 // @match   https://reelflix.cc/playlists/*
 // @match   https://reelflix.cc/torrents*
 
+//          Retroflix
 // @match   https://retroflix.net/browse
 // @match   https://retroflix.net/browse?*
 // @match   https://retroflix.net/browse/t/*
 
+//          RetroMoviesClub
 // @match   https://retro-movies.club/
 // @match   https://retro-movies.club/*/bookmarks
 // @match   https://retro-movies.club/playlists/*
 // @match   https://retro-movies.club/torrents*
 
+//          RetroToonWorld
 // @match   https://retrotoon.world/browse.php
 // @match   https://retrotoon.world/details.php?id=*
 
+//          RocketHD
 // @match   https://rocket-hd.cc/
 // @match   https://rocket-hd.cc/*/bookmarks*
 // @match   https://rocket-hd.cc/playlists/*
 // @match   https://rocket-hd.cc/torrents*
 
+//          Secret-Cinema
 // @match   https://secret-cinema.pw/artist.php?id=*
 // @match   https://secret-cinema.pw/collages.php?id=*
 // @match   https://secret-cinema.pw/top10.php*
 // @match   https://secret-cinema.pw/torrents.php*
 
+//          Seedpool
 // @match   https://seedpool.org/
 // @match   https://seedpool.org/*/bookmarks*
 // @match   https://seedpool.org/playlists/*
 // @match   https://seedpool.org/torrents*
 
+//          Simurg
 // @match   https://simurg.world/
 // @match   https://simurg.world/torrents.php*
 // @match   https://simurg.world/top10.php*
 
+//          SportsCult
 // @match   https://sportscult.org/index.php?page=torrents*
 // @match   https://sportscult.org/index.php?page=torrent-details*
 
+//          TheGeeks
 // @match   https://thegeeks.click/browse.php*
 // @match   https://thegeeks.click/details.php?id=*
 
+//          TorrentLeech
 // @match   https://www.torrentleech.org/torrent*
 
+//          TV-Vault
 // @match   https://tv-vault.me/torrents.php?id=*
 
+//          Unwalled
 // @match   https://unwalled.cc/
 // @match   https://unwalled.cc/*/bookmarks
 // @match   https://unwalled.cc/playlists/*
 // @match   https://unwalled.cc/torrents*
 
+//          UploadCX
 // @match   https://upload.cx/
 // @match   https://upload.cx/*/bookmarks
 // @match   https://upload.cx/playlists/*
