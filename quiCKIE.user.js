@@ -991,7 +991,7 @@ if ( primaryDomain == 'animebytes' ) {
         downloadElementsSelector: 'a[href^="https://avistaz.to/download/torrent/"]',
     }
 
-    // Movie and TV Shows details page
+    // Movie and TV shows details page, both of which have pagination
     pageURL.match(/\/(movie|tv)\/\d+/) ? trackerHandlingOptions.enablePaginationLooping = true : null
 
     quickieTrackerHandler(trackerHandlingOptions)
@@ -1119,7 +1119,7 @@ if ( primaryDomain == 'animebytes' ) {
         downloadElementsSelector: 'a[href^="https://cinemaz.to/download/torrent/"]',
     }
 
-    // Movie and TV Shows details page
+    // Movie or TV shows details page, both of which have pagination
     pageURL.match(/\/(movie|tv)\/\d+/) ? trackerHandlingOptions.enablePaginationLooping = true : null
 
     quickieTrackerHandler(trackerHandlingOptions)
@@ -1599,8 +1599,8 @@ if ( primaryDomain == 'animebytes' ) {
         downloadElementsSelector: 'a[href^="download.php?id="]',
     }
 
-    pageURL.match(/(torrents-search)/) ? trackerHandlingOptions.enablePaginationLooping = true : null
-    pageURL.match(/^https:\/\/jptvts\.us\/?$/) ? trackerHandlingOptions.enablePaginationLooping = true : null
+    // The homepage or search page, both of which have pagination
+    pagePath.match(/^\/?$|torrents-search/) ? trackerHandlingOptions.enablePaginationLooping = true : null
 
     quickieTrackerHandler(trackerHandlingOptions)
 
