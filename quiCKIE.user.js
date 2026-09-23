@@ -4,7 +4,7 @@
 
 // @name        qui - quiCKIE
 // @author      WirlyWirly + Contributors 🫶
-// @version     1.49.6
+// @version     1.49.7
 // @homepage    https://github.com/WirlyWirly/quiCKIE
 // @description A UserScript to quickly send torrents from a tracker to a client, with customizable per-site settings and presets 🐰
 //              Orignally for qui, later extended to support more torrent clients
@@ -210,7 +210,7 @@
 // @match   https://www.happyfappy.net/top10.php*
 // @match   https://www.happyfappy.net/torrents.php*
 // @match   https://www.happyfappy.net/user.php?id=*
-// 
+
 //          Hawke-uno
 // @match   https://hawke.uno/torrents*
 // @match   https://hawke.uno/users/*/hub/torrents/*
@@ -477,7 +477,7 @@ const verboseConsoleLogging = false
 
 // @settingsPanelTrackers
 // Each entry below will be appear as a tracker row in the quiCKIE settings panel
-const settingsPanelTrackers = [ 
+const settingsPanelTrackers = [
 
     {
         trackerName: 'Aither', // @holy-elbow
@@ -981,7 +981,7 @@ if ( primaryDomain == 'animebytes' ) {
         bunnyButtonAddStyles: '', // Default = '' || Options = A string containing css style properties
 
         // Additional class names that will be applied to EVERY bunnyButton, useful for advanced styling
-        bunnyButtonAddClasses: [], // Default = [] || Options = An array of strings
+        bunnyButtonAddClasses: [], // Default = [] || Options = An array of strings, each of which will be applied as a class to the bunnyButton
 
         // If EVERY bunnyButton should be placed alongside its respective downloadElement.parentElement, which may result in the bunnyButton appearing on the same row as the downloadElement
         bunnyButtonParentPlacement: false, // Default = false || Options = true | false
@@ -1695,11 +1695,12 @@ if ( primaryDomain == 'animebytes' ) {
     if ( pagePath.match(/\/torrents\/\d+/) ) {
         // This is a details page, so apply styling to the only bunnyButton
 
+        // Prevent the bunnyButton from being placed into a separate row
         trackerHandlingOptions.detailsPageParentPlacement = false
 
         trackerHandlingOptions.bunnyButtonText = ' 🐰 '
         trackerHandlingOptions.bunnyButtonAddStyles = ''
-        trackerHandlingOptions.bunnyButtonAddClasses = ["deep-space-user-card__chip"]
+        trackerHandlingOptions.bunnyButtonAddClasses = ['deep-space-user-card__chip'] 
 
     }
 
@@ -2093,7 +2094,7 @@ if ( primaryDomain == 'animebytes' ) {
         bunnyButtonAddStyles: 'automatic', // Default = 'automatic' || Options = A string containing css style properties
 
         // Additional class names that will be applied to EVERY bunnyButton, useful for advanced styling
-        bunnyButtonAddClasses: [], // Default = [] || Options = An array of strings
+        bunnyButtonAddClasses: [], // Default = [] || Options = An array of strings, each of which will be applied as a class to the bunnyButton
 
         // On the torrent details page, place the bunnyButton alongside the parentElement, which usually makes it so the bunnyButton is in the same row as the downloadElement
         detailsPageParentPlacement: true, // Default = true || Options = true | false
