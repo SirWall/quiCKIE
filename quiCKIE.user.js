@@ -313,6 +313,15 @@
 // @match   https://nebulance.io/torrents.php*
 // @match   https://nebulance.io/details.php*
 
+//          nekoBT
+// @match   https://nekobt.to/
+// @match   https://nekobt.to/torrents/*
+// @match   https://nekobt.to/search*
+// @match   https://nekobt.to/media/*
+// @match   https://nekobt.to/groups/*
+// @match   https://nekobt.to/users/*
+// @match   https://nekobt.to/invites/*
+
 //          Nyaa
 // @include /^https://(sukebei\.)?nyaa\.\w+/.*/
 // @include /^https://(sukebei\.)?nyaa\.\w+/view/.*/
@@ -780,6 +789,12 @@ const settingsPanelTrackers = [
         trackerName: 'Nebulance', // @malefis
         homepageURL: 'https://nebulance.io',
         primaryDomain: 'nebulance',
+    },
+
+    {
+        trackerName: 'nekoBT', // @SirWall
+        homepageURL: 'https://nekobt.to',
+        primaryDomain: 'nekobt',
     },
 
     {
@@ -2036,6 +2051,17 @@ if ( primaryDomain == 'animebytes' ) {
     let trackerHandlingOptions = {
         downloadElementsSelector: 'a[href^="torrents.php?action=download&id="]',
         bunnyButtonFontSize: '115%',
+    }
+
+    quickieTrackerHandler(trackerHandlingOptions)
+
+} else if ( primaryDomain == 'nekobt' ) {
+    // ----------------------------------- nekoBT -----------------------------------
+    // Homepage | Browse | Details | Media | User | Group
+    
+    let trackerHandlingOptions = {
+        downloadElementsSelector: 'a[href^="/api/v1/torrents/"]',
+        enablePaginationLooping: true
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
