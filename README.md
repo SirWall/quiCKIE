@@ -1,14 +1,3 @@
-<div align="center">
-
-  # **🐰 quiCKIE 🐰**
-</div>
-
-<div align="center">
-  <img src=".github/assets/quickie.webp" alt="quickie" width="100%" />
-</div>
-
-<br>
-
 > [!CAUTION]
 > ## Breaking Changes
 > quiCKIE will be updated to `v1.50` on `October 01, 2026`. This major update **will** have breaking changes and may even require you to completely uninstall and then re-install the UserScript 😮
@@ -19,6 +8,17 @@
 > quiCKIE `v1.50` will **drop** qBitTorrent Username\Password authentication in favor of **ApiKey** authentication. An ApiKey is only available on qBitTorrent `v5.2+`, so you should **not** update to quiCKIE `v1.50` until you have also updated your torrent client to `v5.2+`. An ApiKey can be generated from the qBitTorrent interface by going to `Options > WebUI > ApiKey`
 >
 > This does not affect folk who are using qui as their selected client, only those who are using qBitTorrent **directly**.
+
+<div align="center">
+
+  # **🐰 quiCKIE 🐰**
+</div>
+
+<div align="center">
+  <img src=".github/assets/quickie.webp" alt="quickie" width="100%" />
+</div>
+
+<br>
 
 This [UserScript](https://openuserjs.org/about/Userscript-Beginners-HOWTO) will integrate **BunnyButtons 🐰** alongside a trackers regular download buttons. When clicked, the corresponding torrent will be added directly to your torrent client using your custom settings.
 
