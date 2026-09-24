@@ -4,10 +4,9 @@
 
 // @name        quiCKIE
 // @author      WirlyWirly + Contributors 🫶
-// @version     1.5
+// @version     1.50
 // @homepage    https://github.com/WirlyWirly/quiCKIE
 // @description A UserScript to quickly send torrents from a tracker to a client, with customizable per-site settings and presets 🐰
-//              Orignally for qui, later extended to support more torrent clients
 //              Written on LibreWolf via Violentmonkey
 
 // @namespace   https://github.com/WirlyWirly
@@ -3805,7 +3804,7 @@ function createGMConfigSettingsPanel(trackerDomain) {
     })
 
     // Register the settings panel to be opened from the UserScript manager dialouge
-    GM_registerMenuCommand('Settings', () => {
+    GM_registerMenuCommand('🛠️ Settings', () => {
         GM_config.open()
     })
 
