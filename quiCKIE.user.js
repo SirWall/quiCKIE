@@ -416,11 +416,18 @@
 // @match   https://thegeeks.click/browse.php*
 // @match   https://thegeeks.click/details.php?id=*
 
+//          TheVault
+// @match   https://thevault.click/browse.php*
+// @match   https://thevault.click/details.php?id=*
+
 //          TorrentLeech
 // @match   https://www.torrentleech.org/torrent*
 
 //          TV-Vault
 // @match   https://tv-vault.me/torrents.php?id=*
+
+//          UniónFansub
+// @match   https://torrent.unionfansub.com/details.php?id=*
 
 //          Unwalled
 // @match   https://unwalled.cc/
@@ -897,6 +904,12 @@ const settingsPanelTrackers = [
     },
 
     {
+        trackerName: 'TheVault',
+        homepageURL: 'https://thevault.click',
+        primaryDomain: 'thevault',
+    },
+
+    {
         trackerName: 'TorrentLeech', // @holy-elbow
         homepageURL: 'https://www.torrentleech.org',
         primaryDomain: 'torrentleech',
@@ -906,6 +919,12 @@ const settingsPanelTrackers = [
         trackerName: 'TV-Vault',
         homepageURL: 'https://tv-vault.me',
         primaryDomain: 'tv-vault',
+    },
+
+    {
+        trackerName: 'UniónFansub',
+        homepageURL: 'https://torrent.unionfansub.com',
+        primaryDomain: 'unionfansub',
     },
 
     {
@@ -1718,8 +1737,8 @@ if ( primaryDomain == 'animebytes' ) {
         freeleechStatusSelector: "downloadElement.closest('td').querySelector('a.fl')",
     }
 
-    // This is a details page, so apply styling to the only bunnyButton
     if ( pageURL.match(/details\.php\?id=\d+/) ) {
+        // This is a details page, so apply styling to the only bunnyButton
 
         trackerHandlingOptions.seedingStatusSelector = "downloadElement.closest('td').querySelector('span.tag_seeding')"
         trackerHandlingOptions.snatchedStatusSelector = "downloadElement.closest('td').querySelector('span.tag_completed')"
@@ -2346,6 +2365,46 @@ if ( primaryDomain == 'animebytes' ) {
         downloadElementsSelector: 'a[href^="download.php/"]',
     }
 
+    if ( pageURL.match(/details\.php/) ) {
+        // This is a details page, so apply styling to the only bunnyButton
+        trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE',
+        trackerHandlingOptions.bunnyButtonAddStyles = `
+            background: #153245;
+            border-radius: 3px;
+            border: #B6D3E7 solid 1px;
+            color: #B6D3E7;
+            font-size: 90%;
+            margin: 0px 2px 0px 8px;
+            padding: 2px 5px 2px 5px;
+            vertical-align: unset;
+        `
+    }
+
+    quickieTrackerHandler(trackerHandlingOptions)
+
+} else if ( primaryDomain == 'thevault' ) {
+    // ----------------------------------- TheVault -----------------------------------
+    // Browse | Details
+
+    let trackerHandlingOptions = {
+        downloadElementsSelector: 'a[href^="download.php/"]',
+    }
+
+    if ( pageURL.match(/details\.php/) ) {
+        // This is a details page, so apply styling to the only bunnyButton
+        trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE',
+        trackerHandlingOptions.bunnyButtonAddStyles = `
+            background: #153245;
+            border-radius: 3px;
+            border: #B6D3E7 solid 1px;
+            color: #B6D3E7;
+            font-size: 90%;
+            margin: 0px 2px 0px 8px;
+            padding: 2px 5px 2px 5px;
+            vertical-align: unset;
+        `
+    }
+
     quickieTrackerHandler(trackerHandlingOptions)
 
 } else if ( primaryDomain == 'torrentleech' ) {
@@ -2371,6 +2430,29 @@ if ( primaryDomain == 'animebytes' ) {
 
     let trackerHandlingOptions = {
         downloadElementsSelector: 'a[href^="torrents.php?action=download&id="]',
+    }
+
+    quickieTrackerHandler(trackerHandlingOptions)
+
+} else if ( primaryDomain == 'unionfansub' ) {
+    // ----------------------------------- UniónFansub -----------------------------------
+    // Details
+
+    let trackerHandlingOptions = {
+        downloadElementsSelector: 'a[href^="download.php?torrent="]',
+
+        freeleechStatusSelector: "downloadElement.nextElementSibling.innerText.match(/freeleech/i)",
+
+        bunnyButtonText: '🐰 quiCKIE',
+        bunnyButtonAddStyles: `
+            background: #153245;
+            border-radius: 3px;
+            border: #B6D3E7 solid 1px;
+            color: #B6D3E7;
+            margin: 0px 2px 0px 8px;
+            padding: 2px 5px 2px 5px;
+            vertical-align: unset;
+        `,
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
