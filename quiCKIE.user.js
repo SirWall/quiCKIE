@@ -428,6 +428,13 @@
 //          TorrentLeech
 // @match   https://www.torrentleech.org/torrent*
 
+//          Torrent Network
+// @match   https://tntracker.org/browse/*
+// @match   https://tntracker.org/torrent/*
+// @match   https://tntracker.org/music/*
+// @match   https://tntracker.org/xxx/*
+// @match   https://tntracker.org/search/*
+
 //          TV-Vault
 // @match   https://tv-vault.me/torrents.php?id=*
 
@@ -915,6 +922,12 @@ const settingsPanelTrackers = [
         trackerName: 'TorrentLeech', // @holy-elbow
         homepageURL: 'https://www.torrentleech.org',
         primaryDomain: 'torrentleech',
+    },
+
+    {
+        trackerName: 'Torrent Network', // @SirWall
+        homepageURL: 'https://tntracker.org',
+        primaryDomain: 'tntracker',
     },
 
     {
@@ -2388,6 +2401,18 @@ if ( primaryDomain == 'animebytes' ) {
         trackerHandlingOptions.enablePaginationLooping = true
     }
 
+    quickieTrackerHandler(trackerHandlingOptions)
+
+} else if ( primaryDomain == 'tntracker' ) {
+    // ----------------------------------- Torrent Network -----------------------------------
+    // Browse | Details
+
+    let trackerHandlingOptions = {
+        downloadElementsSelector: 'a[href^="https://tntracker.org/sdownload/"]:not([class*="piwik_download"])',
+        enablePaginationLooping: true,
+        bunnyButtonFontSize: '20px'
+    }
+    
     quickieTrackerHandler(trackerHandlingOptions)
 
 } else if ( primaryDomain == 'tv-vault' ) {
