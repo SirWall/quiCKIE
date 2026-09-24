@@ -2905,12 +2905,14 @@ function createGMConfigSettingsPanel(trackerDomain) {
 
                                 GM_setValue('quiCKIE_config', quickieSettings)
 
+                                window.alert('✔️ quiCKIE ✔️\n\nThe selected settings file has been imported\n\nThe page will now refresh')
+
                                 window.location.reload()
 
                             } catch (error) {
                                 // The JSON parse has failed, so abort the import
-                                logger.error(error)
-                                window.alert(`🐰 quiCKIE\n\nThe imported settings file was not valid JSON\n\nThe settings were not imported`)
+                                console.log(error)
+                                window.alert('❌ quiCKIE ❌\n\nThe selected settings file failed to import, likely because it is not valid JSON\n\nThe full error has been printed in the console')
                             }
                        }
 
