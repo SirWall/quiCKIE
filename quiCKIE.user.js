@@ -2,9 +2,9 @@
 
 // ----------------------------------- MetaData --------------------------------------
 
-// @name        qui - quiCKIE
+// @name        quiCKIE
 // @author      WirlyWirly + Contributors 🫶
-// @version     1.49.7
+// @version     1.5
 // @homepage    https://github.com/WirlyWirly/quiCKIE
 // @description A UserScript to quickly send torrents from a tracker to a client, with customizable per-site settings and presets 🐰
 //              Orignally for qui, later extended to support more torrent clients
@@ -2739,8 +2739,7 @@ function createGMConfigSettingsPanel(trackerDomain) {
             'quiApiKey': "─── 🔑 ApiKey 🔑 ───\n\nA valid and active ApiKey created by qui\n\n🔹 From the qui interface, you can generate an ApiKey by going to 'Settings > API Keys > Create API Key'",
 
             'qBitTorrentURL': "─── 🔗 qBitTorrentURL 🔗 ───\n\nThe full URL to a running qBitTorrent service\n\n🔹 This is usually the same URL you can copy-paste from your browser\n\n✏️ Example: http://localhost:8080",
-            'qBitTorrentUsername': '─── 🔑 Username 🔑 ───\n\nThe username for logging into qBitTorrent through the web interface',
-            'qBitTorrentPassword': '─── 🔑 Password 🔑 ───\n\nThe password for logging into qBitTorrent through the web interface',
+            'qBitTorrentApiKey': "─── 🔑 ApiKey 🔑 ───\n\nA valid and active ApiKey created by qBitTorrent\n\n🔹 From the qBitTorrent interface, you can generate an ApiKey by going to 'Options > WebUI > API Key'",
 
             'transmissionURL': "─── 🔗 TransmissionURL 🔗 ───\n\nThe full URL to a running Transmission service\n\n🔹 This is usually the same URL you can copy-paste from your browser\n\n✏️ Example: http://localhost:9091\n\n🔹 If Transmission is not using the default rpc, then specify the complete rpc url\n\n✏️ Example: http://localhost:9091/your/custom/rpc",
             'transmissionUsername': '─── 🔑 Username 🔑 ───\n\nThe username for logging into Transmission through the web interface',
@@ -2961,12 +2960,8 @@ function createGMConfigSettingsPanel(trackerDomain) {
                 'label': '🔗 qBitTorrent:',
                 'type': 'text',
             },
-            'qBitTorrentUsername': {
-                'label': '🧑 Username:',
-                'type': 'text',
-            },
-            'qBitTorrentPassword': {
-                'label': '🔑 Password:',
+            'qBitTorrentApiKey': {
+                'label': '🔑 ApiKey:',
                 'type': 'text',
             },
 
@@ -3321,8 +3316,7 @@ function createGMConfigSettingsPanel(trackerDomain) {
                     document.getElementById('quiCKIE_config_field_quiApiKey').placeholder = 'abc123'
 
                     document.getElementById('quiCKIE_config_field_qBitTorrentURL').placeholder = 'http://localhost:8080'
-                    document.getElementById('quiCKIE_config_field_qBitTorrentUsername').placeholder = 'abc123'
-                    document.getElementById('quiCKIE_config_field_qBitTorrentPassword').placeholder = 'abc123'
+                    document.getElementById('quiCKIE_config_field_qBitTorrentApiKey').placeholder = 'abc123'
 
                     document.getElementById('quiCKIE_config_field_transmissionURL').placeholder = 'http://localhost:9091'
                     document.getElementById('quiCKIE_config_field_transmissionUsername').placeholder = 'abc123'
@@ -3488,23 +3482,14 @@ function createGMConfigSettingsPanel(trackerDomain) {
                 settingsDivSecond.appendChild(qBitTorrentURLLabel)
                 settingsDivSecond.appendChild(qBitTorrentURLField)
 
-                // --- qBitTorrentUsername ---
-                let qBitTorrentUsernameLabel = document.getElementById('quiCKIE_config_qBitTorrentUsername_field_label')
-                let qBitTorrentUsernameField = document.getElementById('quiCKIE_config_field_qBitTorrentUsername')
-                qBitTorrentUsernameLabel.classList.add('settingsDivLabel')
-                qBitTorrentUsernameLabel.title = panelTextData.globalsTitles.qBitTorrentUsername
-                qBitTorrentUsernameField.classList.add('quiCKIE_obfuscate')
-                settingsDivSecond.appendChild(qBitTorrentUsernameLabel)
-                settingsDivSecond.appendChild(qBitTorrentUsernameField)
-
-                // --- qBitTorrentPassword ---
-                let qBitTorrentPasswordLabel = document.getElementById('quiCKIE_config_qBitTorrentPassword_field_label')
-                let qBitTorrentPasswordField = document.getElementById('quiCKIE_config_field_qBitTorrentPassword')
-                qBitTorrentPasswordLabel.classList.add('settingsDivLabel')
-                qBitTorrentPasswordLabel.title = panelTextData.globalsTitles.qBitTorrentPassword
-                qBitTorrentPasswordField.classList.add('quiCKIE_obfuscate')
-                settingsDivSecond.appendChild(qBitTorrentPasswordLabel)
-                settingsDivSecond.appendChild(qBitTorrentPasswordField)
+                // --- qBitTorrentApiKey ---
+                let qBitTorrentApiKeyLabel = document.getElementById('quiCKIE_config_qBitTorrentApiKey_field_label')
+                let qBitTorrentApiKeyField = document.getElementById('quiCKIE_config_field_qBitTorrentApiKey')
+                qBitTorrentApiKeyLabel.classList.add('settingsDivLabel')
+                qBitTorrentApiKeyLabel.title = panelTextData.globalsTitles.qBitTorrentApiKey
+                qBitTorrentApiKeyField.classList.add('quiCKIE_obfuscate')
+                settingsDivSecond.appendChild(qBitTorrentApiKeyLabel)
+                settingsDivSecond.appendChild(qBitTorrentApiKeyField)
 
                 // --- TransmissionURL ---
                 let transmissionURLLabel = document.getElementById('quiCKIE_config_transmissionURL_field_label')
@@ -3858,8 +3843,7 @@ function populateSettingsObject(primaryDomain) {
             'quiApiKey': GM_config.get('quiApiKey'),
 
             'qBitTorrentURL': GM_config.get('qBitTorrentURL'),
-            'qBitTorrentUsername': GM_config.get('qBitTorrentUsername'),
-            'qBitTorrentPassword': GM_config.get('qBitTorrentPassword'),
+            'qBitTorrentApiKey': GM_config.get('qBitTorrentApiKey'),
 
             'transmissionURL': GM_config.get('transmissionURL'),
             'transmissionUsername': GM_config.get('transmissionUsername'),
@@ -5131,8 +5115,7 @@ function addTorrent({
         },
         qBitTorrent: {
             url: null,
-            username: null,
-            password: null
+            apiKey: null,
         },
         transmission: {
             url: null,
@@ -5161,7 +5144,7 @@ function addTorrent({
         if ( torrentClient.quiURL == '' || torrentClient.quiApiKey == '' ) {
             // No quiURL has been provided, alert the user and return
             replaceEmojis(bunnyButton, '❌')
-            window.alert('❌ quiCKIE ❌\n\nA quiURL and ApiKey are required\n\nShift-Click the BunnyButton to open the setting panel')
+            window.alert('❌ quiCKIE ❌\n\nA quiURL and ApiKey are required\n\nShift-Click a BunnyButton to open the setting panel')
             return
         }
 
@@ -5188,10 +5171,10 @@ function addTorrent({
     } else if ( postData.torrentClient == 'qBitTorrent' ) {
         // ----------------------------------- qBitTorrent -----------------------------------
 
-        if ( torrentClient.qBitTorrentURL == '' || torrentClient.qBitTorrentUsername == '' || torrentClient.qBitTorrentPassword == '' ) {
+        if ( torrentClient.qBitTorrentURL == '' || torrentClient.qBitTorrentApiKey == '' ) {
             // Missing qBitTorrent credentials, alert the user and abort
             replaceEmojis(bunnyButton, '❌')
-            window.alert('❌ quiCKIE ❌\n\nA qBitTorrentURL, Username, and Password are required\n\nShift-Click the BunnyButton to open the setting panel')
+            window.alert('❌ quiCKIE ❌\n\nA qBitTorrentURL and ApiKey are required\n\nShift-Click a BunnyButton to open the setting panel')
             return
         }
 
@@ -5204,8 +5187,7 @@ function addTorrent({
             return
         }
 
-        postData.qBitTorrent.username = torrentClient.qBitTorrentUsername
-        postData.qBitTorrent.password = torrentClient.qBitTorrentPassword
+        postData.qBitTorrent.apiKey = torrentClient.qBitTorrentApiKey
 
     } else if ( postData.torrentClient == 'Transmission' ) {
         // ----------------------------------- Transmission -----------------------------------
@@ -5213,7 +5195,7 @@ function addTorrent({
         if ( torrentClient.transmissionURL == '' || torrentClient.transmissionUsername == '' || torrentClient.transmissionPassword == '' ) {
             // Missing Transmission credentials, alert the user and abort
             replaceEmojis(bunnyButton, '❌')
-            window.alert('❌ quiCKIE ❌\n\nA transmissionURL, Username, and Password are required\n\nShift-Click the BunnyButton to open the setting panel')
+            window.alert('❌ quiCKIE ❌\n\nA transmissionURL, Username, and Password are required\n\nShift-Click a BunnyButton to open the setting panel')
             return
         }
 
@@ -5236,7 +5218,7 @@ function addTorrent({
         if ( torrentClient.delugeURL == '' || torrentClient.delugePassword == '' ) {
             // Missing Deluge credentials, alert the user and abort
             replaceEmojis(bunnyButton, '❌')
-            window.alert('❌ quiCKIE ❌\n\nA delugeURL and Password are required\n\nShift-Click the BunnyButton to open the setting panel')
+            window.alert('❌ quiCKIE ❌\n\nA delugeURL and Password are required\n\nShift-Click a BunnyButton to open the setting panel')
             return
         }
 
@@ -5257,7 +5239,7 @@ function addTorrent({
         if ( torrentClient.ruTorrentURL == '' || torrentClient.ruTorrentUsername == '' || torrentClient.ruTorrentPassword == '' ) {
             // Missing ruTorrent credentials, alert the user and abort
             replaceEmojis(bunnyButton, '❌')
-            window.alert('❌ quiCKIE ❌\n\nA ruTorrentURL, Username, and Password are required\n\nShift-Click the BunnyButton to open the setting panel')
+            window.alert('❌ quiCKIE ❌\n\nA ruTorrentURL, Username, and Password are required\n\nShift-Click a BunnyButton to open the setting panel')
             return
         }
 
@@ -5466,7 +5448,8 @@ async function getFileBlob(postData) {
 
 
 async function quiPOST(postData) {
-    // Using the properties of the paramater object, send a POST to qui
+    // Using the properties of the postData, send a POST to qui to add a new torrent
+    // console.log(postData)
 
     let bunnyButton = document.getElementById(postData.bunnyButtonId)
 
@@ -5500,7 +5483,7 @@ async function quiPOST(postData) {
 
                 if (response.status == 401) {
                     // Unauthorized
-                    window.alert(`❌ quiCKIE ❌\n\nqui was reached but then failed authorization\n\nℹ️ This usually means a bad ApiKey, check it for typos and make sure it's still valid\n\nStatus Code: ${response.status}\n\n${response.responseText}\n\nApiKey: ${postData.quiApiKey}\n\nThe full response has been printed in the console`)
+                    window.alert(`❌ quiCKIE ❌\n\nqui was reached but then failed authorization\n\nℹ️ This usually means a bad ApiKey, check it for typos and make sure it's still valid\n\nStatus Code: ${response.status}\n\n${response.responseText}\n\nApiKey: ${postData.qui.apiKey}\n\nThe full response has been printed in the console`)
                 } else {
                     window.alert(`❌ quiCKIE ❌\n\nqui was reached but then failed to add the torrent\n\nStatus Code: ${response.status}\n\n${response.responseText}\n\nThe full response has been printed in the console`)
                 }
@@ -5530,7 +5513,8 @@ async function quiPOST(postData) {
 
 
 async function qBitTorrentPOST(postData) {
-    // First send a POST to login and then on success send another POST to add a torrent
+    // Using the properties of the postData, send a POST to qBitTorrent to add a new torrent
+    // console.log(postData)
 
     // qBitTorrent expects a different name for these fields
     postData.formData.get('paused') ? postData.formData.append('stopped', true) : null
@@ -5542,103 +5526,68 @@ async function qBitTorrentPOST(postData) {
 
     // Signify the start of qBitTorrentPost by changing the emoji of the clicked on BunnyButton
     let bunnyButton = document.getElementById(postData.bunnyButtonId)
-    replaceEmojis(bunnyButton, '🧑')
+    replaceEmojis(bunnyButton, '🕓')
 
     GM_xmlhttpRequest({
-        // First, send a POST to login to qBittorrent
+        // Use the internal GM function to prevent source-origin errors
         method: 'POST',
-        url: `${postData.qBitTorrent.url}/api/v2/auth/login`,
+        url: `${postData.qBitTorrent.url}/api/v2/torrents/add`,
+        data: postData.formData,
         headers: {
-            'Referer': postData.qBitTorrent.url,
+            'Authorization': `Bearer ${postData.qBitTorrent.apiKey}`,
         },
-        data: new URLSearchParams({
-            'username': postData.qBitTorrent.username,
-            'password': postData.qBitTorrent.password,
-        }),
+
         onload: function(response) {
-            // The login POST has been sent and returned, check the response before proceeding...
+            // ----- Actions to take after the torrent POST has completed -----
 
-            // <v5.2 || v5.2+
-            if ( response.responseText == 'Ok.' || response.statusText == 'OK' ) { // v5.2+
-                // Succesfully logged into qBitTorrent, ready to send another POST to add a new torrent
+            if ( response.status == 202 ) {
+                // Success: The torrent has been added to qBitTorrent
 
-                replaceEmojis(bunnyButton, '🕓')
-                GM_xmlhttpRequest({
-                    // Use the internal GM function to prevent source-origin errors
-                    method: 'POST',
-                    url: `${postData.qBitTorrent.url}/api/v2/torrents/add`,
-                    data: postData.formData,
-                    onload: function(response) {
-                        // ----- Actions to take after the torrent POST has completed -----
+                replaceEmojis(bunnyButton, '✔️')
 
-                        // <v5.2 || v5.2+
-                        if ( response.status == 200 || response.status == 202 ) {
-                            // Success: The torrent has been added to qBitTorrent
-
-                            replaceEmojis(bunnyButton, '✔️')
-
-                        } else {
-                            // Failed: The torrent was NOT added to qBitTorrent, log the response and display an alert...
-                            console.log(response)
-
-                            replaceEmojis(bunnyButton, '❌')
-
-                            window.alert(`❌ quiCKIE ❌\n\nqBitTorrent was reached and logged into, but then failed when trying to add the torrent\n\nStatus Code: ${response.status}\n\n${response.responseText}\n\nqBitTorrentURL: ${SETTINGS.torrentClient.qBitTorrentURL}\n\nThe full response has been printed in the console`)
-
-                        }
-
-                    },
-                    onerror: function(response) {
-                        // There was an error making the POST
-                        console.log(response)
-                        replaceEmojis(bunnyButton, '❌')
-
-                        window.alert(`❌ quiCKIE ❌\n\nqBitTorrent was reached and logged into, but there was an error when trying to POST the torrent\n\nStatus Code: ${response.status}\n\n${response.responseText}\n\nqBitTorrentURL: ${SETTINGS.torrentClient.qBitTorrentURL}\n\nThe full response has been printed in the console`)
-
-                    },
-                    ontimeout: function(response) {
-                        // The connection timed out
-                        console.log(response)
-                        replaceEmojis(bunnyButton, '❌')
-
-                        window.alert(`❌ quiCKIE ❌\n\nqBitTorrent was reached and logged into, but the connection timedout when trying to POST the torrent\n\nStatus Code: ${response.status}\n\n${response.responseText}\n\nqBitTorrentURL: ${SETTINGS.torrentClient.qBitTorrentURL}\n\nThe full response has been printed in the console`)
-
-                    }
-                })
-
-            } else if ( response.responseText == 'Fails.' ) {
-                // Failed to login to qBitTorrent
+            } else {
+                // Failed: The torrent was NOT added to qBitTorrent, log the response and display an alert...
                 console.log(response)
+
                 replaceEmojis(bunnyButton, '❌')
 
-                window.alert(`❌ quiCKIE ❌\n\nqBitTorrent was reached, but the login attempt failed\n\nℹ️ Check your username\\password for typos\n\nStatus Code: ${response.status}\n\nqBitTorrentURL: ${SETTINGS.torrentClient.qBitTorrentURL}\n\nThe full response has been printed in the console`)
+                if (response.status == 403 || response.statusText.match(/^Forbidden$/i)) {
+                    // Unauthorized
+                    window.alert(`❌ quiCKIE ❌\n\qBitTorrent was reached but then failed authorization\n\nℹ️ This usually means a bad ApiKey, check it for typos and make sure it's still valid\n\nStatus Code: ${response.status}\n\n${response.responseText}\n\nApiKey: ${postData.qBitTorrent.apiKey}\n\nThe full response has been printed in the console`)
+                } else {
+                    window.alert(`❌ quiCKIE ❌\n\nqBitTorrent was reached but then failed to add the torrent\n\nStatus Code: ${response.status}\n\n${response.responseText}\n\nThe full response has been printed in the console`)
+                }
 
             }
 
         },
+
         onerror: function(response) {
-            // There was an error logging in
+            // There was an error making the POST
             console.log(response)
             replaceEmojis(bunnyButton, '❌')
 
-            window.alert(`❌ quiCKIE ❌\n\nThere was an error connecting to qBitTorrent to attempt the login\n\nℹ️ Check the service is running and the qBitTorrentURL for typos, usually it's the same url you can copy-paste from your browser\n\nStatus Code: ${response.status}\n\nqBitTorrentURL: ${SETTINGS.torrentClient.qBitTorrentURL}\n\nThe full response has been printed in the console`)
+            window.alert(`❌ quiCKIE ❌\n\nThere was an error when connecting to qBitTorrent\n\nℹ️ This is usually caused by qBitTorrent not running or a bad qBitTorrentURL. Check the service is running and the qBitTorrentURL for typos, usually it's the same url you can copy-paste from your browser\n\nStatus Code: ${response.status}\n\nqBitTorrentURL: ${SETTINGS.torrentClient.qBitTorrentURL}\n\nThe full response has been printed in the console`)
 
         },
+
         ontimeout: function(response) {
             // The connection timed out
             console.log(response)
             replaceEmojis(bunnyButton, '❌')
 
-            window.alert(`❌ quiCKIE ❌\n\nThe connection to qBitTorrent timed out when attempting the login\n\nℹ️ Check the service is running and the qBitTorrentURL for typos, usually it's the same url you can copy-paste from your browser\n\nStatus Code: ${response.status}\n\nqBitTorrentURL: ${SETTINGS.torrentClient.qBitTorrentURL}\n\nThe full response has been printed in the console`)
+            window.alert(`❌ quiCKIE ❌\n\nThe connection to qBitTorrent timed out\n\nℹ️ Check the service is running and the qBitTorrentURL for typos, usually it's the same url you can copy-paste from your browser\n\nStatus Code: ${response.status}\n\nqBitTorrentURL: ${SETTINGS.torrentClient.qBitTorrentURL}\n\nThe full response has been printed in the console`)
 
         }
+
     })
 
 }
 
 
 async function transmissionPOST(postData) {
-    // First send a POST to login and then on success send another POST to add a torrent
+    // Using the properties of the postData, first send a login POST and on success send a second POST to add a new torrent
+    // console.log(postData)
 
     let labels
     postData.formData.get('tags') ? labels = postData.formData.get('tags').split(',') : null
@@ -5777,8 +5726,9 @@ async function transmissionPOST(postData) {
 
 
 async function delugePOST(postData) {
-    // First send a POST to login to Deluge, then send another POST to add the torrent to Deluge
-    // Supports magnet links and file blobs, but not authenticated torrentURLs, which need to firse be download with getFileBlob()
+    // Using the properties of the postData, first send a login POST and on success send a second POST to add a new torrent
+    // Deluge only supports magnet links and file blobs, so even authenticated torrentURLs still need to be download beforehand with getFileBlob()
+    // console.log(postData)
 
     let torrentOptions = {
         'download_location': postData.formData.get('savepath'),
@@ -5932,7 +5882,11 @@ async function delugePOST(postData) {
 
 async function ruTorrentPOST(postData) {
     // *** TO-DO ***
-    // ruTorrent confuses me, it seems there's different ways to login (either using an http form or through the api) and I'm not sure about the procs\cons of each approach... From a brief glance, the torrent POST requires base64 like transmissionPOST()
+    // Using the properties of the postData, first send a login POST and on success send a second POST to add a new torrent
+    // console.log(postData)
+
+    // ruTorrent confuses me, it seems there's different ways to add a torrent (either using an http-form or through the api) with each approach having its pros\cons
+    // From a brief glance, the POST requires .torrent files to be encoded as base64, same as transmissionPOST()
 
 }
 
