@@ -43,7 +43,7 @@ Only the **clientURL** and **credentials** for the selected torrent client are r
 <br>
 
 # Integrating Third-Party UserScripts
-If you are the author of a UserScript that creates torrent `DL` (Download) buttons on a page that is also serviced by quiCKIE, you can very easily add quiCKIE integration so that your `DL` elements receive their very own and fully functioning BunnyButton 🐰: [Integrating Third-Party UserScripts](https://github.com/WirlyWirly/quiCKIE/wiki/Integrating-Other-UserScripts)
+If you are the author of a UserScript that creates torrent `DL` (Download) buttons on a page that is also serviced by quiCKIE, you can very easily add quiCKIE integration so that your `DL` elements receive their very own and fully functioning BunnyButton 🐰: [Integrating Third-Party UserScripts](https://github.com/WirlyWirly/quiCKIE/wiki/Integrating-Third‐Party-UserScripts)
 
 <br>
 
