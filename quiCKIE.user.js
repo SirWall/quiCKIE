@@ -2779,7 +2779,7 @@ function createGMConfigSettingsPanel(trackerDomain) {
         },
 
         'columnTitles': {
-            'tracker': `─── 🌎 Tracker 🌎 ───\n\nThe tracker (site) for which this row of settings will be applied to\n\n🔹 Hovering over a BunnyButton will provide a tooltip of the current tracker settings\n\n🔹 Clicking a name below will open a new tab to the tracker's homepage\n\n⭐ quiCKIE currently supports ${allPrimaryDomains.length} trackers!`,
+            'tracker': `─── 🌎 Tracker 🌎 ───\n\nThe tracker (site) for which this row of settings will be applied to\n\n🔹 Hovering over a BunnyButton will provide a tooltip of the current tracker settings\n\n🔹 Clicking a name below will open a new tab to the tracker's homepage\n\n🎉 quiCKIE supports ${allPrimaryDomains.length} different trackers!`,
             'name': "─── 🚀 Name 🚀 ───\n\nThe name that will be displayed in the presets menu (right-click)\n\nℹ️ Presets without a name will NOT be displayed\n\n🔹 Using one of these characters will create a divider...\n. - = [space]\n\n🔹 Hovering over a entry in the presets menu will provide a tooltip of the preset's settings\n\n🔹 🎪 Special: Give your preset one of these names to display a built-in menu entry...\nSettings, TorrentFile, Client, LeftClickAll, MiddleClickAll, Send, SendPaused",
             'presettrackers': "─── 👀 Preset Trackers 👀 ───\n\nA comma seperated list of trackers on which to display this preset\n\nℹ️ Presets without any trackers listed will NOT be displayed\n\n🔹 Use the name (case-insensitive) displayed in the '🌎 Tracker' column\n\n🔹 Use the * wildcard to display this preset on ALL trackers\n\n✏️ Example:  HDBits, secret-cinema, NYAA",
 
@@ -2870,7 +2870,7 @@ function createGMConfigSettingsPanel(trackerDomain) {
             'torrentClient': {
                 'label': '🖥️ Client:',
                 'type': 'select',
-                'options': ['qui', 'qBitTorrent', 'Transmission', 'Deluge', 'ruTorrent 🛠️'],
+                'options': ['qui', 'qBitTorrent', 'Transmission', 'Deluge', '🚧 ruTorrent 🚧'],
                 'default': 'qui',
             },
             'settingsImport' : {
@@ -3565,7 +3565,7 @@ function createGMConfigSettingsPanel(trackerDomain) {
                 settingsDivSecond.appendChild(ruTorrentPasswordField)
 
                 // 🚧 Disable ruTorrent from being selected as a client until the ruTorrentPOST() function is completed
-                document.getElementById('quiCKIE_config_field_torrentClient').querySelector('[value="ruTorrent 🛠️"]').disabled = true
+                document.getElementById('quiCKIE_config_field_torrentClient').querySelector('[value="🚧 ruTorrent 🚧"]').disabled = true
                 ruTorrentPasswordField.disabled = true
                 ruTorrentURLField.disabled = true
                 ruTorrentUsernameField.disabled = true
