@@ -9,6 +9,17 @@
 
 <br>
 
+> [!CAUTION]
+> ## Breaking Changes
+> quiCKIE will be updated to `v1.50` on `October 01, 2026`. This major update **will** have breaking changes and may even require you to completely uninstall and then re-install the UserScript 😮
+>
+> Before updating to `v1.50`, make sure to export your quiCKIE settings using the `Export Settings` button at the bottom of the quiCKIE settings panel. The exported `.json` file can then be imported into `v1.50` to **fully** restore your quiCKIE settings after the update, letting you pick up where you left off.
+>
+> ## qBitTorrent
+> quiCKIE `v1.50` will **drop** qBitTorrent Username\Password authentication in favor of **ApiKey** authentication. An ApiKey is only available on qBitTorrent `v5.2+`, so you should **not** update to quiCKIE `v1.50` until you have also updated your torrent client to `v5.2+`. An ApiKey can be generated from the qBitTorrent interface by going to `Options > WebUI > ApiKey`
+>
+> This does not affect folk who are using qui as their selected client, only those who are using qBitTorrent **directly**.
+
 This [UserScript](https://openuserjs.org/about/Userscript-Beginners-HOWTO) will integrate **BunnyButtons 🐰** alongside a trackers regular download buttons. When clicked, the corresponding torrent will be added directly to your torrent client using your custom settings.
 
 quiCKIE currently supports **[qui](https://getqui.com/)**, **[qBitTorrent](https://www.qbittorrent.org/)**, **[Transmission](https://transmissionbt.com/)**, **[Deluge](https://deluge-torrent.org/)**, **desktop**\\**mobile** devices, and **75+** different trackers. In addition, this is a **non-destructive** UserScript, which ensures quiCKIE to be friendly\compatible with other UserScripts and default browser functions.
