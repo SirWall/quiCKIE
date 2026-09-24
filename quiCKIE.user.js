@@ -2650,7 +2650,7 @@ function createGMConfigSettingsPanel(trackerDomain) {
     }
 
     // @presetFieldGeneration
-    const presetFieldSuffixes = ['preset', 'presetTrackers', 'category', 'savePath', 'tags', 'ratioLimit', 'seedTime', 'dlLimit', 'upLimit', 'instance', 'startPaused', 'subFolder', 'seqPieces', 'autoTMM', 'skipHash']
+    const presetFieldSuffixes = ['name', 'presetTrackers', 'category', 'savePath', 'tags', 'ratioLimit', 'seedTime', 'dlLimit', 'upLimit', 'instance', 'startPaused', 'subFolder', 'seqPieces', 'autoTMM', 'skipHash']
     let gmConfigPresetsFields = {}
     for (let i = 1; i <= presetCount; i++) {
         // --- GM_config() Fields ---
@@ -2756,7 +2756,7 @@ function createGMConfigSettingsPanel(trackerDomain) {
         'columnText': {
             'tracker': '🌎 Tracker',
 
-            'preset': '🚀 Name',
+            'name': '🚀 Name',
             'presettrackers': '👀 Trackers',
 
             'category': '🗃️ Category',
@@ -2781,7 +2781,7 @@ function createGMConfigSettingsPanel(trackerDomain) {
 
         'columnTitles': {
             'tracker': `─── 🌎 Tracker 🌎 ───\n\nThe tracker (site) for which this row of settings will be applied to\n\n🔹 Hovering over a BunnyButton will provide a tooltip of the current tracker settings\n\n🔹 Clicking a name below will open a new tab to the tracker's homepage\n\n⭐ quiCKIE currently supports ${allPrimaryDomains.length} trackers!`,
-            'preset': "─── 🚀 Name 🚀 ───\n\nThe name that will be displayed in the presets menu (right-click)\n\nℹ️ Presets without a name will NOT be displayed\n\n🔹 Using one of these characters will create a divider...\n. - = [space]\n\n🔹 Hovering over a entry in the presets menu will provide a tooltip of the preset's settings\n\n🔹 🎪 Special: Give your preset one of these names to display a built-in menu entry...\nSettings, TorrentFile, Client, LeftClickAll, MiddleClickAll, Send, SendPaused",
+            'name': "─── 🚀 Name 🚀 ───\n\nThe name that will be displayed in the presets menu (right-click)\n\nℹ️ Presets without a name will NOT be displayed\n\n🔹 Using one of these characters will create a divider...\n. - = [space]\n\n🔹 Hovering over a entry in the presets menu will provide a tooltip of the preset's settings\n\n🔹 🎪 Special: Give your preset one of these names to display a built-in menu entry...\nSettings, TorrentFile, Client, LeftClickAll, MiddleClickAll, Send, SendPaused",
             'presettrackers': "─── 👀 Preset Trackers 👀 ───\n\nA comma seperated list of trackers on which to display this preset\n\nℹ️ Presets without any trackers listed will NOT be displayed\n\n🔹 Use the name (case-insensitive) displayed in the '🌎 Tracker' column\n\n🔹 Use the * wildcard to display this preset on ALL trackers\n\n✏️ Example:  HDBits, secret-cinema, NYAA",
 
             'category': '─── 🗃️ Category 🗃️ ───\n\nSpecify the category to apply to these these torrents',
@@ -2929,12 +2929,6 @@ function createGMConfigSettingsPanel(trackerDomain) {
 
                     // Pretty-print the settings string to make it easier to read
                     let jsonParsed = JSON.parse(GM_getValue('quiCKIE_config'))
-
-                    // convert preset-X-preset to preset-X-name (for v1.5)
-                    for (let i = 1; i <= presetCount; i++) {
-                        let nameValue = jsonParsed[`preset-${i}-preset`]
-                        jsonParsed[`preset-${i}-name`] = nameValue
-                    }
 
                     let jsonString = JSON.stringify(jsonParsed, null, 4)
 
@@ -4104,7 +4098,7 @@ function createPresetItems(primaryDomains) {
         let menuItems = []
         for ( let i=1; i <= presetCount; i++ ) {
             // for each preset, create a menuItem object to put in the right-click presets-menu
-            let presetName = GM_config.get(`preset-${i}-preset`)
+            let presetName = GM_config.get(`preset-${i}-name`)
             // let presetName = GM_config.get(`preset-${i}-name`)
             let presetTrackersList = GM_config.get(`preset-${i}-presetTrackers`).toLowerCase()
 
