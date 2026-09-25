@@ -300,6 +300,12 @@
 //          MirCrew
 // @match   https://mircrew-releases.org/*
 
+//          MonikaDesign
+// @match   https://monikadesign.uk/
+// @match   https://monikadesign.uk/*/bookmarks*
+// @match   https://monikadesign.uk/playlists/*
+// @match   https://monikadesign.uk/torrents*
+
 //          MyAnonaMouse
 // @include /^https://www.myanonamouse.net/t/\d+.*/
 // @match   https://www.myanonamouse.net/
@@ -784,6 +790,12 @@ const settingsPanelTrackers = [
         trackerName: 'MirCrew', // @steventrux
         homepageURL: 'https://mircrew-releases.org',
         primaryDomain: 'mircrew-releases',
+    },
+
+    {
+        trackerName: 'MonikaDesign', // @SirWall
+        homepageURL: 'https://monikadesign.uk',
+        primaryDomain: 'monikadesign',
     },
 
     {
@@ -1967,6 +1979,26 @@ if ( primaryDomain == 'animebytes' ) {
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
+
+} else if ( primaryDomain == 'monikadesign' ) {
+    // ----------------------------------- MonikaDesign -----------------------------------
+
+    let trackerHandlingOptions = {
+        downloadElementsSelector: 'a[href*="/download"]'
+    }
+
+    if ( pagePath.match(/\/torrents\/\d+/) ) {
+        // This is a details page, so apply styling to the only bunnyButton
+
+        trackerHandlingOptions.detailsPageParentPlacement = false
+        trackerHandlingOptions.bunnyButtonAddStyles = `
+          display: inline;
+          `
+        trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-sm", "btn-primary"]
+
+    }
+
+    unit3dTrackerHandler(trackerHandlingOptions)
 
 } else if ( primaryDomain == 'myanonamouse' ) {
     // ----------------------------------- MyAnonaMouse -----------------------------------
