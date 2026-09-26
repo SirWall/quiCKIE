@@ -305,6 +305,7 @@
 // @match   https://monikadesign.uk/*/bookmarks*
 // @match   https://monikadesign.uk/playlists/*
 // @match   https://monikadesign.uk/torrents*
+// @match   https://monikadesign.uk/top10*
 
 //          MyAnonaMouse
 // @include /^https://www.myanonamouse.net/t/\d+.*/
@@ -2002,6 +2003,7 @@ if ( primaryDomain == 'animebytes' ) {
 
 } else if ( primaryDomain == 'monikadesign' ) {
     // ----------------------------------- MonikaDesign -----------------------------------
+    // Bookmarks | Browse | Details | Playlists | Top 10
 
     let trackerHandlingOptions = {
         downloadElementsSelector: 'a[href*="/download"]'
@@ -2012,10 +2014,22 @@ if ( primaryDomain == 'animebytes' ) {
 
         trackerHandlingOptions.detailsPageParentPlacement = false
         trackerHandlingOptions.bunnyButtonAddStyles = `
-          display: inline;
+          font-size: 12px;
+          display: inline-block;
           `
         trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-sm", "btn-primary"]
 
+    }
+    else {
+      trackerHandlingOptions.bunnyButtonAddStyles = `
+        font-size: 12px;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        vertical-align: middle;
+        line-height: 1;
+        `
+      trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-primary", "btn-circle"]
     }
 
     unit3dTrackerHandler(trackerHandlingOptions)
@@ -2127,6 +2141,12 @@ if ( primaryDomain == 'animebytes' ) {
     let trackerHandlingOptions = {
         downloadElementsSelector: 'a[href^="/api/v1/torrents/"]',
         enablePaginationLooping: true
+    }
+
+    if ( pageURL.match(/\/torrents\/\d+/) ) {
+      trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
+      trackerHandlingOptions.bunnyButtonAddClasses = ["link-blue"]
+      trackerHandlingOptions.elementsSeparator = ' or '
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
