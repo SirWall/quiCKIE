@@ -426,7 +426,7 @@
 //          TV-Vault
 // @match   https://tv-vault.me/torrents.php?id=*
 
-//          UniónFansub
+//          UnionFansub
 // @match   https://torrent.unionfansub.com/details.php?id=*
 
 //          Unwalled
@@ -922,7 +922,7 @@ const settingsPanelTrackers = [
     },
 
     {
-        trackerName: 'UniónFansub',
+        trackerName: 'UnionFansub',
         homepageURL: 'https://torrent.unionfansub.com',
         primaryDomain: 'unionfansub',
     },
@@ -2435,7 +2435,7 @@ if ( primaryDomain == 'animebytes' ) {
     quickieTrackerHandler(trackerHandlingOptions)
 
 } else if ( primaryDomain == 'unionfansub' ) {
-    // ----------------------------------- UniónFansub -----------------------------------
+    // ----------------------------------- UnionFansub -----------------------------------
     // Details
 
     let trackerHandlingOptions = {
