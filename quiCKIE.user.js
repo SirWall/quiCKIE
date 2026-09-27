@@ -300,6 +300,12 @@
 //          MirCrew
 // @match   https://mircrew-releases.org/*
 
+//          MonikaDesign
+// @match   https://monikadesign.uk/
+// @match   https://monikadesign.uk/playlists/*
+// @match   https://monikadesign.uk/torrents*
+// @match   https://monikadesign.uk/top10*
+
 //          MyAnonaMouse
 // @include /^https://www.myanonamouse.net/t/\d+.*/
 // @match   https://www.myanonamouse.net/
@@ -312,6 +318,9 @@
 // @match   https://nebulance.io/top10.php*
 // @match   https://nebulance.io/torrents.php*
 // @match   https://nebulance.io/details.php*
+
+//          nekoBT
+// @match   https://nekobt.to/*
 
 //          Nyaa
 // @include /^https://(sukebei\.)?nyaa\.\w+/.*/
@@ -422,6 +431,9 @@
 
 //          TorrentLeech
 // @match   https://www.torrentleech.org/torrent*
+
+//          Torrent Network
+// @match   https://tntracker.org/*
 
 //          TV-Vault
 // @match   https://tv-vault.me/torrents.php?id=*
@@ -778,6 +790,12 @@ const settingsPanelTrackers = [
     },
 
     {
+        trackerName: 'MonikaDesign', // @SirWall
+        homepageURL: 'https://monikadesign.uk',
+        primaryDomain: 'monikadesign',
+    },
+
+    {
         trackerName: 'MyAnonaMouse',
         homepageURL: 'https://www.myanonamouse.net',
         primaryDomain: 'myanonamouse',
@@ -787,6 +805,12 @@ const settingsPanelTrackers = [
         trackerName: 'Nebulance', // @malefis
         homepageURL: 'https://nebulance.io',
         primaryDomain: 'nebulance',
+    },
+
+    {
+        trackerName: 'nekoBT', // @SirWall
+        homepageURL: 'https://nekobt.to',
+        primaryDomain: 'nekobt',
     },
 
     {
@@ -913,6 +937,12 @@ const settingsPanelTrackers = [
         trackerName: 'TorrentLeech', // @holy-elbow
         homepageURL: 'https://www.torrentleech.org',
         primaryDomain: 'torrentleech',
+    },
+
+    {
+        trackerName: 'Torrent Network', // @SirWall
+        homepageURL: 'https://tntracker.org',
+        primaryDomain: 'tntracker',
     },
 
     {
@@ -1960,6 +1990,40 @@ if ( primaryDomain == 'animebytes' ) {
 
     quickieTrackerHandler(trackerHandlingOptions)
 
+} else if ( primaryDomain == 'monikadesign' ) {
+    // ----------------------------------- MonikaDesign -----------------------------------
+    // Bookmarks | Browse | Details | Playlists | Top 10
+
+    let trackerHandlingOptions = {
+        downloadElementsSelector: 'a[href*="https://monikadesign.uk/torrents/download/"]'
+    }
+
+    if ( pagePath.match(/\/torrents\/\d+/) ) {
+        // This is a details page, so apply styling to the only bunnyButton
+
+        trackerHandlingOptions.detailsPageParentPlacement = false
+        trackerHandlingOptions.bunnyButtonAddStyles = `
+          font-size: 12px;
+          display: inline-block;
+          margin-left: 5px;
+          `
+        trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-sm", "btn-primary"]
+
+    }
+    else {
+      trackerHandlingOptions.bunnyButtonAddStyles = `
+        font-size: 12px;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        vertical-align: middle;
+        line-height: 1;
+        `
+      trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-primary", "btn-circle"]
+    }
+
+    unit3dTrackerHandler(trackerHandlingOptions)
+
 } else if ( primaryDomain == 'myanonamouse' ) {
     // ----------------------------------- MyAnonaMouse -----------------------------------
     // Browse | Details | Homepage | Top10
@@ -2059,6 +2123,61 @@ if ( primaryDomain == 'animebytes' ) {
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
+
+} else if ( primaryDomain == 'nekobt' ) {
+    // ----------------------------------- nekoBT -----------------------------------
+    // Homepage | Browse | Details | Media | User | Group
+    
+    function nekoBTHandler() {
+    
+            let trackerHandlingOptions = {
+                downloadElementsSelector: 'a[href^="/api/v1/torrents/"]'
+            }
+    
+            if ( document.location.pathname.match(/\/torrents\/\d+/) ) {
+                // Torrent details page
+    
+                trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
+                trackerHandlingOptions.elementsSeparator = ' or '
+
+                trackerHandlingOptions.afterBunnyButtonCreation = function(loggedElements) {
+                
+                        for ( let pairedElements of loggedElements.pairedElements ) {
+                
+                            let bunnyButton = pairedElements.bunnyButton
+                            let downloadElement = pairedElements.downloadElement
+                
+                            if ( downloadElement.href.endsWith('?public=true') ) {
+                                // Public download
+                                bunnyButton.classList.add('link-blue')
+                
+                            } else {
+                                // Private download
+                                bunnyButton.classList.add('link-purple')
+                            }
+                        }
+                    }
+            }
+    
+            quickieTrackerHandler(trackerHandlingOptions)
+        }
+    
+        nekoBTHandler()
+    
+        let observer = new MutationObserver(function(mutations) {
+    
+            let nodesAdded = mutations.some(mutation => mutation.addedNodes.length > 0)
+    
+            if ( nodesAdded ) {
+                nekoBTHandler()
+            }
+    
+        })
+    
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        })
 
 } else if ( primaryDomain == 'nyaa' ) {
     // ----------------------------------- Nyaa -----------------------------------
@@ -2422,6 +2541,18 @@ if ( primaryDomain == 'animebytes' ) {
         trackerHandlingOptions.enablePaginationLooping = true
     }
 
+    quickieTrackerHandler(trackerHandlingOptions)
+
+} else if ( primaryDomain == 'tntracker' ) {
+    // ----------------------------------- Torrent Network -----------------------------------
+    // Browse | Details
+
+    let trackerHandlingOptions = {
+        downloadElementsSelector: 'a[href^="https://tntracker.org/sdownload/"]:not([class*="piwik_download"])',
+        enablePaginationLooping: true,
+        bunnyButtonFontSize: '20px'
+    }
+    
     quickieTrackerHandler(trackerHandlingOptions)
 
 } else if ( primaryDomain == 'tv-vault' ) {
