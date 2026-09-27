@@ -4,7 +4,7 @@
 
 // @name        qui - quiCKIE
 // @author      WirlyWirly + Contributors 🫶
-// @version     1.49.7
+// @version     1.49.8
 // @homepage    https://github.com/WirlyWirly/quiCKIE
 // @description A UserScript to quickly send torrents from a tracker to a client, with customizable per-site settings and presets 🐰
 //              Orignally for qui, later extended to support more torrent clients
@@ -432,7 +432,7 @@
 //          TorrentLeech
 // @match   https://www.torrentleech.org/torrent*
 
-//          Torrent Network
+//          TorrentNetwork
 // @match   https://tntracker.org/*
 
 //          TV-Vault
@@ -940,7 +940,7 @@ const settingsPanelTrackers = [
     },
 
     {
-        trackerName: 'Torrent Network', // @SirWall
+        trackerName: 'TorrentNetwork', // @SirWall
         homepageURL: 'https://tntracker.org',
         primaryDomain: 'tntracker',
     },
@@ -2007,19 +2007,22 @@ if ( primaryDomain == 'animebytes' ) {
           display: inline-block;
           margin-left: 5px;
           `
+
         trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-sm", "btn-primary"]
 
-    }
-    else {
-      trackerHandlingOptions.bunnyButtonAddStyles = `
-        font-size: 12px;
-        display: inline-flex !important;
-        align-items: center;
-        justify-content: center;
-        vertical-align: middle;
-        line-height: 1;
-        `
-      trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-primary", "btn-circle"]
+    } else {
+
+        trackerHandlingOptions.bunnyButtonAddStyles = `
+            font-size: 12px;
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            line-height: 1;
+            `
+
+        trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-primary", "btn-circle"]
+
     }
 
     unit3dTrackerHandler(trackerHandlingOptions)
@@ -2130,54 +2133,54 @@ if ( primaryDomain == 'animebytes' ) {
     
     function nekoBTHandler() {
     
-            let trackerHandlingOptions = {
-                downloadElementsSelector: 'a[href^="/api/v1/torrents/"]'
-            }
-    
-            if ( document.location.pathname.match(/\/torrents\/\d+/) ) {
-                // Torrent details page
-    
-                trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
-                trackerHandlingOptions.elementsSeparator = ' or '
-
-                trackerHandlingOptions.afterBunnyButtonCreation = function(loggedElements) {
-                
-                        for ( let pairedElements of loggedElements.pairedElements ) {
-                
-                            let bunnyButton = pairedElements.bunnyButton
-                            let downloadElement = pairedElements.downloadElement
-                
-                            if ( downloadElement.href.endsWith('?public=true') ) {
-                                // Public download
-                                bunnyButton.classList.add('link-blue')
-                
-                            } else {
-                                // Private download
-                                bunnyButton.classList.add('link-purple')
-                            }
-                        }
-                    }
-            }
-    
-            quickieTrackerHandler(trackerHandlingOptions)
+        let trackerHandlingOptions = {
+            downloadElementsSelector: 'a[href^="/api/v1/torrents/"]'
         }
-    
-        nekoBTHandler()
-    
-        let observer = new MutationObserver(function(mutations) {
-    
-            let nodesAdded = mutations.some(mutation => mutation.addedNodes.length > 0)
-    
-            if ( nodesAdded ) {
-                nekoBTHandler()
+
+        if ( document.location.pathname.match(/\/torrents\/\d+/) ) {
+            // Torrent details page
+
+            trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
+            trackerHandlingOptions.elementsSeparator = ' or '
+
+            trackerHandlingOptions.afterBunnyButtonCreation = function(loggedElements) {
+            
+                for ( let pairedElements of loggedElements.pairedElements ) {
+        
+                    let bunnyButton = pairedElements.bunnyButton
+                    let downloadElement = pairedElements.downloadElement
+        
+                    if ( downloadElement.href.endsWith('?public=true') ) {
+                        // Public download
+                        bunnyButton.classList.add('link-blue')
+        
+                    } else {
+                        // Private download
+                        bunnyButton.classList.add('link-purple')
+                    }
+                }
             }
+        }
+
+        quickieTrackerHandler(trackerHandlingOptions)
+    }
     
-        })
-    
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        })
+    nekoBTHandler()
+
+    let observer = new MutationObserver(function(mutations) {
+
+        let nodesAdded = mutations.some(mutation => mutation.addedNodes.length > 0)
+
+        if ( nodesAdded ) {
+            nekoBTHandler()
+        }
+
+    })
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    })
 
 } else if ( primaryDomain == 'nyaa' ) {
     // ----------------------------------- Nyaa -----------------------------------
@@ -2544,7 +2547,7 @@ if ( primaryDomain == 'animebytes' ) {
     quickieTrackerHandler(trackerHandlingOptions)
 
 } else if ( primaryDomain == 'tntracker' ) {
-    // ----------------------------------- Torrent Network -----------------------------------
+    // ----------------------------------- TorrentNetwork -----------------------------------
     // Browse | Details
 
     let trackerHandlingOptions = {
