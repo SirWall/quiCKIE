@@ -7,9 +7,8 @@
 // @version     1.50
 // @homepage    https://github.com/WirlyWirly/quiCKIE
 // @description A UserScript to quickly send torrents from a tracker to a client, with customizable per-site settings and presets 🐰
-//              Written on LibreWolf via Violentmonkey
+//              Written in ✏️ NeoVim and tested on 🐺 LibreWolf via 🐵 Violentmonkey
 
-// @namespace   https://github.com/WirlyWirly
 // @icon        https://raw.githubusercontent.com/WirlyWirly/quiCKIE/main/icon.webp?raw=true
 // @run-at      document-end
 
@@ -2872,7 +2871,7 @@ function createGMConfigSettingsPanel(trackerDomain) {
             'quiApiKey': "─── 🔑 ApiKey 🔑 ───\n\nA valid and active ApiKey created by qui\n\n🔹 From the qui interface, you can generate an ApiKey by going to 'Settings > API Keys > Create API Key'",
 
             'qBitTorrentURL': "─── 🔗 qBitTorrentURL 🔗 ───\n\nThe full URL to a running qBitTorrent service\n\n🔹 This is usually the same URL you can copy-paste from your browser\n\n✏️ Example: http://localhost:8080",
-            'qBitTorrentApiKey': "─── 🔑 ApiKey 🔑 ───\n\nA valid and active ApiKey created by qBitTorrent\n\n🔹 From the qBitTorrent interface, you can generate an ApiKey by going to 'Options > WebUI > API Key'",
+            'qBitTorrentApiKey': "─── 🔑 ApiKey 🔑 ───\n\nA valid and active ApiKey created by qBitTorrent\n\n🔹 From the qBitTorrent interface, you can generate an ApiKey by going to 'Options > WebUI > API Key'\n\nℹ️ quiCKIE v1.49.8 was the last to support Username\\Password authentication, check the quiCKIE WiKi for a link",
 
             'transmissionURL': "─── 🔗 TransmissionURL 🔗 ───\n\nThe full URL to a running Transmission service\n\n🔹 This is usually the same URL you can copy-paste from your browser\n\n✏️ Example: http://localhost:9091\n\n🔹 If Transmission is not using the default rpc, then specify the complete rpc url\n\n✏️ Example: http://localhost:9091/your/custom/rpc",
             'transmissionUsername': '─── 🔑 Username 🔑 ───\n\nThe username for logging into Transmission through the web interface',
