@@ -5253,7 +5253,8 @@ function addTorrent({
     }
 
     // ----- POST Form Data -----
-    // The form data that will store all the torrent settings
+    // The form data that will store all the torrent settings.
+    // These form fields are named as expected by the qui api, so if other clients expect different names, the fields should be renamed in that clients POST() function
 
     let form = new FormData()
     form.append('urls', torrentURL)
