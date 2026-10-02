@@ -128,7 +128,7 @@
 //          CinemaZ
 // @match   https://cinemaz.to/
 // @match   https://cinemaz.to/*/bookmark*
-// @match   https://cinemaz.to/torrent/*
+// @match   https://cinemaz.to/torrent*
 // @match   https://cinemaz.to/movie/*
 // @match   https://cinemaz.to/tv/*
 // @match   https://cinemaz.to/profile/*/history*
@@ -184,6 +184,7 @@
 // @match   https://exoticaz.to/
 // @match   https://exoticaz.to/*/bookmark*
 // @match   https://exoticaz.to/torrent*
+// @match   https://exoticaz.to/profile/*/history*
 
 //          Femdomcult
 // @match   https://femdomcult.org/collage/*
@@ -362,6 +363,9 @@
 // @match   https://privatehd.to/
 // @match   https://privatehd.to/torrent*
 // @match   https://privatehd.to/*/bookmark*
+// @match   https://privatehd.to/movie/*
+// @match   https://privatehd.to/tv/*
+// @match   https://privatehd.to/profile/*/history*
 
 //          Redacted
 // @match   https://redacted.sh/artist.php?id=*
@@ -1183,6 +1187,16 @@ if ( primaryDomain == 'animebytes' ) {
     // Movie and TV shows details page, both of which have pagination
     pageURL.match(/\/(movie|tv)\/\d+/) ? trackerHandlingOptions.enablePaginationLooping = true : null
 
+    if ( pageURL.match(/\/torrent\//) ) {
+      // The torrent details page
+      trackerHandlingOptions.bunnyButtonAddStyles = `
+        font-size: 14px;
+        margin-left: 4px;
+      `
+      trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-xs", "btn-info"]
+      trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
+    }
+
     quickieTrackerHandler(trackerHandlingOptions)
 
 } else if ( primaryDomain == 'bakabt' ) {
@@ -1347,6 +1361,16 @@ if ( primaryDomain == 'animebytes' ) {
 
     // Movie or TV shows details page, both of which have pagination
     pageURL.match(/\/(movie|tv)\/\d+/) ? trackerHandlingOptions.enablePaginationLooping = true : null
+
+    if ( pageURL.match(/\/torrent\//) ) {
+      // The torrent details page
+      trackerHandlingOptions.bunnyButtonAddStyles = `
+        font-size: 14px;
+        margin-left: 4px;
+      `
+      trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-xs", "btn-info"]
+      trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
+    }
 
     quickieTrackerHandler(trackerHandlingOptions)
 
@@ -2310,6 +2334,19 @@ if ( primaryDomain == 'animebytes' ) {
 
     let trackerHandlingOptions = {
         downloadElementsSelector: 'a[href^="https://privatehd.to/download/torrent/"]',
+    }
+
+    // Movie or TV shows details page, both of which have pagination
+    pageURL.match(/\/(movie|tv)\/\d+/) ? trackerHandlingOptions.enablePaginationLooping = true : null
+
+    if ( pageURL.match(/\/torrent\//) ) {
+      // The torrent details page
+      trackerHandlingOptions.bunnyButtonAddStyles = `
+        font-size: 14px;
+        margin-left: 4px;
+      `
+      trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-xs", "btn-info"]
+      trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
