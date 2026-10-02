@@ -1875,7 +1875,10 @@ if ( primaryDomain == 'animebytes' ) {
 
     let trackerHandlingOptions = {
         downloadElementsSelector: 'a[href^="torrents.php?action=download&id="]',
+        freeleechStatusSelector: "downloadElement.closest('tr').textContent.match(/Freeleech\!/)",
     }
+
+    pagePath.match(/torrents.php$/) ? trackerHandlingOptions.enablePaginationLooping = true : null
 
     quickieTrackerHandler(trackerHandlingOptions)
 
