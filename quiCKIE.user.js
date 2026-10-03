@@ -1182,6 +1182,8 @@ if ( primaryDomain == 'animebytes' ) {
 
     let trackerHandlingOptions = {
         downloadElementsSelector: 'a[href^="https://avistaz.to/download/torrent/"]',
+        freeleechStatusSelector: `downloadElement.closest('tr').querySelector('i[data-original-title="Free Download"], i[title="Free Download"]')`,
+        seedingStatusSelector: `downloadElement.closest('tr.success')`,
     }
 
     // Movie and TV shows details page, both of which have pagination
@@ -1195,6 +1197,8 @@ if ( primaryDomain == 'animebytes' ) {
       `
       trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-xs", "btn-info"]
       trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
+      trackerHandlingOptions.freeleechStatusSelector = `document.querySelector('i[data-original-title="Free Download"]')`
+      trackerHandlingOptions.seedingStatusSelector = `document.querySelector('a[title="Active Torrents"]')`
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
@@ -1357,6 +1361,8 @@ if ( primaryDomain == 'animebytes' ) {
 
     let trackerHandlingOptions = {
         downloadElementsSelector: 'a[href^="https://cinemaz.to/download/torrent/"]',
+        freeleechStatusSelector: `downloadElement.closest('tr').querySelector('i[data-original-title="Free Download"], i[title="Free Download"]')`,
+        seedingStatusSelector: `downloadElement.closest('tr.success')`,
     }
 
     // Movie or TV shows details page, both of which have pagination
@@ -1370,6 +1376,8 @@ if ( primaryDomain == 'animebytes' ) {
       `
       trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-xs", "btn-info"]
       trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
+      trackerHandlingOptions.freeleechStatusSelector = `document.querySelector('i[data-original-title="Free Download"]')`
+      trackerHandlingOptions.seedingStatusSelector = `document.querySelector('a[title="Active Torrents"]')`
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
@@ -1595,21 +1603,10 @@ if ( primaryDomain == 'animebytes' ) {
 
         trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
         trackerHandlingOptions.bunnyButtonAddStyles = `
-            background: #e94a93;
-            border-radius: 0;
-            border: #e8e6e3 solid 1px;
-            border: 1px solid transparent;
-            color: #e8e6e3;
-            display: inline-block;
-            font-family: 'Roboto Condensed';
-            font-size: .8203125rem;
-            font-weight: 400
-            line-height: 1;
-            margin-left: 5px;
-            margin-right: 1px;
-            margin-top: 3px;
-            padding: .2rem .7rem;
+          font-size: .8203125rem;
+          margin-left: 4px;
         `
+        trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-xs", "btn-info"]
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
@@ -2334,6 +2331,8 @@ if ( primaryDomain == 'animebytes' ) {
 
     let trackerHandlingOptions = {
         downloadElementsSelector: 'a[href^="https://privatehd.to/download/torrent/"]',
+        freeleechStatusSelector: `downloadElement.closest('tr').querySelector('i[data-original-title="Free Download"], i[title="Free Download"]')`,
+        seedingStatusSelector: `downloadElement.closest('tr.success')`,
     }
 
     // Movie or TV shows details page, both of which have pagination
@@ -2347,6 +2346,8 @@ if ( primaryDomain == 'animebytes' ) {
       `
       trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-xs", "btn-info"]
       trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
+      trackerHandlingOptions.freeleechStatusSelector = `document.querySelector('i[data-original-title="Free Download"]')`
+      trackerHandlingOptions.seedingStatusSelector = `document.querySelector('a[title="Active Torrents"]')`
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
