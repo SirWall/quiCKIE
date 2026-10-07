@@ -44,7 +44,8 @@
 //          AnimeZ
 // @match   https://animez.to/
 // @match   https://animez.to/torrents*
-// @match   https://animez.to/torrent-bookmarks*
+// @match   https://animez.to/profile/*/torrent-bookmarks*
+// @match   https://animez.to/profile/*/history*
 
 //          Anthelion
 // @match   https://anthelion.me/torrents.php*
@@ -1130,11 +1131,13 @@ if ( primaryDomain == 'animebytes' ) {
     unit3dTrackerHandler(trackerHandlingOptions)
 
 } else if ( primaryDomain == 'animez' ) {
-    // --------------------------------- AnimeZ ------------------------------------
+    // --------------------------------- AnimeZ ------------------------------------"downloadElement.closest('tr').textContent.match(/Freeleech\!/)"
     // Home | Browse| Bookmarks
 
     let trackerHandlingOptions = {
         downloadElementsSelector: 'a[href^="https://animez.to/torrents/"][href$="/download"]',
+        freeleechStatusSelector: `downloadElement.closest('tr').querySelector('span[data-bs-original-title="Free Download"]')`,
+        seedingStatusSelector: `downloadElement.closest('tr[data-history-status="seeding"]')`,
     }
 
     // This is a details page, so apply styling to the only bunnyButton
@@ -1152,6 +1155,8 @@ if ( primaryDomain == 'animebytes' ) {
             font-weight: 500;
             line-height: 1.5rem;
         `
+        trackerHandlingOptions.freeleechStatusSelector = `document.querySelector('span[class="text-yellow"]').textContent.contains(/Free\ Download/)` //not working
+        trackerHandlingOptions.seedingStatusSelector = `document.querySelector('a[title="Active Torrents"]')` //not working
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
@@ -1596,6 +1601,8 @@ if ( primaryDomain == 'animebytes' ) {
 
     let trackerHandlingOptions = {
         downloadElementsSelector: 'a[href^="https://exoticaz.to/download/torrent/"]',
+        freeleechStatusSelector: `downloadElement.closest('tr.class').querySelector('i[data-original-title="Free Download"], i[title="Free Download"]')`, //not working
+        seedingStatusSelector: `downloadElement.closest('tr.success')`, //not working
     }
 
     if ( pageURL.match(/\/torrent\/\d+/) ) {
@@ -1607,6 +1614,8 @@ if ( primaryDomain == 'animebytes' ) {
           margin-left: 4px;
         `
         trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-xs", "btn-info"]
+        trackerHandlingOptions.freeleechStatusSelector = `document.querySelector('i[data-original-title="Free Download"]')` //not working
+        trackerHandlingOptions.seedingStatusSelector = `document.querySelector('a[title="Active Torrents"]')` //not working
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
