@@ -1131,8 +1131,8 @@ if ( primaryDomain == 'animebytes' ) {
     unit3dTrackerHandler(trackerHandlingOptions)
 
 } else if ( primaryDomain == 'animez' ) {
-    // --------------------------------- AnimeZ ------------------------------------"downloadElement.closest('tr').textContent.match(/Freeleech\!/)"
-    // Home | Browse| Bookmarks
+    // --------------------------------- AnimeZ ------------------------------------
+    // Home | Browse | Bookmarks
 
     let trackerHandlingOptions = {
         downloadElementsSelector: 'a[href^="https://animez.to/torrents/"][href$="/download"]',
@@ -1140,23 +1140,47 @@ if ( primaryDomain == 'animebytes' ) {
         seedingStatusSelector: `downloadElement.closest('tr[data-history-status="seeding"]')`,
     }
 
-    // This is a details page, so apply styling to the only bunnyButton
     if ( pageURL.match(/\/torrents\/\d+/) ) {
+            // The details page has one main download button and a list of related torrents. Only style the main button. Requires pagination on some sites.
 
-        trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
-        trackerHandlingOptions.bunnyButtonAddStyles = `
-            background: #4263eb;
-            border-radius: 8px;
-            border; 1px solid transparent;
-            color: #f9fafb;
-            box-shadow: 0 1px 1px rgba(229, 231, 235, .06);
-            padding: 0.6875rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            line-height: 1.5rem;
-        `
-        trackerHandlingOptions.freeleechStatusSelector = `document.querySelector('span[class="text-yellow"]').textContent.contains(/Free\ Download/)` //not working
-        trackerHandlingOptions.seedingStatusSelector = `document.querySelector('a[title="Active Torrents"]')` //not working
+            trackerHandlingOptions.enablePaginationLooping = true
+    
+            trackerHandlingOptions.freeleechStatusSelector = `
+                downloadElement.classList.contains('btn-primary')
+                    ? document.querySelector('span[data-bs-original-title="Free Download"]')
+                    : downloadElement.closest('tr')?.querySelector('span[title="Free Download"]')
+            `
+    
+            trackerHandlingOptions.seedingStatusSelector = `
+                downloadElement.classList.contains('btn-primary')
+                    ? document.querySelector('div.fw-semibold')?.textContent.match(/Seeding/)
+                    : null)
+            `
+    
+            trackerHandlingOptions.afterBunnyButtonCreation = function(loggedElements) {
+    
+                for ( let pairedElements of loggedElements.pairedElements ) {
+    
+                    let bunnyButton = pairedElements.bunnyButton
+                    let downloadElement = pairedElements.downloadElement
+    
+                    if ( downloadElement.classList.contains('btn-primary') ) {
+    
+                        bunnyButton.textContent = '🐰 quiCKIE'
+                        bunnyButton.style.cssText += `
+                            background: #4263eb;
+                            border-radius: 8px;
+                            border: 1px solid transparent;
+                            color: #f9fafb;
+                            box-shadow: 0 1px 1px rgba(229, 231, 235, .06);
+                            padding: 0.6875rem 1.5rem;
+                            font-size: 1rem;
+                            font-weight: 500;
+                            line-height: 1.5rem;
+                        `
+                    }
+                }
+            }
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
@@ -4850,7 +4874,9 @@ function unit3dTrackerHandler({
                             :is(i, span).torrent-icons__freeleech[title*="Special Freeleech" i],
                             i.torrent-icons__freeleech.fa-calendar-star,
                             i.fa-globe,
-                            i.fas.fa-peace`) != null ) {
+                            i.fas.fa-peace,
+                            span[title="Free: costs no Hunos. The download still counts toward ratio."],
+                            i.fa-star-of-david[data-original-title*="持续至"]`) != null ) {
                             // This is a Freeleech torrent
                             bunnyButtonTorrentStatus(bunnyButton, 'freeleech')
 
@@ -4932,7 +4958,9 @@ function unit3dTrackerHandler({
                               :is(i, span).torrent-icons__freeleech[title*="Special Freeleech" i],
                               i.torrent-icons__freeleech.fa-calendar-star,
                               i.fa-globe,
-                              i.fas.fa-peace`) != null ) {
+                              i.fas.fa-peace,
+                              span[title="Free: costs no Hunos. The download still counts toward ratio."],
+                              i.fa-star-of-david[data-original-title*="持续至"]`) != null ) {
                                 // This is a Freeleech torrent
                                 bunnyButtonTorrentStatus(bunnyButton, 'freeleech')
 
