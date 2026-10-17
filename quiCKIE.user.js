@@ -526,7 +526,7 @@ const settingsPanelTrackers = [
     },
 
     {
-        trackerName: 'AnimeZ', // @holy-elbow
+        trackerName: 'AnimeZ', // @holy-elbow + @SirWall
         homepageURL: 'https://animez.to',
         primaryDomain: 'animez',
     },
@@ -544,7 +544,7 @@ const settingsPanelTrackers = [
     },
 
     {
-        trackerName: 'AvistaZ', // @fercats99 + @verinikat
+        trackerName: 'AvistaZ', // @fercats99 + @verinikat + @SirWall
         homepageURL: 'https://avistaz.to',
         primaryDomain: 'avistaz',
     },
@@ -604,7 +604,7 @@ const settingsPanelTrackers = [
     },
 
     {
-        trackerName: 'CinemaZ', // @fercats99 + @verinikat
+        trackerName: 'CinemaZ', // @fercats99 + @verinikat + @SirWall
         homepageURL: 'https://cinemaz.to',
         primaryDomain: 'cinemaz',
     },
@@ -654,7 +654,7 @@ const settingsPanelTrackers = [
     },
 
     {
-        trackerName: 'ExoticaZ', // @fercats99 + @holy-elbow
+        trackerName: 'ExoticaZ', // @fercats99 + @holy-elbow + @SirWall
         homepageURL: 'https://exoticaz.to',
         primaryDomain: 'exoticaz',
     },
@@ -727,7 +727,7 @@ const settingsPanelTrackers = [
     },
 
     {
-        trackerName: 'JPopsuki', // @tartuffe
+        trackerName: 'JPopsuki', // @tartuffe + @SirWall
         homepageURL: 'https://jpopsuki.eu',
         primaryDomain: 'jpopsuki',
     },
@@ -859,7 +859,7 @@ const settingsPanelTrackers = [
     },
 
     {
-        trackerName: 'PrivateHD', // @holy-elbow
+        trackerName: 'PrivateHD', // @holy-elbow + @SirWall
         homepageURL: 'https://privatehd.to',
         primaryDomain: 'privatehd',
     },
@@ -1144,28 +1144,28 @@ if ( primaryDomain == 'animebytes' ) {
             // The details page has one main download button and a list of related torrents. Only style the main button. Requires pagination on some sites.
 
             trackerHandlingOptions.enablePaginationLooping = true
-    
+
             trackerHandlingOptions.freeleechStatusSelector = `
                 downloadElement.classList.contains('btn-primary')
                     ? document.querySelector('span[data-bs-original-title="Free Download"]')
                     : downloadElement.closest('tr')?.querySelector('span[title="Free Download"]')
             `
-    
+
             trackerHandlingOptions.seedingStatusSelector = `
                 downloadElement.classList.contains('btn-primary')
                     ? document.querySelector('div.fw-semibold')?.textContent.match(/Seeding/)
                     : null
             `
-    
+
             trackerHandlingOptions.afterBunnyButtonCreation = function(loggedElements) {
-    
+
                 for ( let pairedElements of loggedElements.pairedElements ) {
-    
+
                     let bunnyButton = pairedElements.bunnyButton
                     let downloadElement = pairedElements.downloadElement
-    
+
                     if ( downloadElement.classList.contains('btn-primary') ) {
-    
+
                         bunnyButton.textContent = '🐰 quiCKIE'
                         bunnyButton.style.cssText += `
                             background: #4263eb;
@@ -2368,15 +2368,15 @@ if ( primaryDomain == 'animebytes' ) {
     pageURL.match(/\/(movie|tv)\/\d+/) ? trackerHandlingOptions.enablePaginationLooping = true : null
 
     if ( pageURL.match(/\/torrent\//) ) {
-      // The torrent details page
-      trackerHandlingOptions.bunnyButtonAddStyles = `
-        font-size: 14px;
-        margin-left: 4px;
-      `
-      trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-xs", "btn-info"]
-      trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
-      trackerHandlingOptions.freeleechStatusSelector = `document.querySelector('i[data-original-title="Free Download"]')`
-      trackerHandlingOptions.seedingStatusSelector = `document.querySelector('a[title="Active Torrents"]')`
+        // The torrent details page
+        trackerHandlingOptions.bunnyButtonAddStyles = `
+          font-size: 14px;
+          margin-left: 4px;
+        `
+        trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-xs", "btn-info"]
+        trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
+        trackerHandlingOptions.freeleechStatusSelector = `document.querySelector('i[data-original-title="Free Download"]')`
+        trackerHandlingOptions.seedingStatusSelector = `document.querySelector('a[title="Active Torrents"]')`
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
