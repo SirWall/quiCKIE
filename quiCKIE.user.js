@@ -44,7 +44,8 @@
 //          AnimeZ
 // @match   https://animez.to/
 // @match   https://animez.to/torrents*
-// @match   https://animez.to/torrent-bookmarks*
+// @match   https://animez.to/profile/*/torrent-bookmarks*
+// @match   https://animez.to/profile/*/history*
 
 //          Anthelion
 // @match   https://anthelion.me/torrents.php*
@@ -128,7 +129,7 @@
 //          CinemaZ
 // @match   https://cinemaz.to/
 // @match   https://cinemaz.to/*/bookmark*
-// @match   https://cinemaz.to/torrent/*
+// @match   https://cinemaz.to/torrent*
 // @match   https://cinemaz.to/movie/*
 // @match   https://cinemaz.to/tv/*
 // @match   https://cinemaz.to/profile/*/history*
@@ -184,6 +185,7 @@
 // @match   https://exoticaz.to/
 // @match   https://exoticaz.to/*/bookmark*
 // @match   https://exoticaz.to/torrent*
+// @match   https://exoticaz.to/profile/*/history*
 
 //          Femdomcult
 // @match   https://femdomcult.org/collage/*
@@ -362,6 +364,9 @@
 // @match   https://privatehd.to/
 // @match   https://privatehd.to/torrent*
 // @match   https://privatehd.to/*/bookmark*
+// @match   https://privatehd.to/movie/*
+// @match   https://privatehd.to/tv/*
+// @match   https://privatehd.to/profile/*/history*
 
 //          Redacted
 // @match   https://redacted.sh/artist.php?id=*
@@ -1127,27 +1132,55 @@ if ( primaryDomain == 'animebytes' ) {
 
 } else if ( primaryDomain == 'animez' ) {
     // --------------------------------- AnimeZ ------------------------------------
-    // Home | Browse| Bookmarks
+    // Home | Browse | Bookmarks
 
     let trackerHandlingOptions = {
         downloadElementsSelector: 'a[href^="https://animez.to/torrents/"][href$="/download"]',
+        freeleechStatusSelector: `downloadElement.closest('tr').querySelector('span[data-bs-original-title="Free Download"]')`,
+        seedingStatusSelector: `downloadElement.closest('tr[data-history-status="seeding"]')`,
     }
 
-    // This is a details page, so apply styling to the only bunnyButton
     if ( pageURL.match(/\/torrents\/\d+/) ) {
+            // The details page has one main download button and a list of related torrents. Only style the main button. Requires pagination on some sites.
 
-        trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
-        trackerHandlingOptions.bunnyButtonAddStyles = `
-            background: #4263eb;
-            border-radius: 8px;
-            border; 1px solid transparent;
-            color: #f9fafb;
-            box-shadow: 0 1px 1px rgba(229, 231, 235, .06);
-            padding: 0.6875rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            line-height: 1.5rem;
-        `
+            trackerHandlingOptions.enablePaginationLooping = true
+    
+            trackerHandlingOptions.freeleechStatusSelector = `
+                downloadElement.classList.contains('btn-primary')
+                    ? document.querySelector('span[data-bs-original-title="Free Download"]')
+                    : downloadElement.closest('tr')?.querySelector('span[title="Free Download"]')
+            `
+    
+            trackerHandlingOptions.seedingStatusSelector = `
+                downloadElement.classList.contains('btn-primary')
+                    ? document.querySelector('div.fw-semibold')?.textContent.match(/Seeding/)
+                    : null
+            `
+    
+            trackerHandlingOptions.afterBunnyButtonCreation = function(loggedElements) {
+    
+                for ( let pairedElements of loggedElements.pairedElements ) {
+    
+                    let bunnyButton = pairedElements.bunnyButton
+                    let downloadElement = pairedElements.downloadElement
+    
+                    if ( downloadElement.classList.contains('btn-primary') ) {
+    
+                        bunnyButton.textContent = '🐰 quiCKIE'
+                        bunnyButton.style.cssText += `
+                            background: #4263eb;
+                            border-radius: 8px;
+                            border: 1px solid transparent;
+                            color: #f9fafb;
+                            box-shadow: 0 1px 1px rgba(229, 231, 235, .06);
+                            padding: 0.6875rem 1.5rem;
+                            font-size: 1rem;
+                            font-weight: 500;
+                            line-height: 1.5rem;
+                        `
+                    }
+                }
+            }
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
@@ -1178,10 +1211,24 @@ if ( primaryDomain == 'animebytes' ) {
 
     let trackerHandlingOptions = {
         downloadElementsSelector: 'a[href^="https://avistaz.to/download/torrent/"]',
+        freeleechStatusSelector: `downloadElement.closest('tr').querySelector('i[data-original-title="Free Download"], i[title="Free Download"]')`,
+        seedingStatusSelector: `downloadElement.closest('tr.success')`,
     }
 
     // Movie and TV shows details page, both of which have pagination
     pageURL.match(/\/(movie|tv)\/\d+/) ? trackerHandlingOptions.enablePaginationLooping = true : null
+
+    if ( pageURL.match(/\/torrent\//) ) {
+      // The torrent details page
+      trackerHandlingOptions.bunnyButtonAddStyles = `
+        font-size: 14px;
+        margin-left: 4px;
+      `
+      trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-xs", "btn-info"]
+      trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
+      trackerHandlingOptions.freeleechStatusSelector = `document.querySelector('i[data-original-title="Free Download"]')`
+      trackerHandlingOptions.seedingStatusSelector = `document.querySelector('a[title="Active Torrents"]')`
+    }
 
     quickieTrackerHandler(trackerHandlingOptions)
 
@@ -1343,10 +1390,24 @@ if ( primaryDomain == 'animebytes' ) {
 
     let trackerHandlingOptions = {
         downloadElementsSelector: 'a[href^="https://cinemaz.to/download/torrent/"]',
+        freeleechStatusSelector: `downloadElement.closest('tr').querySelector('i[data-original-title="Free Download"], i[title="Free Download"]')`,
+        seedingStatusSelector: `downloadElement.closest('tr.success')`,
     }
 
     // Movie or TV shows details page, both of which have pagination
     pageURL.match(/\/(movie|tv)\/\d+/) ? trackerHandlingOptions.enablePaginationLooping = true : null
+
+    if ( pageURL.match(/\/torrent\//) ) {
+      // The torrent details page
+      trackerHandlingOptions.bunnyButtonAddStyles = `
+        font-size: 14px;
+        margin-left: 4px;
+      `
+      trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-xs", "btn-info"]
+      trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
+      trackerHandlingOptions.freeleechStatusSelector = `document.querySelector('i[data-original-title="Free Download"]')`
+      trackerHandlingOptions.seedingStatusSelector = `document.querySelector('a[title="Active Torrents"]')`
+    }
 
     quickieTrackerHandler(trackerHandlingOptions)
 
@@ -1571,21 +1632,10 @@ if ( primaryDomain == 'animebytes' ) {
 
         trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
         trackerHandlingOptions.bunnyButtonAddStyles = `
-            background: #e94a93;
-            border-radius: 0;
-            border: #e8e6e3 solid 1px;
-            border: 1px solid transparent;
-            color: #e8e6e3;
-            display: inline-block;
-            font-family: 'Roboto Condensed';
-            font-size: .8203125rem;
-            font-weight: 400
-            line-height: 1;
-            margin-left: 5px;
-            margin-right: 1px;
-            margin-top: 3px;
-            padding: .2rem .7rem;
+          font-size: .8203125rem;
+          margin-left: 4px;
         `
+        trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-xs", "btn-info"]
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
@@ -1875,7 +1925,10 @@ if ( primaryDomain == 'animebytes' ) {
 
     let trackerHandlingOptions = {
         downloadElementsSelector: 'a[href^="torrents.php?action=download&id="]',
+        freeleechStatusSelector: "downloadElement.closest('tr').textContent.match(/Freeleech\!/)",
     }
+
+    pagePath.match(/torrents.php$/) ? trackerHandlingOptions.enablePaginationLooping = true : null
 
     quickieTrackerHandler(trackerHandlingOptions)
 
@@ -2307,6 +2360,23 @@ if ( primaryDomain == 'animebytes' ) {
 
     let trackerHandlingOptions = {
         downloadElementsSelector: 'a[href^="https://privatehd.to/download/torrent/"]',
+        freeleechStatusSelector: `downloadElement.closest('tr').querySelector('i[data-original-title="Free Download"], i[title="Free Download"]')`,
+        seedingStatusSelector: `downloadElement.closest('tr.success')`,
+    }
+
+    // Movie or TV shows details page, both of which have pagination
+    pageURL.match(/\/(movie|tv)\/\d+/) ? trackerHandlingOptions.enablePaginationLooping = true : null
+
+    if ( pageURL.match(/\/torrent\//) ) {
+      // The torrent details page
+      trackerHandlingOptions.bunnyButtonAddStyles = `
+        font-size: 14px;
+        margin-left: 4px;
+      `
+      trackerHandlingOptions.bunnyButtonAddClasses = ["btn", "btn-xs", "btn-info"]
+      trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
+      trackerHandlingOptions.freeleechStatusSelector = `document.querySelector('i[data-original-title="Free Download"]')`
+      trackerHandlingOptions.seedingStatusSelector = `document.querySelector('a[title="Active Torrents"]')`
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
@@ -4782,7 +4852,8 @@ function unit3dTrackerHandler({
                             downloadElement.insertAdjacentElement(bunnyButtonPlacement, bunnyButton)
                         }
 
-                        if ( document.querySelector('li.torrent__seeders.torrent-activity-indicator--seeding') != null ) {
+                        if ( document.querySelector(`li.torrent__seeders.torrent-activity-indicator--seeding,
+                            a[title="Seeding"]`) != null ) {
                             // This is a Seeding torrent
                             bunnyButtonTorrentStatus(bunnyButton, 'seeding')
 
@@ -4800,7 +4871,9 @@ function unit3dTrackerHandler({
                             :is(i, span).torrent-icons__freeleech[title*="Special Freeleech" i],
                             i.torrent-icons__freeleech.fa-calendar-star,
                             i.fa-globe,
-                            i.fas.fa-peace`) != null ) {
+                            i.fas.fa-peace,
+                            span[title="Free: costs no Hunos. The download still counts toward ratio."],
+                            i.fa-star-of-david[data-original-title*="持续至"]`) != null ) {
                             // This is a Freeleech torrent
                             bunnyButtonTorrentStatus(bunnyButton, 'freeleech')
 
@@ -4864,7 +4937,8 @@ function unit3dTrackerHandler({
                         try {
                             // View types: List | Grouped
 
-                            if ( downloadElement.closest('tr').querySelector('td.torrent-activity-indicator--seeding') != null ) {
+                            if ( downloadElement.closest('tr').querySelector(`td.torrent-activity-indicator--seeding,
+                              a[title="Seeding"]`) != null ) {
                                 // This is a Seeding torrent
                                 bunnyButtonTorrentStatus(bunnyButton, 'seeding')
 
@@ -4882,7 +4956,9 @@ function unit3dTrackerHandler({
                               :is(i, span).torrent-icons__freeleech[title*="Special Freeleech" i],
                               i.torrent-icons__freeleech.fa-calendar-star,
                               i.fa-globe,
-                              i.fas.fa-peace`) != null ) {
+                              i.fas.fa-peace,
+                              span[title="Free: costs no Hunos. The download still counts toward ratio."],
+                              i.fa-star-of-david[data-original-title*="持续至"]`) != null ) {
                                 // This is a Freeleech torrent
                                 bunnyButtonTorrentStatus(bunnyButton, 'freeleech')
 
