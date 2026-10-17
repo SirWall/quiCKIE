@@ -4,7 +4,7 @@
 
 // @name        quiCKIE
 // @author      WirlyWirly + Contributors 🫶
-// @version     1.50
+// @version     1.51
 // @homepage    https://github.com/WirlyWirly/quiCKIE
 // @description A UserScript to quickly send torrents from a tracker to a client, with customizable per-site settings and presets 🐰
 //              Written in ✏️ NeoVim and tested on 🐺 LibreWolf via 🐵 Violentmonkey
@@ -2613,7 +2613,7 @@ if ( primaryDomain == 'animebytes' ) {
 } else {
     // ----------------------------------- NONE -----------------------------------
 
-    console.error(`---------- ⚠️ quiCKIE ⚠️ ----------\n\nThere was no definied trackerHandler block for processing the current primaryDomain: ${primaryDomain}\n\nAll further quiCKIE code will be aborted as to prevent further errors.\n\nℹ️ If you are seeing this message while adding a new tracker, verify that you are using the correct primaryDomain in the 'else if' chain from step #3 of the 'Adding a New Tracker' guide`)
+    console.error(`---------- ⚠️ quiCKIE ⚠️ ----------\n\nThere was no definied trackerHandler block for the primaryDomain of the current site: ${primaryDomain}\n\nAll further quiCKIE code will be aborted as to prevent further errors.\n\nℹ️ If you are seeing this message while adding a new tracker, verify that you are using the correct primaryDomain in the 'else if' chain from step #3 of the 'Adding a New Tracker' guide`)
 
     throw new Error('Aborting further quiCKIE execution')
 
@@ -2673,7 +2673,7 @@ function createGMConfigSettingsPanel(trackerDomain) {
     logger.info(`primaryDomain: ${primaryDomain}`)
 
     // Verify that the trackerDomain is registered as an entry in the settingsPanelTrackers object, if not then abort all further exectuion of this script
-    if ( registeredTracker == false ) { throw `---------- ⚠️ quiCKIE ⚠️ ----------\n\nThe domain of the current site if not registered to a tracker supported by quiCKIE: ${trackerDomain}\n\nAll further quiCKIE code will be aborted as to prevent further errors.\n\nℹ️ If you are seeing this message while adding a new tracker, verify that you have included this trackerDomain to a tracker in Step #2 of the 'Adding a New Tracker' guide` }
+    if ( registeredTracker == false ) { throw `---------- ⚠️ quiCKIE ⚠️ ----------\n\nThe domain of the current site, '${trackerDomain}', does not belong to a tracker in the quiCKIE settings panel.\n\nAll further quiCKIE code will be aborted as to prevent further errors.\n\nℹ️ If you are seeing this message while adding a new tracker, then Step #2 of the 'Adding a New Tracker' guide was done incorrectly. The domain of this site, '${trackerDomain}', must be registered to a tracker, either as the 'primaryDomain' or as part of the 'otherDomains'` }
 
     // Determine the saved number of preset fields that should be generated in the settings panel and presets-menu
     let presetCount
@@ -2858,7 +2858,7 @@ function createGMConfigSettingsPanel(trackerDomain) {
 
         'globalsTitles': {
             'presetCount': "─── 🚀 Presets 🚀 ───\n\nThe number of presets that will be generated in the quiCKIE settings panel\n\n⚠️ Lowering this number will remove those rows, which in turn deletes their saved settings",
-            'globalLeftClickAction': "─── 🖱️ Left-Click \\ Tap 🖱️ ───\n\nThe action to take when performing a Left-Click\\Tap on a BunnyButton\n\n🔹 Affects all trackers that have the '🖱️' setting set to 'Global'",
+            'globalLeftClickAction': "─── 🖱️ Left-Click \\ Tap 🖱️ ───\n\nThe action to take when performing a Left-Click\\Tap on a BunnyButton\n\n🔹 Affects all trackers that have the '🖱️' column set to 'Global'",
             'globalMiddleClickAction': '─── 🖱️ Middle-Click 🖱️ ───\n\nThe action to take when performing a Middle-Click on a BunnyButton',
             'bunnyButtonPlacement': '─── ↔️ Placement  ↔️ ───\n\nThe placement of the BunnyButtons relative to the sites download buttons',
             'globalForcedTorrentFile': '─── 🧲 Torrent File  🧲 ───\n\nForce all BunnyButtons to download the .torrent file through the browser before sending it to the client\n\n🔹 By default, quiCKIE will determine for itself if the torrentURL can be sent directly to the client or should first be downloaded through the browser\n\n🔹 Magnet links are ALWAYS sent directly to the client, as they are not proper http links that can be downloaded through the browser',
@@ -4752,7 +4752,7 @@ function unit3dTrackerHandler({
 
         setTimeout(() => {
 
-            let allDownloadElements = queryFromElement.querySelectorAll(`${downloadElementsSelector}:not([data-quickie_done="true"])`)
+            let allDownloadElements = queryFromElement.querySelectorAll(`${downloadElementsSelector}:not([href*="/users/"]):not([data-quickie_done="true"])`)
 
             if ( allDownloadElements.length >= 1 ) {
 
