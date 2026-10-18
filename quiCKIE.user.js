@@ -2288,8 +2288,17 @@ if ( primaryDomain == 'animebytes' ) {
         // Additional class names that will be applied to EVERY bunnyButton, useful for advanced styling
         bunnyButtonAddClasses: [], // Default = [] || Options = An array of strings, each of which will be applied as a class to the bunnyButton
 
+        // Specify that the current page is a torrent details page, which will apply special bunnyButton styling (this is checked automatically, but this option exists if that automation fails)
+        torrentDetailsPage: false, // Default = false (automatically checked) || Options = false | true
+
         // On the torrent details page, place the bunnyButton alongside the parentElement, which usually makes it so the bunnyButton is in the same row as the downloadElement
         detailsPageParentPlacement: true, // Default = true || Options = true | false
+
+        // - - - - - - - - - OTHER - - - - - - - - -
+        // Options to perform a vareity of tasks that may or may not apply to certain trackers
+
+        // The element that will be used as the root when performing .querySelectorAll(downloadElementsSelector) to find all the downloadElements
+        queryFromElement: document, // Default = document || Options = document | A specific element (node)
 
     }
 
@@ -4724,26 +4733,27 @@ function unit3dTrackerHandler({
     // ! This function is based on the HTML layout of 'Oldtoons' and is not WirlyWirly guaranteed for other UNIT3D sites
 
     downloadElementsSelector,
+
     bunnyButtonText = 'automatic',
     bunnyButtonFontSize = 'automatic',
     bunnyButtonAddStyles = 'automatic',
     bunnyButtonAddClasses = [],
+    torrentDetailsPage = false,
     detailsPageParentPlacement = true,
+
+    queryFromElement = document,
 
     // seedingStatusSelector = null,
     // snatchedStatusSelector = null,
     // freeleechStatusSelector = null,
     // featuredStatusSelector = null,
-    // queryFromElement = document,
 
 }) {
 
     // Mutable settings dependent on the current page
-    let torrentDetailsPage = false
     let bunnyButtonPlacement
-    let queryFromElement = document
 
-    if ( pagePath.match(/\/torrents\/\d+/) ) {
+    if ( torrentDetailsPage == true || pagePath.match(/\/torrents\/\d+/) ) {
         // The torrents details page, so change the style of the only BunnyButton
 
         torrentDetailsPage = true
