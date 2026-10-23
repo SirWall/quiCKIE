@@ -4,7 +4,7 @@
 
 // @name        quiCKIE
 // @author      WirlyWirly + Contributors 🫶
-// @version     1.52
+// @version     1.54
 // @homepage    https://github.com/WirlyWirly/quiCKIE
 // @description A UserScript to quickly send torrents from a tracker to a client, with customizable per-site settings and presets 🐰
 //              Written in ✏️ NeoVim and tested on 🐺 LibreWolf via 🐵 Violentmonkey
@@ -433,6 +433,7 @@
 // @match   https://thevault.click/details.php?id=*
 
 //          TorrentLeech
+// @match   https://www.torrentleech.org/
 // @match   https://www.torrentleech.org/torrent*
 
 //          TorrentNetwork
@@ -2638,10 +2639,38 @@ if ( primaryDomain == 'animebytes' ) {
         bunnyButtonFontSize: '200%',
     }
 
-    if ( pageURL.match(/(browse|top)/) ) {
-        // The Browse and Top pages, both of which have pagination
+    if ( pageURL.match(/\/torrent\/\d+/) ) {
+      // This is the Torrent Details page, so apply styling to the only bunnyButton
+
+        trackerHandlingOptions.bunnyButtonText = '🐰 quiCKIE'
+        trackerHandlingOptions.bunnyButtonAddStyles = `
+            position: relative;
+            left: 5.75px;
+            margin-right: 8px;
+            top: 1px;
+            font-size: inherit;
+            text-align: center;
+            text-decoration: none;
+            text-shadow: none;
+            background: #153245;
+            border-radius: 25px;
+            border: #B6D3E7 solid 1px;
+            color: #B6D3E7;
+            font-weight: bold;
+            padding: 0.7% 1.5%;
+            width: max-content;
+            min-width: 16%;
+            display: inline-block;
+        `
+
+    } else if ( pagePath.match(/(^\/?$|browse|top)/) ) {
+        // The Homepage, Browse or Top page, each of which has pagination
         trackerHandlingOptions.bunnyButtonParentPlacement = true
         trackerHandlingOptions.enablePaginationLooping = true
+        trackerHandlingOptions.bunnyButtonAddStyles = `
+            position: relative;
+            top: 7px;
+        `
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
@@ -4776,10 +4805,11 @@ function unit3dTrackerHandler({
     // Mutable settings dependent on the current page
     let bunnyButtonPlacement
 
-    if ( torrentDetailsPage == true || pagePath.match(/\/torrents\/\d+/) ) {
-        // The torrents details page, so change the style of the only BunnyButton
+    if ( torrentDetailsPage == true || pagePath.match(/\/torrents\/\d+/) || pagePath.match(/\/torrents\/download_check\/\d+/) ) {
+        // The torrents details page or post-upload page, so style the only BunnyButton as a full button
 
-        torrentDetailsPage = true
+        // Make sure this is not the downloadCheck page
+        pageURL.match(/\/torrents\/download_check\/\d+/) ? torrentDetailsPage = false : torrentDetailsPage = true
 
         // The default text to be displayed by the bunnyButton on the details page
         bunnyButtonText == 'automatic' ? bunnyButtonText = '🐰 quiCKIE' : null
@@ -4793,7 +4823,6 @@ function unit3dTrackerHandler({
             font-weight: bold;
             padding: 1.5%;
             width: 98%;` : null
-
 
     } else if ( pagePath.match(/(\/?|\/torrents[^/]*)$/) && SETTINGS.paginationLoop < 500 ) {
         // The search parge or homepage, both of which require a MutationObserver
@@ -4842,7 +4871,7 @@ function unit3dTrackerHandler({
             SETTINGS.paginationLoop = 500
         }
 
-    }
+    } 
 
     // Set the default values to use when none have been specified
     bunnyButtonText == 'automatic' ? bunnyButtonText = ' 🐰 ' : null
