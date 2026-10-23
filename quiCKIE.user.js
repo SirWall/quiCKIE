@@ -4,7 +4,7 @@
 
 // @name        quiCKIE
 // @author      WirlyWirly + Contributors 🫶
-// @version     1.51
+// @version     1.52
 // @homepage    https://github.com/WirlyWirly/quiCKIE
 // @description A UserScript to quickly send torrents from a tracker to a client, with customizable per-site settings and presets 🐰
 //              Written in ✏️ NeoVim and tested on 🐺 LibreWolf via 🐵 Violentmonkey
@@ -4887,15 +4887,18 @@ function unit3dTrackerHandler({
 
                         if ( document.querySelector(`li.torrent__seeders.torrent-activity-indicator--seeding,
                             a[title="Seeding"]`) != null ) {
+                            
                             // This is a Seeding torrent
                             bunnyButtonTorrentStatus(bunnyButton, 'seeding')
 
                         } else if ( document.querySelector(`li.torrent__completed.torrent-activity-indicator--completed,
                             a[title="Downloaded but Not Seeding"]`) != null ) {
+
                             // This is a Snatched torrent
                             bunnyButtonTorrentStatus(bunnyButton, 'snatched')
 
                         } else if ( document.querySelector(':is(i, span).torrent-icons__featured') != null ) {
+
                             // This is a Featured torrent
                             bunnyButtonTorrentStatus(bunnyButton, 'featured')
 
@@ -4908,6 +4911,7 @@ function unit3dTrackerHandler({
                             i.fas.fa-peace,
                             span[title="Free: costs no Hunos. The download still counts toward ratio."],
                             i.fa-star-of-david[data-original-title*="持续至"]`) != null ) {
+
                             // This is a Freeleech torrent
                             bunnyButtonTorrentStatus(bunnyButton, 'freeleech')
 
@@ -4973,27 +4977,31 @@ function unit3dTrackerHandler({
 
                             if ( downloadElement.closest('tr').querySelector(`td.torrent-activity-indicator--seeding,
                               a[title="Seeding"]`) != null ) {
+
                                 // This is a Seeding torrent
                                 bunnyButtonTorrentStatus(bunnyButton, 'seeding')
 
                             } else if ( downloadElement.closest('tr').querySelector(`td.torrent-activity-indicator--completed,
                               a[title="Downloaded but Not Seeding"]`) != null ) {
+
                                 // This is a Snatched torrent
                                 bunnyButtonTorrentStatus(bunnyButton, 'snatched')
 
                             } else if ( downloadElement.closest('tr').querySelector(':is(i, span).torrent-icons__featured') != null ) {
+
                                 // This is a Featured torrent
                                 bunnyButtonTorrentStatus(bunnyButton, 'featured')
 
                             } else if ( downloadElement.closest('tr').querySelector(
-                              `:is(i, span).torrent-icons__freeleech[title*="100%"],
-                              :is(i, span).torrent-icons__freeleech[title*="Global freeleech" i],
-                              :is(i, span).torrent-icons__freeleech[title*="Special Freeleech" i],
-                              i.torrent-icons__freeleech.fa-calendar-star,
-                              i.fa-globe,
-                              i.fas.fa-peace,
-                              span[title="Free: costs no Hunos. The download still counts toward ratio."],
-                              i.fa-star-of-david[data-original-title*="持续至"]`) != null ) {
+                                `:is(i, span).torrent-icons__freeleech[title*="100%"],
+                                :is(i, span).torrent-icons__freeleech[title*="Global freeleech" i],
+                                :is(i, span).torrent-icons__freeleech[title*="Special Freeleech" i],
+                                i.torrent-icons__freeleech.fa-calendar-star,
+                                i.fa-globe,
+                                i.fas.fa-peace,
+                                span[title="Free: costs no Hunos. The download still counts toward ratio."],
+                                i.fa-star-of-david[data-original-title*="持续至"]`) != null ) {
+
                                 // This is a Freeleech torrent
                                 bunnyButtonTorrentStatus(bunnyButton, 'freeleech')
 
@@ -5010,8 +5018,17 @@ function unit3dTrackerHandler({
                             // View types: Cards
 
                             if ( downloadElement.closest('article :is(.torrent-card, .tc-card)').querySelector('.torrent-activity-indicator--seeding') != null ) {
+
                                 // This is a Seeding torrent
                                 bunnyButtonTorrentStatus(bunnyButton, 'seeding')
+
+                            } else if ( downloadElement.closest('article :is(.torrent-card, .tc-card)').querySelector(
+                                `i.torrent-icons__freeleech[title*="100%"],
+                                i.torrent-icons__freeleech[title*="Global freeleech" i]`) != null ) {
+
+                                // This is a Freeleech torrent
+                                bunnyButtonTorrentStatus(bunnyButton, 'freeleech')
+
                             }
 
                         } catch (error) {
