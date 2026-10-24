@@ -415,7 +415,8 @@ td.quiCKIE_config_table_tbody_td_field input[type="text"] {
     margin: 0 2px 0 2px;
     padding: 2px 2px 2px 2px;
     text-align: center;
-    transition: all 0.3s ease;
+    transition: none;
+    /* transition: all 0.3s ease; */
     width: 95%;
 }
 
