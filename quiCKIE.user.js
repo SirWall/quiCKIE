@@ -3083,10 +3083,10 @@ function createGMConfigSettingsPanel(trackerDomain) {
                 <div style="padding: 30px 0px 0px 0px"></div>
                 🐰
                 <span style="user-select: none; background: none; background-color: #FFFFFF; -webkit-background-clip: text; -webkit-text-fill-color: transparent; -webkit-filter: brightness(110%); filter: brightness(110%); text-shadow: 0 0 20px rgba(0, 124, 255, 0.60); transition: all 0.3s; font-weight: bold; padding: 10px 0px 10px 0px">
-                    <a href="${GM_info.script.homepage}" target="_blank" style="font-family: 'Lilita One', 'Roboto Condensed', Tahoma, Geneva, sans-serif; font-size: 35px; font-weight: 400; font-style: normal; color: #FFFFFF; text-decoration: none; background: none; line-height: 30px">quiCKIE</a>
+                    <a href="${GM_info.script.homepage}" target="_blank" id="quiCKIE_mainHeader">quiCKIE</a>
                 </span>
                 🐰
-                <div style="margin: 15px 0px 0px 0px;"><span style="color: #b7b7b7; display: block; font-size: 14px; font-weight: 300">★ Hover over emojis for details ★ </span></div>
+                <div style="margin: 15px 0px 0px 0px;"><span id="quiCKIE_secondaryHeader">★ Hover over emojis for details ★ </span></div>
             </div>
         `,
 

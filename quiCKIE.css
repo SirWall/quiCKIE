@@ -1,6 +1,41 @@
 :root {
-    --tableOddColor: #0000;
-    --tableEvenColor: #2c3e5091;
+
+    --subheaderText: #b7b7b7;
+
+    /* Global Settings Labels */
+    --fieldLabelText: #ddd;
+
+    /* Table Colors */
+    --tableHeadersRow: #2c3e5091;
+    --tableHeadersText: #e9aec;
+
+    --tableRowOddBackground: #0000;
+    --tableRowEvenBackground: #2c3e5091;
+    --tableBorders: #191d2a;
+
+    /* Input Fields */
+    --inputFieldBackground: #ffffffe6;
+    --inputFieldText: #191d2a;
+    --inputFieldBorder: #ddd;
+    --inputFieldFocusBorder: #2C3E50;
+    --inputFieldFocusShadow: #007cff99;
+
+    --inputFieldDisabledText: #525252;
+    --inputFieldDisabledBackground: #8b8e94;
+    --inputFieldDisabledBorder: #545454;
+
+    --checkboxCheckedBackground: #0060DF;
+    --checkboxCheckedBorder: #4284FF;
+
+    /* Bottom Buttons */
+    --configButtonText: #ddd;
+    --configButtonBackground: #2c3e50;
+    --configButtonBorder: #34495e;
+    --configButtonShadow: #00000033;
+    --configButtonHoverBackground: #34495e;
+    --configButtonSaveClicked: #007CFF;
+    --configResetLink: #b7b7b7;
+
 }
 
 #quiCKIE_config * {
@@ -25,6 +60,24 @@ font-family: "Roboto Condensed", Tahoma, Arial;
     margin: 0px 0px 5px 0px;
 }
 
+#quiCKIE_firstHeader {
+    font-family: 'Lilita One', 'Roboto Condensed', Tahoma, Geneva, sans-serif;
+    font-size: 35px;
+    font-weight: 400;
+    font-style: normal;
+    color: #FFFFFF;
+    text-decoration: none;
+    background: none;
+    line-height: 30px;
+}
+
+#quiCKIE_secondHeader {
+    color: var(--subheaderText);
+    display: block;
+    font-size: 14px;
+    font-weight: 300
+}
+
 /* ----------------------------------- Settings Row ---------------------------------- */
 
 #quiCKIE_config_wrapper div.quiCKIE_settingsDiv {
@@ -35,9 +88,9 @@ font-family: "Roboto Condensed", Tahoma, Arial;
 }
 
 #quiCKIE_config_wrapper div.quiCKIE_settingsDiv .settingsDivLabel{
-    /* qui row labels */
+    /* Global settings labels */
     margin: 0px 6px 0px 10px;
-    color: #ffffff
+    color: var(--fieldLabelText);
 }
 
 #quiCKIE_config_field_quiURL,
@@ -78,12 +131,12 @@ font-family: "Roboto Condensed", Tahoma, Arial;
 #quiCKIE_config_field_globalLeftClickAction,
 #quiCKIE_config_field_bunnyButtonPlacement {
     /* Click inputs */
-    background: rgba(255, 255, 255, 0.9);
+    background: var(--inputFieldBackground);
     border-radius: 3px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--inputFieldBorder);
     box-shadow: none;
     box-sizing: border-box;
-    color: #191d2a;
+    color: var(--tableBorders);
     font-size: 13px;
     font-weight: 500;
     height: 50%;
@@ -211,11 +264,11 @@ font-family: "Roboto Condensed", Tahoma, Arial;
 #quiCKIE_config_tracker_table_thead tr th,
 #quiCKIE_config_preset_table_thead tr th {
 /* Table Headers */
-background: #2c3e5091;
-border-color: #191d2a;
+background: var(--tableHeadersRow);
+border-color: var(--tableBorders);
 border-style: none solid none none;
 border-width: 3px;
-color: #E9EAEC;
+color: var(--tableHeadersText);
 cursor: pointer;
 font-family: "Roboto Condensed", Tahoma, Arial;
 font-size: 18px;
@@ -236,10 +289,10 @@ thead.quiCKIE_config_table_thead th:nth-last-child(1) {
 
 
 /* ----------------------------------- TABLE - Body ----------------------------------- */
-.quiCKIE_config_table_tbody_tr {
+tr.quiCKIE_config_table_tbody_tr {
     /* All the <tr> elements of a table */
 
-    background-color: transparent;
+    background-color: var(--tableRowOddBackground) !important;
     border: none;
 
 }
@@ -251,11 +304,16 @@ td.quiCKIE_config_table_tbody_td_field {
     text-align: center;
 }
 
+td.quiCKIE_config_table_td_label {
+    /* Center the tracker name text */
+    text-align: center;
+}
+
 #quiCKIE_config_wrapper tr.quiCKIE_config_table_tbody_tr:nth-child(even) {
     /* Row Zebra stripes */
-    background-color: var(--tableEvenColor) !important;
-	border-bottom: 1px solid #191d2a;
-	border-top: 1px solid #191d2a;
+    background-color: var(--tableRowEvenBackground) !important;
+	border-bottom: 1px solid var(--tableBorders);
+	border-top: 1px solid var(--tableBorders);
     border-left: none;
     border-right: none;
 }
@@ -268,7 +326,7 @@ tr.quiCKIE_config_table_tbody_tr:nth-child(even) td.quiCKIE_config_table_td_subF
 tr.quiCKIE_config_table_tbody_tr:nth-child(even) td.quiCKIE_config_table_td_seqPieces,
 tr.quiCKIE_config_table_tbody_tr:nth-child(even) td.quiCKIE_config_table_td_autoTMM {
     /* Right-border for the checkbox columns */
-    border-color: #191d2a;
+    border-color: var(--tableBorders);
     border-style: none solid none none !important;
     border-width: 3px;
 }
@@ -284,7 +342,7 @@ tr.quiCKIE_config_table_tbody_tr:nth-child(even) td.quiCKIE_config_table_td_auto
     padding: 5px 0px 5px 0px;
     text-align: center;
     user-select: none;
-    color: #bfbfbf;
+    color: var(--configResetLink);
 }
 
 #quiCKIE_config .config_var {
@@ -296,9 +354,9 @@ tr.quiCKIE_config_table_tbody_tr:nth-child(even) td.quiCKIE_config_table_td_auto
 
 #quiCKIE_config_field_globalForcedTorrentFile,
 td.quiCKIE_config_table_tbody_td_field input[type="checkbox"] {
-    /* background: rgba(255, 255, 255, 0.9); */
+    /* background: var(--inputFieldBackground); */
     border-radius: 3px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--inputFieldBorder);
     box-shadow: none;
     box-sizing: border-box;
     font-size: 13px;
@@ -311,8 +369,8 @@ td.quiCKIE_config_table_tbody_td_field input[type="checkbox"] {
 
 #quiCKIE_config_field_globalForcedTorrentFile input[type="checkbox"],
 td.quiCKIE_config_table_tbody_td_field input[type="checkbox"]:checked {
-    background-color: #0060DF;
-    border: 1px solid #0060DF;
+    background-color: var(--checkboxCheckedBackground);
+    border: 1px solid var(--checkboxCheckedBorder);
 }
 
 #quiCKIE_config_field_torrentClient,
@@ -335,12 +393,12 @@ td.quiCKIE_config_table_tbody_td_field select[data-fieldtype="leftClick"],
 td.quiCKIE_config_table_tbody_td_field select[data-fieldtype="thirdPartyScan"],
 td.quiCKIE_config_table_tbody_td_field input[type="text"] {
     /* Text Fields */
-    background: rgba(255, 255, 255, 0.9);
+    background: var(--inputFieldBackground);
     border-radius: 3px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--inputFieldBorder);
     box-shadow: none;
     box-sizing: border-box;
-    color: #191d2a;
+    color: var(--inputFieldText);
     font-size: 13px;
     font-weight: 500;
     height: 50%;
@@ -350,6 +408,7 @@ td.quiCKIE_config_table_tbody_td_field input[type="text"] {
     transition: all 0.3s ease;
     width: 95%;
 }
+
 
 #quiCKIE_config_field_quiURL:focus,
 #quiCKIE_config_field_quiApiKey:focus,
@@ -367,23 +426,17 @@ td.quiCKIE_config_table_tbody_td_field input[type="text"] {
 #quiCKIE_config_field_thirdPartyDelay:focus,
 #quiCKIE_config_field_hiddenTrackers:focus,
 td.quiCKIE_config_table_tbody_td_field input[type="text"]:focus {
-    border-color: #2C3E50;
-    box-shadow: 0 0 5px rgba(0, 124, 255, 0.60);
+    border-color: var(--inputFieldFocusBorder);
+    box-shadow: 0 0 5px var(--inputFieldFocusShadow);
     outline: none;
 }
 
 #quiCKIE_config_field_globalForcedTorrentFile input[type="checkbox"],
 td.quiCKIE_config_table_tbody_td_field input[type="checkbox"] {
+    background: var(--inputFieldBackground);
     box-shadow: none;
     cursor: pointer;
     margin: 5px 0px 5px 0px;
-}
-
-
-#quiCKIE_config .reset {
-    color: #95a5a6;
-    text-decoration: none;
-    user-select: none;
 }
 
 #quiCKIE_config_buttons_holder {
@@ -409,13 +462,15 @@ td.quiCKIE_config_table_tbody_td_field input[type="checkbox"] {
     grid-column: 1;
     grid-row: 2;
     text-align: center;
-    color: #b7b7b7;
+    color: var(--configResetLink);
 }
 
 #quiCKIE_config_resetLink {
     text-transform: lowercase;
     background: transparent;
-    color: #b7b7b7;
+    color: var(--configResetLink) !important;
+    text-decoration: none;
+    user-select: none;
 }
 
 #quiCKIE_config .version_label:hover,
@@ -428,18 +483,19 @@ td.quiCKIE_config_table_tbody_td_field input[type="checkbox"] {
     width: 100%;
 }
 
-#quiCKIE_config_saveBtn {
+#quiCKIE_config_saveBtn,
+#quiCKIE_config_closeBtn,
+#quiCKIE_config_field_settingsImport,
+#quiCKIE_config_field_settingsExport {
     background: none;
-    background-color: #2C3E50;
+    background-color: var(--configButtonBackground);
     border-radius: 5px;
-    border: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    color: #FFFFFF;
+    border: 1px solid var(--configButtonBorder);
+    box-shadow: 0 2px 5px var(--configButtonShadow);
+    color: var(--configButtonText);
     cursor: pointer;
     font-size: 1rem;
     font-weight: 500;
-    grid-column: 1;
-    grid-row: 1;
     padding-bottom: 6px !important;
     padding-top: 6px !important;
     padding: 15px 20px;
@@ -447,71 +503,38 @@ td.quiCKIE_config_table_tbody_td_field input[type="checkbox"] {
     will-change: background-color, transform;
 }
 
-#quiCKIE_config_saveBtn:hover {
-    background-color: #34495E;
+#quiCKIE_config_saveBtn {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#quiCKIE_config_closeBtn {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#quiCKIE_config_saveBtn.success {
+    box-shadow: 0 0 6px 3px var(--inputFieldFocusShadow);
+}
+
+
+#quiCKIE_config_saveBtn:hover,
+#quiCKIE_config_closeBtn:hover,
+#quiCKIE_config_field_settingsImport:hover,
+#quiCKIE_config_field_settingsExport:hover {
+    background-color: var(--configButtonHoverBackground);
     transform: translateY(-2px);
 }
 
 #quiCKIE_config_saveBtn:active {
-    background-color: rgba(0, 124, 255);
+    background-color: var(--configButtonSaveClicked);
     transform: translateY(1px);
-}
-
-#quiCKIE_config_saveBtn.success {
-    box-shadow: 0 0 6px 3px rgba(0, 124, 255, 0.60);
-}
-
-#quiCKIE_config_field_settingsExport,
-#quiCKIE_config_field_settingsImport {
-    background: none;
-    background-color: #2C3E50;
-    border-radius: 5px;
-    border: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    color: #FFFFFF;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 500;
-    /* grid-column: 2; */
-    /* grid-row: 1; */
-    padding-bottom: 6px !important;
-    padding-top: 6px !important;
-    padding: 15px 20px;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-    will-change: background-color, transform;
-
-}
-
-#quiCKIE_config_closeBtn {
-    background: none;
-    background-color: #2C3E50;
-    border-radius: 5px;
-    border: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    color: #FFFFFF;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 500;
-    grid-column: 2;
-    grid-row: 1;
-    padding-bottom: 6px !important;
-    padding-top: 6px !important;
-    padding: 15px 20px;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-    will-change: background-color, transform;
-}
-
-#quiCKIE_config_field_settingsImport:hover,
-#quiCKIE_config_field_settingsExport:hover,
-#quiCKIE_config_closeBtn:hover {
-    background-color: #34495E;
-    transform: translateY(-2px);
 }
 
 #quiCKIE_config_field_settingsImport:active,
 #quiCKIE_config_field_settingsExport:active,
 #quiCKIE_config_closeBtn:active {
-    background-color: #2C3E50;
+    background-color: var(--configButtonBackground);
     transform: translateY(1px);
 }
 
@@ -543,9 +566,9 @@ td.quiCKIE_config_table_tbody_td_field input[type="checkbox"] {
 
 input.quiCKIE_disabledField {
     /* Fields not applicable to the current torrent client */
-    background-color: #8B8E94 !important;
-    border: 1px solid #545454 !important;
-    color: #525252 !important;
+    background-color: var(--inputFieldDisabledBackground) !important;
+    border: 1px solid var(--inputFieldDisabledBorder) !important;
+    color: var(--inputFieldDisabledText) !important;
     font-style: normal !important;
     text-shadow: none !important;
 }
