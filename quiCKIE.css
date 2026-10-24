@@ -7,7 +7,7 @@
 
     /* Table Colors */
     --tableHeadersRow: #2c3e5091;
-    --tableHeadersText: #e9aec;
+    --tableHeadersText: #ddd;
 
     --tableRowOddBackground: #0000;
     --tableRowEvenBackground: #2c3e5091;
@@ -75,7 +75,8 @@ font-family: "Roboto Condensed", Tahoma, Arial;
     color: var(--subheaderText);
     display: block;
     font-size: 14px;
-    font-weight: 300
+    font-weight: 300;
+    cursor: default;
 }
 
 /* ----------------------------------- Settings Row ---------------------------------- */
@@ -352,27 +353,37 @@ tr.quiCKIE_config_table_tbody_tr:nth-child(even) td.quiCKIE_config_table_td_auto
     text-align: center;
 }
 
+/* Checkboxes */
 #quiCKIE_config_field_globalForcedTorrentFile,
 td.quiCKIE_config_table_tbody_td_field input[type="checkbox"] {
-    /* background: var(--inputFieldBackground); */
+    background: var(--inputFieldBackground);
     border-radius: 3px;
     border: 1px solid var(--inputFieldBorder);
     box-shadow: none;
     box-sizing: border-box;
+    cursor: pointer;
     font-size: 13px;
     font-weight: 500;
-    margin: 0 2px 0 2px;
     padding: 2px 2px 2px 2px;
     text-align: center;
     transition: all 0.3s ease;
 }
 
-#quiCKIE_config_field_globalForcedTorrentFile input[type="checkbox"],
+#quiCKIE_config_field_globalForcedTorrentFile {
+    margin: 0 2px 0 2px;
+}
+
+td.quiCKIE_config_table_tbody_td_field input[type="checkbox"] {
+    margin: 5px 0px 5px 0px;
+}
+
+#quiCKIE_config_field_globalForcedTorrentFile:checked,
 td.quiCKIE_config_table_tbody_td_field input[type="checkbox"]:checked {
     background-color: var(--checkboxCheckedBackground);
     border: 1px solid var(--checkboxCheckedBorder);
 }
 
+/* Text Fields */
 #quiCKIE_config_field_torrentClient,
 #quiCKIE_config_field_quiURL,
 #quiCKIE_config_field_quiApiKey,
@@ -392,7 +403,6 @@ td.quiCKIE_config_table_tbody_td_field input[type="checkbox"]:checked {
 td.quiCKIE_config_table_tbody_td_field select[data-fieldtype="leftClick"],
 td.quiCKIE_config_table_tbody_td_field select[data-fieldtype="thirdPartyScan"],
 td.quiCKIE_config_table_tbody_td_field input[type="text"] {
-    /* Text Fields */
     background: var(--inputFieldBackground);
     border-radius: 3px;
     border: 1px solid var(--inputFieldBorder);
@@ -408,7 +418,6 @@ td.quiCKIE_config_table_tbody_td_field input[type="text"] {
     transition: all 0.3s ease;
     width: 95%;
 }
-
 
 #quiCKIE_config_field_quiURL:focus,
 #quiCKIE_config_field_quiApiKey:focus,
@@ -431,14 +440,16 @@ td.quiCKIE_config_table_tbody_td_field input[type="text"]:focus {
     outline: none;
 }
 
-#quiCKIE_config_field_globalForcedTorrentFile input[type="checkbox"],
-td.quiCKIE_config_table_tbody_td_field input[type="checkbox"] {
-    background: var(--inputFieldBackground);
-    box-shadow: none;
-    cursor: pointer;
-    margin: 5px 0px 5px 0px;
+input.quiCKIE_disabledField {
+    /* Fields not applicable to the current torrent client */
+    background-color: var(--inputFieldDisabledBackground) !important;
+    border: 1px solid var(--inputFieldDisabledBorder) !important;
+    color: var(--inputFieldDisabledText) !important;
+    font-style: normal !important;
+    text-shadow: none !important;
 }
 
+/* Bottom Buttons */
 #quiCKIE_config_buttons_holder {
     align-items: center;
     column-gap: 20px;
@@ -563,15 +574,6 @@ td.quiCKIE_config_table_tbody_td_field input[type="checkbox"] {
 /*     width: 500px; */
 /*     z-index: 999; */
 /* } */
-
-input.quiCKIE_disabledField {
-    /* Fields not applicable to the current torrent client */
-    background-color: var(--inputFieldDisabledBackground) !important;
-    border: 1px solid var(--inputFieldDisabledBorder) !important;
-    color: var(--inputFieldDisabledText) !important;
-    font-style: normal !important;
-    text-shadow: none !important;
-}
 
 /* Settings Panel Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@500&display=swap');
