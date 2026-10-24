@@ -419,6 +419,7 @@ td.quiCKIE_config_table_tbody_td_field input[type="text"] {
     width: 95%;
 }
 
+
 #quiCKIE_config_field_quiURL:focus,
 #quiCKIE_config_field_quiApiKey:focus,
 #quiCKIE_config_field_qBitTorrentURL:focus,
@@ -435,8 +436,8 @@ td.quiCKIE_config_table_tbody_td_field input[type="text"] {
 #quiCKIE_config_field_thirdPartyDelay:focus,
 #quiCKIE_config_field_hiddenTrackers:focus,
 td.quiCKIE_config_table_tbody_td_field input[type="text"]:focus {
-    border-color: unset;
-    box-shadow: 0 0 2px var(--inputFieldInnerShadow) inset, 0 0 5px var(--inputFieldFocusShadow);
+    border: 2px dashed var(--inputFieldFocusShadow);
+    box-shadow: 0 0 2px var(--inputFieldInnerShadow) inset, 0 0 7px var(--inputFieldFocusShadow);
     outline: none;
 }
 
