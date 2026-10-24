@@ -17,8 +17,8 @@
     --inputFieldBackground: #ffffffe6;
     --inputFieldText: #191d2a;
     --inputFieldBorder: #ddd;
-    --inputFieldFocusBorder: #2C3E50;
-    --inputFieldFocusShadow: #007cff99;
+    --inputFieldInnerShadow: #949494;
+    --inputFieldFocusShadow: #7aa8ff;
 
     --inputFieldDisabledText: #525252;
     --inputFieldDisabledBackground: #8b8e94;
@@ -33,7 +33,7 @@
     --configButtonBorder: #34495e;
     --configButtonShadow: #00000033;
     --configButtonHoverBackground: #34495e;
-    --configButtonSaveClicked: #007CFF;
+    --configButtonSaveClicked: #2B67A7;
     --configResetLink: #b7b7b7;
 
 }
@@ -359,7 +359,7 @@ td.quiCKIE_config_table_tbody_td_field input[type="checkbox"] {
     background: var(--inputFieldBackground);
     border-radius: 3px;
     border: 1px solid var(--inputFieldBorder);
-    box-shadow: none;
+    box-shadow: 0 0 2px var(--inputFieldInnerShadow) inset;
     box-sizing: border-box;
     cursor: pointer;
     font-size: 13px;
@@ -406,7 +406,7 @@ td.quiCKIE_config_table_tbody_td_field input[type="text"] {
     background: var(--inputFieldBackground);
     border-radius: 3px;
     border: 1px solid var(--inputFieldBorder);
-    box-shadow: none;
+    box-shadow: 0 0 2px var(--inputFieldInnerShadow) inset;
     box-sizing: border-box;
     color: var(--inputFieldText);
     font-size: 13px;
@@ -435,8 +435,8 @@ td.quiCKIE_config_table_tbody_td_field input[type="text"] {
 #quiCKIE_config_field_thirdPartyDelay:focus,
 #quiCKIE_config_field_hiddenTrackers:focus,
 td.quiCKIE_config_table_tbody_td_field input[type="text"]:focus {
-    border-color: var(--inputFieldFocusBorder);
-    box-shadow: 0 0 5px var(--inputFieldFocusShadow);
+    border-color: unset;
+    box-shadow: 0 0 2px var(--inputFieldInnerShadow) inset, 0 0 5px var(--inputFieldFocusShadow);
     outline: none;
 }
 
@@ -525,7 +525,7 @@ input.quiCKIE_disabledField {
 }
 
 #quiCKIE_config_saveBtn.success {
-    box-shadow: 0 0 6px 3px var(--inputFieldFocusShadow);
+    box-shadow: 0 0 6px 3px var(--configButtonSaveClicked);
 }
 
 
