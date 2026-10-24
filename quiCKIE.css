@@ -1,3 +1,8 @@
+:root {
+    --tableOddColor: #0000;
+    --tableEvenColor: #2c3e5091;
+}
+
 #quiCKIE_config * {
 font-family: "Roboto Condensed", Tahoma, Arial;
 }
@@ -193,7 +198,7 @@ font-family: "Roboto Condensed", Tahoma, Arial;
     max-width: 50px;
 }
 
-col.quiCKIE_config_table_colg_col {
+.quiCKIE_config_table_colg_col {
     text-align: center;
     background: none;
     box-shadow: none;
@@ -202,6 +207,7 @@ col.quiCKIE_config_table_colg_col {
 }
 
 /* ----------------------------------- TABLE - Headers ----------------------------------- */
+
 #quiCKIE_config_tracker_table_thead tr th,
 #quiCKIE_config_preset_table_thead tr th {
 /* Table Headers */
@@ -219,17 +225,26 @@ padding: 5px 15px;
 text-align: center;
 }
 
+tr.quiCKIE_config_table_thead_tr {
+    background-color: unset;
+}
+
+thead.quiCKIE_config_table_thead th:nth-last-child(1) {
+    /* Remove right-border from last <th> */
+    border-right: none !important;
+}
+
+
 /* ----------------------------------- TABLE - Body ----------------------------------- */
-tr.quiCKIE_config_table_tbody_tr {
+.quiCKIE_config_table_tbody_tr {
     /* All the <tr> elements of a table */
 
-    /* background: none !important; */
     background-color: transparent;
     border: none;
 
 }
 
-tr.quiCKIE_config_table_tbody_tr td {
+td.quiCKIE_config_table_tbody_td_field {
     /* All the TD elements of a table */
     border: none;
     padding: 3px 2px 3px 2px;
@@ -238,16 +253,11 @@ tr.quiCKIE_config_table_tbody_tr td {
 
 #quiCKIE_config_wrapper tr.quiCKIE_config_table_tbody_tr:nth-child(even) {
     /* Row Zebra stripes */
-    background-color: #2c3e5091 !important;
+    background-color: var(--tableEvenColor) !important;
 	border-bottom: 1px solid #191d2a;
 	border-top: 1px solid #191d2a;
     border-left: none;
     border-right: none;
-}
-
-thead.quiCKIE_config_table_thead th:nth-last-child(1) {
-    /* Remove right-border from last <th> */
-    border-right: none !important;
 }
 
 tr.quiCKIE_config_table_tbody_tr:nth-child(even) td.quiCKIE_config_table_td_thirdPartyScan,
